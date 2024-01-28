@@ -1,7 +1,7 @@
 import type { UseFetchOptions } from "nuxt/app";
 
 
-export function useApiFetch <T>(path: string, options: UseFetchOptions<T> = {}){
+export function useApiLazyFetch <T>(path: string, options: UseFetchOptions<T> = {}){
     let headers: any = {}
     const token = useCookie('XSRF-TOKEN')
 
@@ -13,7 +13,7 @@ export function useApiFetch <T>(path: string, options: UseFetchOptions<T> = {}){
         headers = {...headers, ...useRequestHeaders(['referer', 'cookie'])}
     }
 
-    return useFetch("http://localhost:8000" + path, {
+    return useLazyFetch("http://localhost:8000" + path, {
         credentials: "include",
         watch: false,
         headers: {
@@ -22,10 +22,7 @@ export function useApiFetch <T>(path: string, options: UseFetchOptions<T> = {}){
             ...headers, 
             ...options?.headers
         },
-        ...options,
-        onResponse(event) {
-            // consoles.log(event);
-        }
+        ...options
     });
 
 

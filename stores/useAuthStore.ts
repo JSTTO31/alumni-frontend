@@ -1,8 +1,11 @@
 import { useApiFetch } from "~/composables/useApiFetch";
 
-type User = {
+export type User = {
+    id: number;
     email: string;
-    password: string
+    password: string;
+    alumni_information: AlumniInformation
+    about: any;
 }
 
 type Credential = {
@@ -16,6 +19,22 @@ type Information = {
     password_confirmation: string;
     name: string;
     student_number: string
+}
+
+type AlumniInformation = {
+    "id": number,
+    "student_number": string,
+    "first_name": string,
+    "middle_name": string,
+    "last_name": string,
+    "nationality": string,
+    "gender": string,
+    "marital_status": string,
+    "phone_number": string,
+    "email": string,
+    "birthday": string,
+    "created_at": string,
+    "updated_at": string
 }
 
 export const useAuthStore = defineStore('auth', () => {

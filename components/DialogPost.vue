@@ -4,6 +4,7 @@ const $post = usePostStore();
 const information = reactive({
   text: "",
   privacy: "public",
+  media: null
 });
 const selectedPrivacyIcon = computed(() =>
   information.privacy == "public"
@@ -54,28 +55,39 @@ const createPost = () => {
           <v-spacer></v-spacer>
           <v-btn icon="mdi-close" @click="showDialog = false"></v-btn>
         </div>
-        <div class="mt-2">
-          <v-textarea
-            v-model="information.text"
-            flat
-            single-line
-            density="comfortable"
-            variant="solo"
-            rows="5"
-            no-resize
-            hide-details
-            label="Share your thoughts"
-          ></v-textarea>
-        </div>
-        <v-card class="pa-2 border" flat>
-          <v-btn
-            prepend-icon="mdi-image-plus"
-            class="text-capitalize"
-            color="blue-darken-4"
-            variant="text"
-            >Add Media</v-btn
-          >
-        </v-card>
+        <v-hover v-slot="{props, isHovering}">
+          <v-card height="160" flat v-bind="props" :style="isHovering ? 'overflow-y: scroll' : 'padding-right: 16px'">
+            <div class="mt-2">
+              <v-textarea
+                v-model="information.text"
+                flat
+                single-line
+                density="comfortable"
+                variant="solo"
+                rows="3"
+                no-resize
+                hide-details
+                label="Share your thoughts"
+              ></v-textarea>
+            </div>
+            <div>
+              <v-card class="pa-2 border rounded-lg" flat>
+                <card-media v-model:medias="information.media">
+                  <template #activator="props">
+                    <v-btn  
+                    v-bind="props"
+                    prepend-icon="mdi-image-plus"
+                    class="text-capitalize"
+                    color="blue-darken-4"
+                    variant="text"
+                    >Add Media</v-btn
+                  >
+                  </template>
+                </card-media>
+              </v-card>
+            </div>
+          </v-card>
+        </v-hover>
         <v-card-actions class="mt-5">
           <v-spacer></v-spacer>
           <v-btn flat class="text-capitalize" @click="showDialog = false">Cancel</v-btn>

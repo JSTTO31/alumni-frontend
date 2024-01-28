@@ -1,22 +1,46 @@
 <script setup lang="ts">
+import { useTimeAgo } from '@vueuse/core'
 const props = defineProps(["post"]);
 const $post = usePostStore();
 const comment = ref("");
+const text_field = ref()
 const commenthandler = () => {
   if (!comment.value) {
     return;
   }
-  $post.add_comment(props.post, comment.value);
+  $post.add_comment(props.post.id, comment.value);
   comment.value = "";
 };
+const focus = () => {
+  text_field.value.focus()
+}
+const viewed = ref(false)
+
+const view_post = () => {
+  const card = document.getElementById('card' + props.post.id)
+  const position_y = card?.getBoundingClientRect().y || innerHeight
+  const trigger_height = innerHeight / 2
+  if(position_y <= trigger_height && (!viewed.value || !props.post.view)){
+    viewed.value = true
+    $post.add_view(props.post.id)
+  }
+}
+
+const timeAgo = useTimeAgo(new Date(props.post.created_at))
+onMounted(() => {
+  view_post()
+  window.addEventListener('scroll', view_post)
+})
+const random_width = Math.floor(Math.random() * 450) + 200
+const random_height = Math.floor(Math.random() * 650) + 200
 </script>
 
 <template>
-  <v-card class="rounded-lg my-2 border" flat>
+  <v-card class="rounded-lg pa-0 pb-4 border" :id="'card' + post.id" @click="">
     <div class="pa-4 pb-0 d-flex align-center">
       <v-avatar size="60" class="border mr-2">
         <v-img
-          src="https://as2.ftcdn.net/v2/jpg/02/44/42/79/1000_F_244427911_aoHHulebtYy4wLpncBBuWqCTNFKolcCB.jpg"
+          src="https://source.unsplash.com/random/50x50?person"
         ></v-img>
       </v-avatar>
       <div>
@@ -24,28 +48,57 @@ const commenthandler = () => {
         <h6 class="font-weight-regular">Bachelor of Science in Computer Science</h6>
         <h6 class="font-weight-regular">
           <v-icon>mdi-earth</v-icon>
-          &middot; 1m
+          &middot; {{ timeAgo }}
         </h6>
       </div>
       <v-spacer></v-spacer>
       <div class="mt-n5">
-        <v-btn icon="mdi-dots-horizontal" size="small" flat class=""></v-btn>
+        <v-btn icon="mdi-dots-horizontal" flat class=""></v-btn>
       </div>
     </div>
     <v-card-text class="pa-5" :class="post.text.length <= 20 ? 'text-h5' : ''">
       {{ post.text }}
     </v-card-text>
-    <div>
+    <div v-if="true">
+      <nuxt-img  :src="`https://source.unsplash.com/random/${random_width}x${random_height}`" class="rounded-0 w-100" />
+    </div>
+    <div class="px-5 pt-2">
+      <div class="d-flex w-100 pb-2" v-if="false">
+        <div class="d-flex align-center px-2" v-if="post.reactions_count > 0">
+          <v-avatar class=" mr-2" size="20" color="#1F6E8C">
+            <v-icon size="10">mdi-thumb-up</v-icon>
+          </v-avatar>
+          <span style="font-size: 12px;">{{ post.reactions_count }} Likes</span>
+        </div>
+        <v-spacer></v-spacer>
+        <span class="mr-3" style="font-size: 12px;">{{ post.comments_count }} comments</span>
+        <span class="mr-3" style="font-size: 12px;">25 Shares</span>
+      </div>
       <v-divider></v-divider>
-      <v-row>
+      <v-row class="px-3 pt-3">
         <v-col class="px-0">
           <v-btn
             block
             flat
-            class="text-capitalize rounded-0"
-            prepend-icon="mdi-thumb-up-outline"
+            class="text-capitalize rounded-lg py-6"
+            variant="text"
+            color="#1f6e8c"
+            prepend-icon="mdi-thumb-up"
+            @click="$post.post_reaction(post.id)"
+            v-if="post.reacted"
           >
             Like
+            <v-chip class="ml-5" v-if="post.reactions_count > 0">{{ post.reactions_count }} </v-chip>
+          </v-btn>
+          <v-btn
+            block
+            flat
+            class="text-capitalize rounded-lg py-6"
+            prepend-icon="mdi-thumb-up-outline"
+            @click="$post.post_reaction(post.id)"
+            v-else
+          >
+            Like <v-chip class="ml-5" v-if="post.reactions_count > 0">{{ post.reactions_count }} </v-chip>
           </v-btn>
         </v-col>
         <v-col class="px-0">
@@ -54,8 +107,9 @@ const commenthandler = () => {
             flat
             color="grey-darken-3"
             variant="text"
-            class="text-capitalize rounded-0"
+            class="text-capitalize rounded-lg py-6"
             prepend-icon="mdi-message-text-outline"
+            @click="focus"
             >Comment</v-btn
           >
         </v-col>
@@ -65,16 +119,19 @@ const commenthandler = () => {
             flat
             color="grey-darken-3"
             variant="text"
-            class="text-capitalize rounded-0"
+            class="text-capitalize rounded-lg py-6"
             prepend-icon="mdi-share-outline"
             >Share</v-btn
           >
         </v-col>
       </v-row>
     </div>
-    <v-card-actions class="d-flex flex-column">
-      <div class="w-100 d-flex px-5">
-        <v-avatar size="50" class="border mr-5">
+    <v-card-actions class="d-flex flex-column" v-if="false">
+      <div class="px-5 w-100">
+        <card-comment v-for="comment in post.comments" :key="comment.id" :comment="comment"></card-comment>
+      </div>
+      <div class="w-100 d-flex px-5 mt-3">
+        <v-avatar size="50" class="border mr-2">
           <v-img
             src="https://as2.ftcdn.net/v2/jpg/02/44/42/79/1000_F_244427911_aoHHulebtYy4wLpncBBuWqCTNFKolcCB.jpg"
           ></v-img>
@@ -83,19 +140,15 @@ const commenthandler = () => {
           label="Write your comment"
           single-line
           v-model="comment"
+          variant="solo-filled"
           rounded
           density="compact"
-          variant="outlined"
+          flat
+          ref="text_field"
           @keyup.enter="commenthandler"
           hide-details
           append-inner-icon="mdi-send"
         ></v-text-field>
-      </div>
-      <h5 class="w-100 mt-4 font-weight-regular text-center" v-if="!post.comment">
-        No Comments
-      </h5>
-      <div class="px-5 w-100">
-        <card-comment v-if="post.comment" :comment="post.comment"></card-comment>
       </div>
     </v-card-actions>
   </v-card>

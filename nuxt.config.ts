@@ -1,10 +1,14 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  devtools: { enabled: true },
-  ssr: true,
+  devtools: {
+    enabled: false,
+  },
+  ssr: false,
   modules: [
     '@pinia/nuxt',
     '@invictus.codes/nuxt-vuetify',
+    '@vueuse/nuxt',
+    "@nuxt/image"
   ],
   pinia: {
     storesDirs: ['./stores/**'] 
@@ -12,7 +16,26 @@ export default defineNuxtConfig({
   vuetify: {
     /* vuetify options */
     vuetifyOptions: {
-      // @TODO: list all vuetify options
+      theme: {
+        defaultTheme: 'myCustomLightTheme',
+        themes: {
+          myCustomLightTheme: {
+            colors: {
+              background: '#fff',
+              surface: '#FFFFFF',
+              primary: '#05668D',
+              primaryVariant: '#028090',
+              secondary: '#00A896',
+              'secondary-variant': '#02C39A',
+              error: '#B00020',
+              info: '#2196F3',
+              success: '#4CAF50',
+              warning: '#FB8C00',
+            },
+          }
+          
+        }
+      }
     },
     moduleOptions: {
       /* nuxt-vuetify module options */
@@ -33,7 +56,7 @@ export default defineNuxtConfig({
           type: 'image/x-icon'
         }
       ]
-    }
+    },
   },
   routeRules: {
     '/' : {ssr: false},

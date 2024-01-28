@@ -1,44 +1,41 @@
+<script setup>
+const {user} = storeToRefs(useAuthStore())
+</script>
 <template>
-  <v-card class="border-t-lg rounded-lg pa-0" style="border-color: #1f6e8c !important">
-    <v-card-text class="rounded-lg d-flex align-center">
-      <v-avatar size="60" class="border mr-5">
-        <v-img
-          src="https://as2.ftcdn.net/v2/jpg/02/44/42/79/1000_F_244427911_aoHHulebtYy4wLpncBBuWqCTNFKolcCB.jpg"
-        ></v-img>
-      </v-avatar>
-      <DialogPost>
+  <v-card class=" rounded-lg pa-0 border" flat>
+    <v-card-text class="rounded-lg d-flex pa-4 flex-column">
+      <div class="mb-2 d-flex align-center">
+        <v-card class="rounded-circle" @click="$router.push({name: 'alumni', params: {alumni: user.email}})" flat>
+          <v-avatar size="65" class="border">
+            <v-img
+              src="https://as2.ftcdn.net/v2/jpg/02/44/42/79/1000_F_244427911_aoHHulebtYy4wLpncBBuWqCTNFKolcCB.jpg"
+            ></v-img>
+          </v-avatar>
+        </v-card>
+        <v-text-field single-line hide-details variant="solo" flat label="Share your thoughts"></v-text-field>
+        <v-btn class="ml-2 rounded-lg" flat icon="mdi-camera-outline"></v-btn>
+        <v-btn class="ml-2 rounded-lg" flat icon="mdi-video-outline"></v-btn>
+        <v-btn class="ml-2 rounded-lg" flat icon="mdi-poll"></v-btn>
+      </div>
+      <!-- <DialogPost>
         <template #activator="props">
-          <v-text-field
+          <v-textarea
             v-bind="props"
             variant="solo-filled"
-            rounded
             hide-details
-            density="compact"
             label="Share your thoughts"
             single-line
+            rounded="lg"
+            rows="5"
             readonly
             flat
-          ></v-text-field>
+          ></v-textarea>
         </template>
-      </DialogPost>
+      </DialogPost> -->
     </v-card-text>
-    <div class="pa-0">
-      <v-btn
-        flat
-        variant="text"
-        color="blue-darken-1"
-        prepend-icon="mdi-image"
-        class="font-weight-medium text-capitalize rounded-0 w-50"
-        >Media</v-btn
-      >
-      <v-btn
-        flat
-        variant="text"
-        color="green-darken-1"
-        prepend-icon="mdi-calendar"
-        class="font-weight-medium text-capitalize rounded-0 w-50"
-        >Event</v-btn
-      >
-    </div>
+    <!-- <div class="d-flex pa-5">
+      <v-spacer></v-spacer>
+      <v-btn color="primary">Post</v-btn>
+    </div> -->
   </v-card>
 </template>
