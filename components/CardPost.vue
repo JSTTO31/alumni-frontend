@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useTimeAgo } from '@vueuse/core'
 const props = defineProps(["post"]);
+const {user} = storeToRefs(useAuthStore())
 const $post = usePostStore();
 const comment = ref("");
 const text_field = ref()
@@ -31,19 +32,27 @@ onMounted(() => {
   view_post()
   window.addEventListener('scroll', view_post)
 })
-const random_width = Math.floor(Math.random() * 450) + 200
-const random_height = Math.floor(Math.random() * 650) + 200
+const random_width = Math.floor(Math.random() * 450) + 250
+const random_height = Math.floor(Math.random() * 250) + 250
+
+const show = () => {
+  if(user.value && user.value.id == props.post.user.id){
+    return
+  }else{
+    useRouter().push({name: 'index-posts-post', params: {post: props.post.id}, query: {image_url: `https://source.unsplash.com/random/${random_width}x${random_height}`, avatar_image: 'https://source.unsplash.com/50x50&person&' + props.post.id}})
+  }
+}
 </script>
 
 <template>
-  <v-card class="rounded-lg pa-0 pb-4 border" :id="'card' + post.id" @click="">
+  <v-card v-ripple="false"  class="rounded-lg pa-0 pb-4 border" :id="'card' + post.id" v-if="post" @click="show">
     <div class="pa-4 pb-0 d-flex align-center">
       <v-avatar size="60" class="border mr-2">
-        <v-img
-          src="https://source.unsplash.com/random/50x50?person"
-        ></v-img>
+        <nuxt-img class="h-100 w-100"
+          :src="'https://source.unsplash.com/random/50x50&person&' + post.id"
+        ></nuxt-img>
       </v-avatar>
-      <div>
+      <div class="underline" @click.stop="$router.push({name: 'alumni', params: {alumni: post.user.email}})">
         <h5>{{ post.user.name }}</h5>
         <h6 class="font-weight-regular">Bachelor of Science in Computer Science</h6>
         <h6 class="font-weight-regular">
@@ -53,14 +62,16 @@ const random_height = Math.floor(Math.random() * 650) + 200
       </div>
       <v-spacer></v-spacer>
       <div class="mt-n5">
-        <v-btn icon="mdi-dots-horizontal" flat class=""></v-btn>
+        <v-btn @click.stop icon="mdi-dots-horizontal" flat class=""></v-btn>
       </div>
     </div>
     <v-card-text class="pa-5" :class="post.text.length <= 20 ? 'text-h5' : ''">
       {{ post.text }}
     </v-card-text>
-    <div v-if="true">
-      <nuxt-img  :src="`https://source.unsplash.com/random/${random_width}x${random_height}`" class="rounded-0 w-100" />
+    <div v-if="(post.user.id != user?.id || null)">
+      <v-card>
+        <v-img  :src="`https://source.unsplash.com/random/${random_width}x${random_height}`" class="rounded-0 w-100" />
+      </v-card>
     </div>
     <div class="px-5 pt-2">
       <div class="d-flex w-100 pb-2" v-if="false">
@@ -84,7 +95,7 @@ const random_height = Math.floor(Math.random() * 650) + 200
             variant="text"
             color="#1f6e8c"
             prepend-icon="mdi-thumb-up"
-            @click="$post.post_reaction(post.id)"
+            @click.stop="$post.post_reaction(post.id)"
             v-if="post.reacted"
           >
             Like
@@ -95,23 +106,24 @@ const random_height = Math.floor(Math.random() * 650) + 200
             flat
             class="text-capitalize rounded-lg py-6"
             prepend-icon="mdi-thumb-up-outline"
-            @click="$post.post_reaction(post.id)"
+            @click.stop="$post.post_reaction(post.id)"
             v-else
           >
             Like <v-chip class="ml-5" v-if="post.reactions_count > 0">{{ post.reactions_count }} </v-chip>
           </v-btn>
         </v-col>
         <v-col class="px-0">
-          <v-btn
-            block
-            flat
-            color="grey-darken-3"
-            variant="text"
-            class="text-capitalize rounded-lg py-6"
-            prepend-icon="mdi-message-text-outline"
-            @click="focus"
-            >Comment</v-btn
-          >
+            <v-btn
+              block
+              flat
+              color="grey-darken-3"
+              variant="text"
+              class="text-capitalize rounded-lg py-6"
+              prepend-icon="mdi-message-text-outline"
+              @click.stop="focus"
+              >Comment  <v-chip class="ml-5" v-if="post.comments_count > 0">{{ post.comments_count }} </v-chip>
+              </v-btn
+            >
         </v-col>
         <v-col class="px-0">
           <v-btn
@@ -126,7 +138,7 @@ const random_height = Math.floor(Math.random() * 650) + 200
         </v-col>
       </v-row>
     </div>
-    <v-card-actions class="d-flex flex-column" v-if="false">
+    <v-card-actions class="d-flex flex-column" v-if="true" @click.stop="">
       <div class="px-5 w-100">
         <card-comment v-for="comment in post.comments" :key="comment.id" :comment="comment"></card-comment>
       </div>
@@ -153,3 +165,10 @@ const random_height = Math.floor(Math.random() * 650) + 200
     </v-card-actions>
   </v-card>
 </template>
+
+
+<style scoped>
+.underline:hover{
+  text-decoration: underline;
+}
+</style>

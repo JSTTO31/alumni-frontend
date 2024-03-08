@@ -16,7 +16,7 @@
                 </v-col>
                 <v-col cols="4" >
                     <v-card class="rounded-lg" flat>
-                        <v-img :src="'https://source.unsplash.com/random/250x148?work&' + experience.id"></v-img>
+                        <v-img :src="'https://source.unsplash.com/random/250x250&engineer,job,company&' + experience.id"></v-img>
                     </v-card>
                 </v-col>
             </v-row>

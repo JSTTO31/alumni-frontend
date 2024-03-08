@@ -1,28 +1,43 @@
 <script setup>
 import { reactive } from "vue";
-
+const $auth = useAuthStore()
 useHead({
   title: "Alumni Tracking | Register",
 });
+
+definePageMeta({
+  middleware: ["guest"],
+})
 
 const form = reactive({
   email: "",
   password: "",
   password_confirmation: "",
   name: "",
-  student_number: "",
-  special_message: "",
+  student_number: null,
 });
 
-const submit = () => {
-  //   form.post("/register");
+const errors = ref(null) 
+
+const {status, error, execute} = await $auth.register(form)
+
+async function submit(){
+    await execute()
+
+    if(error.value){
+      errors.value = error.value.data.errors
+    }
+
+    if(status.value == 'success'){
+      window.location.reload()
+    }
 };
 </script>
 
 <template>
   <v-app>
     <v-main>
-      <div class="py-8 px-15">
+      <div class="py-8 pb-0 px-15">
         <h3
           style="color: #1f6e8c; cursor: pointer"
           @click="$router.push({ name: 'index' })"
@@ -42,9 +57,12 @@ const submit = () => {
                 <label class="font-weight-medium text-grey-darken-2" for="name"
                   >Name</label
                 >
+                {{ status }}
                 <v-text-field
                   type="text"
                   single-line
+                  v-model="form.name"
+                  :error-messages="errors?.name || null"
                   class="mt-2"
                   id="name"
                   label="Joshua Sotto, John Doe, Jane etc"
@@ -57,6 +75,8 @@ const submit = () => {
                 <v-text-field
                   type="text"
                   single-line
+                  v-model="form.student_number"
+                  :error-messages="errors?.student_number || null"
                   class="mt-2"
                   id="student_number"
                   label="10-1010"
@@ -69,6 +89,8 @@ const submit = () => {
                 <v-text-field
                   type="email"
                   single-line
+                  v-model="form.email"
+                  :error-messages="errors?.email || null"
                   class="mt-2"
                   id="email"
                   label="joshua@arellanites.edu"
@@ -83,7 +105,9 @@ const submit = () => {
                       >Confirmation Password</label
                     >
                     <v-text-field
+                      :error-messages="errors?.password || null"
                       single-line
+                      v-model="form.password_confirmation"
                       class="mt-2"
                       id="password-confirmation"
                       label="*********"
@@ -97,7 +121,9 @@ const submit = () => {
                       >Password</label
                     >
                     <v-text-field
+                      :error-messages="errors?.password || null"
                       single-line
+                      v-model="form.password"
                       class="mt-2"
                       id="password"
                       label="*********"
@@ -116,6 +142,7 @@ const submit = () => {
                     rounded
                     size="x-large"
                     block
+                    :loading="status == 'pending'"
                     >Connect</v-btn
                   >
                 </v-card-actions>

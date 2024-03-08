@@ -2,6 +2,7 @@ import { useApiFetch } from "~/composables/useApiFetch";
 
 export type User = {
     id: number;
+    name: string;
     email: string;
     password: string;
     alumni_information: AlumniInformation
@@ -52,13 +53,9 @@ export const useAuthStore = defineStore('auth', () => {
         const login = await useApiFetch("/login", {
             body: credentials,
             method: "POST",
+            immediate: false,
         });
 
-        if(login.status.value == 'success'){
-            window.location.reload();
-        }
-
-       
         return login
     }
 
@@ -66,7 +63,15 @@ export const useAuthStore = defineStore('auth', () => {
     async function register(info: Information){
         await useApiFetch("/sanctum/csrf-cookie")
 
-        // const register = useApiFetch()
+        const response = await useApiFetch('/register', {
+            method: 'POST',
+            body: info,
+            immediate: false
+        })
+
+        
+
+        return response
     }
 
     async function logout(){
@@ -77,5 +82,5 @@ export const useAuthStore = defineStore('auth', () => {
         window.location.reload();
     }
 
-    return {login, fetchUser, logout, isLogin, user}
+    return {login, fetchUser, logout, register, isLogin, user, }
 })

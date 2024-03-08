@@ -24,13 +24,13 @@ window.addEventListener('scroll',fetchOnScroll)
 onBeforeRouteLeave((to, from, next) => {
     removeEventListener('scroll', fetchOnScroll)
 
-    return next()
+return next()
 })
 
 </script>
 <template>
     <div>
-        <card-post :post="post" flat v-for="post in posts" :key="post.id" class="mb-5"></card-post>
+        <card-post :post="post" flat v-for="post in posts.filter(item => !!item)" :key="post.id" class="mb-5"></card-post>
         <div v-if="loading">
             <skeleton-post v-for="n in 3" :key="n + Math.random() * 100" class="mb-2 rounded-0 border-b" flat></skeleton-post>
         </div>

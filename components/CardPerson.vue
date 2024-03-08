@@ -1,13 +1,13 @@
 <template>
     <v-card  class="rounded-lg border pa-0" flat>
         <v-card width="100%" height="100" flat class="rounded-0 d-flex bg-grey-lighten-4">
-            <nuxt-img class="w-100" :src="'https://source.unsplash.com/random/450x350?' + user.id" />
+            <nuxt-img class="w-100" :src="'https://source.unsplash.com/random/450x350&' + user.id" />
         </v-card>
         <div class="d-flex align-center flex-column pa-8 mt-n15">
             <v-avatar size="150" class=" mr-2 mt-n15 bg-grey-lighten-4" style="border: 4px solid #00a896">
-                <v-img
-                    :src="'https://source.unsplash.com/random/150x150?person&' + user.id"
-                ></v-img>
+                <nuxt-img
+                    class="w-100 h-100" :src="'https://source.unsplash.com/random/150x150&person&' + user.id"
+                />
             </v-avatar>
             <div class="mt-2">
                 <h5 class="text-center">{{ user.name }}</h5>

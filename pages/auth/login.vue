@@ -14,13 +14,23 @@ const credentials = reactive({
   email: "",
   password: "",
 });
-const loading = ref(false);
 const errors = ref(null);
+
+const { error, status, execute } = await $auth.login(credentials);
+
+
+
+
 const loginHandler = async () => {
-  const { error } = await $auth.login(credentials);
+
+  await execute()
 
   if (error.value) {
     errors.value = error.value.data.errors;
+  }
+
+  if(status.value == 'success'){
+    location.reload()
   }
 };
 </script>

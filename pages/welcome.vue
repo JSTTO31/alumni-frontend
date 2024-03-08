@@ -13,17 +13,28 @@ const credentials = reactive({
   password: "",
 });
 const errors = ref(null);
-const loginHandle = async () => {
-  const { error, status } = await $auth.login(credentials);
-  if (status.value == "error") {
+
+
+const { error, status, execute, pending } = await $auth.login(credentials);
+
+async function login(){
+ await execute()
+
+ if (status.value == "error") {
     errors.value = error.value.data.errors;
   }
-};
+
+  if(status.value == 'success'){
+    window.location.reload()
+  }
+}
+
+
 </script>
 
 <template>
   <v-app>
-    <v-main>
+    <v-main style="">
       <div flat class="py-5">
         <v-container class="d-flex align-center">
           <h2 style="color: #1f6e8c">
@@ -71,7 +82,7 @@ const loginHandle = async () => {
               Log in to your account.
             </h1>
             <v-card class="pa-5 rounded-lg" flat>
-              <v-form @submit.prevent="loginHandle">
+              <v-form @submit.prevent="login">
                 <label class="font-weight-medium text-grey-darken-2" for="email"
                   >Email Address</label
                 >
@@ -109,6 +120,7 @@ const loginHandle = async () => {
                     rounded
                     size="x-large"
                     block
+                    :loading="status == 'pending'"
                     >Log in</v-btn
                   >
                 </v-card-actions>

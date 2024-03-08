@@ -8,7 +8,7 @@
                             <v-tabs direction="vertical">
                                 <v-tab class="text-capitalize" :to="{name: 'network'}" color="primary">Home</v-tab>
                                 <v-tab class="text-capitalize" :to="{name: 'network-connection-requests'}" color="primary">Request Connection</v-tab>
-                                <v-tab class="text-capitalize" :to="{name: 'network-connection-requests'}" color="primary">Connected</v-tab>
+                                <v-tab class="text-capitalize" color="primary">Connected</v-tab>
                                 <v-tab class="text-capitalize" :to="{name: 'network-batchmates'}" color="primary">Batchmates</v-tab>
                             </v-tabs>
                         </div>

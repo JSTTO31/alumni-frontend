@@ -10,9 +10,11 @@ useHead({
 });
 </script>
 <template>
-  <div>
+  <div style="">
     <NuxtLoadingIndicator></NuxtLoadingIndicator>
-    <nuxt-page></nuxt-page>
+    <ClientOnly>
+      <nuxt-page></nuxt-page>
+    </ClientOnly>
   </div>
 </template>
 <style>

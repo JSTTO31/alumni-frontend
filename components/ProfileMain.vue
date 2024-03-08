@@ -10,8 +10,10 @@
             <v-col cols="2">
                 <div class="pa-5 pt-10 pl-7 d-flex flex-column" style="position: relative">
                     <v-avatar class="bg-grey-lighten-2" size="160" style="margin-top: -135px;border: 4px solid #028090">
-                        <nuxt-img width="160" height="160" class="rounded-lg"
-                                :src="`https://source.unsplash.com/random/250x250?&${user.alumni_information.gender}&` + user.id"/>
+                        <nuxt-img v-if="user.id == auth.id" width="160" height="160" class="rounded-lg"
+                                :src="`https://as2.ftcdn.net/v2/jpg/02/44/42/79/1000_F_244427911_aoHHulebtYy4wLpncBBuWqCTNFKolcCB.jpg`"/>
+                        <nuxt-img v-else width="160" height="160" class="rounded-lg"
+                                :src="`https://source.unsplash.com/random/250x250&${user.alumni_information.gender}&` + user.id"/>
                     </v-avatar>
                 </div>
             </v-col>
@@ -80,6 +82,7 @@
 <script setup>
 const route = useRoute()
 const {user, authorize, loading:profile_loading, is_connected} = storeToRefs(useProfileStore())
+const {user: auth} = storeToRefs(useAuthStore())
 const $profile = useProfileStore()
 const loading = ref(false)
 </script>

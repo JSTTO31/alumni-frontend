@@ -44,8 +44,8 @@ await useProfileStore().getProfile(route.params.alumni)
                     <v-card flat class="d-flex" color="transparent" v-for="batchmate in user.batchmates">
                       <v-col cols="3">
                         <v-avatar size="45">
-                          <v-img
-                          :src="'https://source.unsplash.com/random/150x150?person&' + batchmate.id"></v-img>
+                          <nuxt-img class="w-100 h-100"
+                          :src="'https://source.unsplash.com/random/150x150&person&' + batchmate.id"></nuxt-img>
                         </v-avatar>
                       </v-col>
                       <v-col cols="10">

@@ -2,8 +2,8 @@
     <v-card flat class="d-flex" color="transparent">
         <v-col cols="3">
         <v-avatar size="45">
-            <v-img
-            :src="'https://source.unsplash.com/random/150x150?person&' + viewer.id"></v-img>
+            <nuxt-img class="h-100 w-100"
+            :src="'https://source.unsplash.com/random/150x150&person&' + viewer.id"></nuxt-img>
         </v-avatar>
         </v-col>
         <v-col cols="10">

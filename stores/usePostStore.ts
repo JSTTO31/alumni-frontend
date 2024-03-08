@@ -1,7 +1,8 @@
+import type { User } from "./useAuthStore";
 
 export type Post = {
     id: number,
-    user: {},
+    user: User,
     text: string,
     comment:  Comment
     comments:  Comment[]
@@ -10,6 +11,8 @@ export type Post = {
     views: number;
     view: boolean;
     reaction: Reaction[]
+    reactions_count: number;
+    comments_count: number
     created_at: string;
     updated_at: string;
 }
@@ -55,16 +58,17 @@ export type Reply = {
 
 export const usePostStore = defineStore('posts', () => {
     const posts = ref([] as Post[])
-    const post = ref(null)
+    const post = ref<Post| null>(null)
 
     async function store(information: Info ){
         try {
             const response = await useApiFetch('/api/posts', {
                 method: 'POST',
-                body: information
+                body: information,
+                immediate: false,
             })
             
-            posts.value.unshift(response.data.value as Post)
+            
 
             return response;
         } catch (error) {
@@ -75,9 +79,19 @@ export const usePostStore = defineStore('posts', () => {
     async function getAll(){
         try {
             const response = await useApiFetch('/api/posts')
-            if(!!response.data.value){
-                posts.value.push(...(response.data.value as Post[]))
-            }
+            //@ts-ignore
+            posts.value = [...posts.value, ...response.data.value || []]
+            return response
+        } catch (error) {
+            return Promise.reject(error)
+        }
+    }
+
+    async function getById(id: number){
+        try {
+            const response = await useApiFetch('/api/posts/' + id)
+            //@ts-ignore
+            post.value = response.data.value
             return response
         } catch (error) {
             return Promise.reject(error)
@@ -94,7 +108,16 @@ export const usePostStore = defineStore('posts', () => {
             const internal_post = posts.value.find((item: Post) => item.id == post_id)
             //@ts-ignore
             internal_post.comments.push(response.data.value)
+            //@ts-ignore
             internal_post.comments_count += 1;
+
+            if(post.value && post.value.id == post_id){
+                //@ts-ignore
+                post.value.comments.push(response.data.value)
+                //@ts-ignore
+                post.value.comments_count += 1;
+            }
+            
 
             return response;
         } catch (error) {
@@ -103,6 +126,7 @@ export const usePostStore = defineStore('posts', () => {
     }
 
     async function add_reply(comment: Comment, text: string){
+        
         try {
             const response = await useApiFetch(`/api/post/${comment.post_id}/comments`, {
                 method: 'post',
@@ -119,7 +143,20 @@ export const usePostStore = defineStore('posts', () => {
                 (item: Comment) => item.id == comment.id ? {...item, replies: [...item.replies, reply], replies_count: item.replies_count + 1} : item
             )
 
+            //@ts-ignore
             find_post.comments_count += 1;
+
+
+            if(post.value && post.value.id == comment.post_id){
+                //@ts-ignore
+                post.value.comments = post.value.comments.map(
+                    (item: Comment) => item.id == comment.id ? {...item, replies: [...item.replies, reply], replies_count: item.replies_count + 1} : item
+                )
+
+                //@ts-ignore
+                post.value.comments_count += 1;
+            }
+            
             
 
 
@@ -206,6 +243,7 @@ export const usePostStore = defineStore('posts', () => {
         post_reaction,
         comment_reaction,
         reply_reaction,
-        add_view
+        add_view,
+        getById
     }
 })

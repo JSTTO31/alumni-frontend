@@ -2,7 +2,7 @@
     <v-card class="d-flex flex-column border-b pa-4 rounded-lg " flat>
         <div class="d-flex align-center">
             <v-avatar class="mr-3" size="65">
-                <v-img :src="'https://source.unsplash.com/random/100x100?person&' + user.id"></v-img>
+                <nuxt-img class="w-100 h-100" :src="'https://source.unsplash.com/random/100x100&person&' + user.id"></nuxt-img>
             </v-avatar>
             <v-hover v-slot="{props, isHovering}">
                 <div @click="$router.push({ name: 'alumni', params: { alumni: user.email } })" v-bind="props" :style="isHovering ? 'text-decoration: underline;cursor:pointer' : ''">
@@ -14,8 +14,8 @@
             </v-hover>
         </div>
         <div class="d-flex justify-space-between mt-5">
-            <v-btn class="text-capitalize mb-2 mr-1" flat prepend-icon="mdi-check" color="primary">Confirm</v-btn>
-            <v-btn class="text-capitalize border mb-2" prepend-icon="mdi-close" flat>Remove</v-btn>
+            <v-btn  class="text-capitalize mb-2 mr-1" flat prepend-icon="mdi-check" color="primary">Confirm</v-btn>
+            <v-btn  class="text-capitalize border mb-2" prepend-icon="mdi-close" flat>Remove</v-btn>
         </div>
     </v-card>
 </template>

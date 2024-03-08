@@ -26,17 +26,17 @@ const timeAgo = useTimeAgo (new Date(props.comment.created_at))
   <v-card class="w-100 d-flex py-2" flat>
     <div>
       <v-avatar size="50" class="border mr-2">
-        <v-img
-          :src="'https://source.unsplash.com/random/51x51?person&' + comment.user.id"></v-img>
+        <nuxt-img class="h-100 w-100"
+          :src="'https://source.unsplash.com/random/51x51&person&' + comment.user.id"></nuxt-img>
       </v-avatar>
     </div>
     <div class="d-flex w-100 flex-column">
       <v-card class="w-100 pr-5 px-3 py-2 rounded-lg"
         style="font-weight: 400 !important; font-family: 'Poppins'; font-size: 15px" color="grey-lighten-4 " flat>
         <div class="d-flex">
-          <div>
-            <h5 class="font-weight-medium">{{ comment.user.name }}</h5>
-            <h6 class="font-weight-regular text-grey-darken-1">
+          <div @click.stop="$router.push({name: 'alumni', params: {alumni: comment.user.email}})" class="" >
+            <h5 class="underline font-weight-medium">{{ comment.user.name }}</h5>
+            <h6 class="underline font-weight-regular text-grey-darken-1">
               Bachelor of Science in Computer Science
             </h6>
           </div>
@@ -48,12 +48,12 @@ const timeAgo = useTimeAgo (new Date(props.comment.created_at))
         </div>
       </v-card>
       <div class="text-caption font-weight-bold pt-2">
-        <v-btn size="small" class="text-capitalize" style="font-family: 'Poppins';" @click="$post.comment_reaction(comment.post_id, comment.id)" color="#1f6e8c" variant="text" v-if="comment.reacted">Like <span v-if="comment.reactions_count > 0" style="font-size: 10px;">&middot;&nbsp;&nbsp;{{ comment.reactions_count }}</span></v-btn>
-        <v-btn size="small" class="text-capitalize" style="font-family: 'Poppins';" @click="$post.comment_reaction(comment.post_id, comment.id)" v-else>Like <span v-if="comment.reactions_count > 0" style="font-size: 10px;">&middot;&nbsp;&nbsp;{{ comment.reactions_count }}</span>
+        <v-btn flat size="small" class="text-capitalize" style="font-family: 'Poppins';" @click="$post.comment_reaction(comment.post_id, comment.id)" color="#1f6e8c" variant="text" v-if="comment.reacted">Like <span v-if="comment.reactions_count > 0" style="font-size: 10px;">&middot;&nbsp;&nbsp;{{ comment.reactions_count }}</span></v-btn>
+        <v-btn flat size="small" class="text-capitalize" style="font-family: 'Poppins';" @click="$post.comment_reaction(comment.post_id, comment.id)" v-else>Like <span v-if="comment.reactions_count > 0" style="font-size: 10px;">&middot;&nbsp;&nbsp;{{ comment.reactions_count }}</span>
         </v-btn>
        
         <span class="ml-2">|</span>
-        <v-btn size="small" class="text-capitalize" style="font-family: 'Poppins';" @click="focus">Reply
+        <v-btn flat size="small" class="text-capitalize ml-2" style="font-family: 'Poppins';" @click="focus">Reply
           <span v-if="comment.replies_count > 0" style="font-size: 10px;">&nbsp;&nbsp;&middot;&nbsp;&nbsp;{{ comment.replies_count }}</span>
         </v-btn>
       </div>
@@ -76,4 +76,8 @@ const timeAgo = useTimeAgo (new Date(props.comment.created_at))
   </v-card>
 </template>
 
-<style scoped></style>
+<style scoped>
+.underline:hover{
+  text-decoration: underline;
+}
+</style>

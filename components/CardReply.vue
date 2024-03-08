@@ -28,9 +28,9 @@ const timeAgo = useTimeAgo(new Date(props.reply.created_at))
 <template>
     <div class="d-flex w-100 mb-1">
         <v-avatar size="40" class="border mr-2">
-            <v-img
-            src="https://source.unsplash.com/random/45x45?person"
-            ></v-img>
+            <nuxt-img class="h-100 w-100"
+            src="https://source.unsplash.com/random/45x45&person"
+            ></nuxt-img>
         </v-avatar>
         <div class="w-100">
             <v-card
@@ -40,7 +40,7 @@ const timeAgo = useTimeAgo(new Date(props.reply.created_at))
                 flat
             >
                 <div class="d-flex">
-                    <div>
+                    <div @click.stop="$router.push({name: 'alumni', params: {alumni: comment.user.email}})" class="underline">
                         <h5 class="font-weight-medium">{{ comment.user.name }}</h5>
                         <h6 class="font-weight-regular text-grey-darken-1">
                         Bachelor of Science in Computer Science
@@ -54,8 +54,8 @@ const timeAgo = useTimeAgo(new Date(props.reply.created_at))
                 </div>
             </v-card>
             <div class="text-caption align-start font-weight-bold pt-2 d-flex">
-                <v-btn size="x-small" class="text-capitalize" style="font-family: 'Poppins';" @click="$post.reply_reaction(comment, reply.id)" color="#1f6e8c" variant="text" v-if="reply.reacted">Like<span v-if="reply.reactions_count > 0" style="font-size: 10px;">&middot;&nbsp;&nbsp;{{ reply.reactions_count }}</span></v-btn>
-                 <v-btn size="x-small" class="text-capitalize" style="font-family: 'Poppins';" @click="$post.reply_reaction(comment, reply.id)" v-else>Like<span v-if="reply.reactions_count > 0" style="font-size: 10px;">&middot;&nbsp;&nbsp;{{ reply.reactions_count }}</span></v-btn>
+                <v-btn size="x-small" flat class="text-capitalize" style="font-family: 'Poppins';" @click="$post.reply_reaction(comment, reply.id)" color="#1f6e8c" variant="text" v-if="reply.reacted">Like<span v-if="reply.reactions_count > 0" style="font-size: 10px;">&middot;&nbsp;&nbsp;{{ reply.reactions_count }}</span></v-btn>
+                 <v-btn size="x-small" flat class="text-capitalize" style="font-family: 'Poppins';" @click="$post.reply_reaction(comment, reply.id)" v-else>Like<span v-if="reply.reactions_count > 0" style="font-size: 10px;">&middot;&nbsp;&nbsp;{{ reply.reactions_count }}</span></v-btn>
                  
             </div>
             <div class="w-100 d-flex mt-3" v-if="showTextField">
@@ -75,5 +75,7 @@ const timeAgo = useTimeAgo(new Date(props.reply.created_at))
 
 
 <style scoped>
-
+.underline:hover{
+  text-decoration: underline;
+}
 </style>
