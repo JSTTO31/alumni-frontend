@@ -8,7 +8,7 @@ const conversations = useConversationObjects
 const { selected } = storeToRefs(useChatStore())
 const {user} = storeToRefs(useAuthStore())
 const isSelected = computed(() => (person) => selected.value.some(item => item.participants[1] == person))
-</script>
+</script> 
 <template>
   <v-app style="background: #F8F6F4">
     <v-app-bar flat class="border-b" density="compact" color="primaryVariant">
