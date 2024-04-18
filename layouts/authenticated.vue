@@ -6,44 +6,42 @@ const $auth = useAuthStore();
 const { notifications } = useNotificaionObject
 const conversations = useConversationObjects
 const { selected } = storeToRefs(useChatStore())
-
+const {user} = storeToRefs(useAuthStore())
 const isSelected = computed(() => (person) => selected.value.some(item => item.participants[1] == person))
 </script>
 <template>
-  <v-app class="" style="background: #F8F6F4">
-    <v-app-bar flat class="border-b" color="primaryVariant">
+  <v-app style="background: #F8F6F4">
+    <v-app-bar flat class="border-b" density="compact" color="primaryVariant">
       <v-container class="d-flex align-center">
-        <h3 @click="useRouter().push({ name: 'index' })" style="cursor: pointer">
-          <span class="pa-2 text-primaryVariant bg-white rounded-lg mr-2">Alumni</span>
-          <span class="text-white">Tracking</span>
-        </h3>
+        <h4 @click="useRouter().push({ name: 'index' })" style="cursor: pointer">
+          <span class="pa-2 text-primaryVariant bg-white rounded-lg mr-2">Arellano</span>
+          <span class="text-white">Connect</span>
+        </h4>
         <v-spacer></v-spacer>
-        <v-tabs class="ml-5 pr-5" density="compact">
-          <v-tab to="/">
+        <v-tabs class="ml-5 pr-5" stacked align-tabs="center" density="compact">
+          <v-tab size="small" class="text-capitalize" to="/">
             <v-icon size="25">mdi-home</v-icon>
+            Home
           </v-tab>
-          <v-tab :to="{ name: 'job' }">
+          <v-tab size="small" class="text-capitalize" :to="{ name: 'job' }">
             <v-icon size="25">mdi-briefcase</v-icon>
+            Jobs
           </v-tab>
-          <v-tab :to="{ name: 'network' }">
+          <v-tab size="small" class="text-capitalize" :to="{ name: 'network' }">
             <v-icon size="25">mdi-account-multiple</v-icon>
+            People
+          </v-tab>
+          <v-tab size="small" class="text-capitalize" :to="{ name: 'network' }">
+            <v-icon size="25">mdi-bell</v-icon>
+            Notification
+          </v-tab>
+          <v-tab size="small" class="text-capitalize" :to="{ name: 'network' }">
+            <v-icon size="25">mdi-chat</v-icon>
+            Chat
           </v-tab>
         </v-tabs>
         <v-spacer></v-spacer>
-        <dialog-search>
-          <template #activator="props">
-            <v-card v-bind="props" class=" rounded-pill mr-3" color="white" style="border-color: #028090;" flat
-              variant="elevated">
-              <v-avatar size="35" class=" border-0">
-                <v-icon color="primary">mdi-magnify</v-icon>
-              </v-avatar>
-              <span class="pr-4 font-weight-medium text-primary">
-                ctrl + k
-              </span>
-            </v-card>
-          </template>
-        </dialog-search>
-        <v-menu>
+        <!-- <v-menu>
           <template #activator="{ props }">
             <v-btn class="mr-2" icon="mdi-bell" v-bind="props"></v-btn>
           </template>
@@ -97,8 +95,8 @@ const isSelected = computed(() => (person) => selected.value.some(item => item.p
               </v-main>
             </v-layout>
           </v-card>
-        </v-menu>
-        <v-menu :close-on-content-click="false">
+        </v-menu> -->
+        <!-- <v-menu :close-on-content-click="false">
           <template #activator="{ props }">
             <v-btn v-bind="props" class="mr-4" icon="mdi-message-text"></v-btn>
           </template>
@@ -118,7 +116,20 @@ const isSelected = computed(() => (person) => selected.value.some(item => item.p
               </v-main>
             </v-layout>
           </v-card>
-        </v-menu>
+        </v-menu> -->
+        <dialog-search>
+          <template #activator="props">
+            <v-card v-bind="props" class=" rounded-pill mr-3" color="white" style="border-color: #028090;" flat
+              variant="elevated">
+              <v-avatar size="35" class=" border-0">
+                <v-icon color="primary">mdi-magnify</v-icon>
+              </v-avatar>
+              <span class="pr-4 font-weight-medium text-primary">
+                ctrl + k
+              </span>
+            </v-card>
+          </template>
+        </dialog-search>
         <v-menu location="bottom end">
           <template #activator="{ props }">
             <v-avatar v-bind="props">

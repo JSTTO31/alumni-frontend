@@ -37,11 +37,14 @@ async function login(){
     <v-main style="">
       <div flat class="py-5">
         <v-container class="d-flex align-center">
-          <h2 style="color: #1f6e8c">
-            <span style="background-color: #1f6e8c" class="pa-2 text-white rounded-lg"
-              >Alumni</span
+          <h2
+          style="color: #1f6e8c; cursor: pointer"
+          @click="$router.push({ name: 'index' })"
+        >
+            <span style="background-color: #1f6e8c" class="pa-2 mr-2 text-white rounded-lg"
+              >Arellano</span
             >
-            Tracking
+            Connect
           </h2>
           <v-spacer></v-spacer>
           <v-btn

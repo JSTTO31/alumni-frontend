@@ -44,9 +44,9 @@ const loginHandler = async () => {
           @click="$router.push({ name: 'index' })"
         >
           <span style="background-color: #1f6e8c" class="pa-2 text-white rounded-lg"
-            >Alumni</span
+            >Arellano</span
           >
-          Tracking
+          Connect
         </h3>
       </div>
       <v-container>

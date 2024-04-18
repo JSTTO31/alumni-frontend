@@ -125,17 +125,6 @@ const show = () => {
               </v-btn
             >
         </v-col>
-        <v-col class="px-0">
-          <v-btn
-            block
-            flat
-            color="grey-darken-3"
-            variant="text"
-            class="text-capitalize rounded-lg py-6"
-            prepend-icon="mdi-share-outline"
-            >Share</v-btn
-          >
-        </v-col>
       </v-row>
     </div>
     <v-card-actions class="d-flex flex-column" v-if="true" @click.stop="">

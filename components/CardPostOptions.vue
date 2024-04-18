@@ -34,31 +34,17 @@ async function post(){
               </v-avatar>
             </v-card>
         <v-textarea v-model="information.text" rounded="lg"  rows="1" variant="solo-filled" auto-grow single-line hide-details flat label="Share your thoughts" class="mt-1">
-          <!-- <template #append-inner>
+          <template #append-inner>
             <div class="d-flex">
-              <v-btn class="ml-2 rounded-lg" flat icon="mdi-camera-outline"></v-btn>
-              <v-btn class="ml-2 rounded-lg" flat icon="mdi-video-outline"></v-btn>
-              <v-btn class="ml-2 rounded-lg" flat icon="mdi-poll"></v-btn>
+              <v-btn  variant="text" size="small" class="ml-2 rounded-lg" flat icon="mdi-camera-outline"></v-btn>
+              <v-btn  variant="text" size="small" class="ml-2 rounded-lg" flat icon="mdi-video-outline"></v-btn>
+              <v-btn  variant="text" size="small" class="ml-2 rounded-lg" flat icon="mdi-poll"></v-btn>
             </div>
-          </template> -->
+          </template>
         </v-textarea>
 
       </div>
-      <!-- <DialogPost>
-        <template #activator="props">
-          <v-textarea
-            v-bind="props"
-            variant="solo-filled"
-            hide-details
-            label="Share your thoughts"
-            single-line
-            rounded="lg"
-            rows="5"
-            readonly
-            flat
-          ></v-textarea>
-        </template>
-      </DialogPost> -->
+
     </v-card-text>
     <v-card-actions class="d-flex pa-5 pt-0" v-if="information.text.length > 0">
       <v-spacer></v-spacer>
