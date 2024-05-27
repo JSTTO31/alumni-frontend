@@ -7,6 +7,8 @@ export type User = {
     password: string;
     alumni_information: AlumniInformation
     about: any;
+    picture?: string;
+    cover?: string
 }
 
 type Credential = {
@@ -44,7 +46,11 @@ export const useAuthStore = defineStore('auth', () => {
 
     async function fetchUser(){
         const { data } = await useApiFetch("/api/user");
-        user.value = data.value as User
+        if(data.value){
+            user.value = data.value as User
+            user.value.picture = "https://ui-avatars.com/api/?name=Joshua Sotto&background=random&color=random"
+            user.value.cover = "cover.jpg"
+        }
     }
 
     async function login(credentials: Credential){

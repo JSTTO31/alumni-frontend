@@ -4,7 +4,7 @@ definePageMeta({
   layout: "authenticated",
 });
 useHead({
-  title: "Home | AU connect",
+  title: "Home",
 });
 const $auth = useAuthStore();
 const { user } = storeToRefs($auth);
@@ -94,116 +94,96 @@ const jobs = [
 
 </script>
 <template>
+  <NuxtLoadingIndicator></NuxtLoadingIndicator>
   <nuxt-layout>
-    <v-main>
-      <v-container class="py-0">
-        <v-row>
-          <v-col cols="3" class="pt-8">
-            <div>
-              <v-card flat
-                class="border mb-3 rounded-lg d-flex flex-column align-center"
-                @click="$router.push({ name: 'alumni', params: { alumni: user.email } })">
-                <div class="pa-5 d-flex h-100 flex-column align-center">
-                  <v-avatar size="150" class="border">
-                    <v-img
-                      src="https://as2.ftcdn.net/v2/jpg/02/44/42/79/1000_F_244427911_aoHHulebtYy4wLpncBBuWqCTNFKolcCB.jpg"></v-img>
-                  </v-avatar>
-                  <h4 class="mt-5 " style="font-family: 'Poppins;">
-                    {{ user.name }}
-                  </h4>
-                  <h5 class="font-weight-regular  text-center px-1">Bachelor of Science in Computer Science</h5>
-                </div>
-                  <v-btn class="mt-4 rounded-0" variant="text" size="small" color="primary" block
-                    @click="useRouter().push({ name: 'alumni', params: { alumni: 'joshuasotto@example.example' } })">View
-                    Profile</v-btn>
+    <v-container class="pa-0" fluid>
+      <v-row>
+        <v-col class="pt-8 pr-0" cols="2">
+          <home-navigation-drawer-right ></home-navigation-drawer-right>
+        </v-col>
+        <v-col class="pt-8 w-100 pl-15 pr-5" cols="7" style="position: relative;">
+          <card-post-options class="mb-2"></card-post-options>
+          <v-card v-if="false" class="d-flex bg-transparent mb-5" height="250" flat style="position: relative;overflow-x: hidden">
+            <div class="d-flex" style="position: absolute;top: 0;left: 0;height: 100%">
+              <v-card @click="" width="150" color="secondary" variant="tonal" style="border: 2px dashed #00A896"
+                class="mr-2 d-flex align-center justify-center rounded-lg">
+                <v-icon size="30">mdi-plus</v-icon>
               </v-card>
-              <v-card class="rounded-lg pa-4 border" flat>
-                <h5 class=" font-weight-medium">Your batchmates</h5>
-                <v-divider class="my-2 mb-3"></v-divider>
-                <div class="d-flex flex-column mt-2">
-                  <v-card flat v-for="mate, n in batchmates" :key="n" class="d-flex align-center mb-4">
-                    <v-avatar size="40" class="mr-4">
-                      <v-img :src="'https://source.unsplash.com/random/300x300?celebrity&' + n"></v-img>
-                    </v-avatar>
-                    <div>
-                      <h5 class="font-weight-medium">{{ mate.firstName + ' ' + mate.lastName }}</h5>
-                      <h6 class="text-caption">{{ mate.email }}</h6>
-                    </div>
-                    <v-spacer></v-spacer>
-                    <v-btn variant="tonal" color="primary" rounded="lg" icon="mdi-plus" size="x-small"></v-btn>
-                  </v-card>
-                </div>
-              </v-card>
-            </div>
-          </v-col>
-          <v-col class="pt-8 " cols="6" style="position: relative;">
-            <card-post-options class="mb-4"></card-post-options>
-            <v-card class="d-flex bg-transparent mb-5" height="250" flat style="position: relative;overflow-x: hidden">
-              <div class="d-flex" style="position: absolute;top: 0;left: 0;height: 100%">
-                <v-card @click="" width="150" color="secondary" variant="tonal" style="border: 2px dashed #00A896"
-                  class="mr-2 d-flex align-center justify-center rounded-lg">
-                  <v-icon size="30">mdi-plus</v-icon>
-                </v-card>
-                <div v-ripple="true" v-for="n in 2" style="cursor: pointer;" class="mr-2 rounded-lg bg-grey-lighten-4">
-                  <v-hover v-slot="{ props, isHovering }">
-                    <v-img v-bind="props" style="transition: all .2s linear;"
-                      :style="isHovering ? 'filter: brightness(1)' : 'filter:brightness(.7)'" height="250"
-                      class="rounded-lg" width="250" :src="'https://source.unsplash.com/random/300x300?celebrity&' + n"
-                      lazy-src="/empty-cover.jpg"></v-img>
-                  </v-hover>
-                </div>
+              <div v-ripple="true" v-for="n in 2" style="cursor: pointer;" class="mr-2 rounded-lg bg-grey-lighten-4">
+                <v-hover v-slot="{ props, isHovering }">
+                  <v-img v-bind="props" style="transition: all .2s linear;"
+                    :style="isHovering ? 'filter: brightness(1)' : 'filter:brightness(.7)'" height="250"
+                    class="rounded-lg" width="250" :src="'https://source.unsplash.com/random/300x300?celebrity&' + n">
+                    <template #placeholder>
+                      <div class="h-100 w-100 d-flex align-center justify-center">
+                        <v-progress-circular indeterminate size="55" color="primary" width="5"></v-progress-circular>
+                      </div>
+                    </template>
+                  </v-img>
+                </v-hover>
               </div>
+            </div>
+          </v-card>
+          <div class="d-flex align-center pb-2" >
+            <v-divider thickness="2" class="mr-5" color="black"></v-divider>
+            <span class="d-flex text-subtitle-2 font-weight-bold">relevant <v-icon>mdi-chevron-down</v-icon></span>
+          </div>
+          <v-btn v-if="false" icon="mdi-chevron-right" style="position: absolute;right: 15px;top: 250px;"></v-btn>
+          <suspense>
+            <card-post-container></card-post-container>
+            <template #fallback>
+              <skeleton-post v-for="n in 3" :key="n" class="mb-2 rounded-0 border-b" flat></skeleton-post>
+            </template>
+          </suspense>
+        </v-col>
+        <v-col cols="3" v-if="true" style="position: relative">
+          <div class="pt-5">
+            <v-card class="pa-5 rounded-lg d-flex flex-column align-center border" flat>
+              <h4 class="font-weight-medium">Complete Your Profile</h4>
+              <v-progress-circular class="my-5" size="120" :model-value="0" color="primary" width="6">
+                <h3 class="font-weight-medium">0%</h3>
+              </v-progress-circular>
+              <v-timeline side="end" density="compact">
+                <v-timeline-item  dot-color="grey" size="x-small" class="text-caption font-weight-bold">
+                  General Information
+                </v-timeline-item>
+                <v-timeline-item dot-color="grey" size="x-small" class="text-caption font-weight-bold">
+                  Work Experience
+                </v-timeline-item>
+                <v-timeline-item dot-color="grey" size="x-small"
+                  class="text-caption font-weight-bold">
+                  Profile Photo
+                </v-timeline-item>
+                <v-timeline-item dot-color="grey" size="x-small"
+                  class="text-caption font-weight-bold">
+                  Cover Photo
+                </v-timeline-item>
+              </v-timeline>
             </v-card>
-            <div class="d-flex align-center py-5">
-              <v-divider thickness="2" class="mr-5" color="black"></v-divider>
-              <span class="d-flex">relevant <v-icon>mdi-chevron-down</v-icon></span>
+            <v-card class="mt-3 pa-0 border rounded-lg" flat v-if="false">
+              <h5 class="pa-3 pb-0 font-weight-medium">Available job for you</h5>
+              <v-divider class="my-2 mx-3"></v-divider>
+              <v-list class="px-3 py-0">
+                <v-list-item class="pa-2 mb-2 rounded-lg" @click="" v-for="job, n in jobs" :key="n">
+                  <template #title>
+                    <span class="text-subtitle-1 font-weight-bold">{{ job.title }}</span>
+                  </template>
+                  <template #subtitle>
+                    <span class="text-subtitle-2 font-weight-bold">{{ job.description }}</span>
+                  </template>
+                  <div class="mt-2 font-weight-medium">{{ job.salary }}</div>
+                </v-list-item>
+              </v-list>
+              <v-btn block class="text-capitalize" append-icon="mdi-arrow-right" size="small">See more available</v-btn>
+            </v-card>
+            <div class="text-center text-grey-darken-1 px-5 w-100 text-subtitle-2 font-weight-medium mt-5" style="position:fixed;">
+              © AU Connect 2024. All Rights Reserved. | Privacy Policy | Terms of Service | Contact Us
             </div>
-            <v-btn icon="mdi-chevron-right" style="position: absolute;right: 15px;top: 250px;"></v-btn>
-            <suspense>
-              <card-post-container></card-post-container>
-              <template #fallback>
-                <skeleton-post v-for="n in 3" :key="n" class="mb-2 rounded-0 border-b" flat></skeleton-post>
-              </template>
-            </suspense>
-          </v-col>
-          <v-col cols="3" v-if="true">
-            <div class="pt-5">
-              <v-card class="pa-5 rounded-lg d-flex flex-column align-center border" flat>
-                <h4 class="font-weight-medium">Complete Your Profile</h4>
-                <v-progress-circular class="my-5" size="120" :model-value="80" color="primary" width="6">
-                  <h3 class="font-weight-medium">80%</h3>
-                </v-progress-circular>
-                <v-timeline side="end" density="compact">
-                  <v-timeline-item dot-color="grey" size="x-small" class="text-caption font-weight-bold">
-                    General Information
-                  </v-timeline-item>
-                  <v-timeline-item dot-color="grey" size="x-small" class="text-caption font-weight-bold">
-                    Work Experience
-                  </v-timeline-item>
-                  <v-timeline-item dot-color="primary" icon="mdi-check" size="x-small"
-                    class="text-caption font-weight-bold">
-                    Profile Photo
-                  </v-timeline-item>
-                  <v-timeline-item dot-color="primary" icon="mdi-check" size="x-small"
-                    class="text-caption font-weight-bold">
-                    Cover Photo
-                  </v-timeline-item>
-                </v-timeline>
-              </v-card>
-              <v-card class="mt-3 pa-0 border rounded-lg" flat>
-                <h5 class="pa-3 pb-0 font-weight-medium">Available job for you</h5>
-                <v-list class="px-3">
-                  <v-list-item class="pa-1 mb-3 rounded" @click="" v-for="job, n in jobs" :key="n" :title="job.title" :subtitle="job.description">
-                    <span class="font-weight-bold">{{ job.salary }}</span>
-                  </v-list-item>
-                </v-list>
-                <v-btn block class="text-capitalize" append-icon="mdi-arrow-right">See more</v-btn>
-              </v-card>
-            </div>
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-main>
+          </div>
+          
+        </v-col>
+      </v-row>
+    </v-container>
     <v-dialog @click:outside="$router.push('/')" persistent no-click-animation width="1250" height="650"
       :model-value="$route.name == 'index-posts-post'">
       <suspense>

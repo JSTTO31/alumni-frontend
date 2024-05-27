@@ -3,7 +3,7 @@ export default defineNuxtConfig({
   devtools: {
     enabled: false,
   },
-  ssr: false,
+  ssr: true,
   modules: [
     '@pinia/nuxt',
     '@invictus.codes/nuxt-vuetify',

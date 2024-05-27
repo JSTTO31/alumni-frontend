@@ -1,8 +1,7 @@
 <template>
     <nuxt-layout>
        <v-main>
-            <v-container>
-                <v-row>
+            <v-container class="d-flex">
                     <v-col cols="3">
                         <div style="position: fixed;width: 270px;">
                             <v-tabs direction="vertical">
@@ -13,10 +12,9 @@
                             </v-tabs>
                         </div>
                     </v-col>
-                    <v-col cols="9">
+                    <v-col cols="9" class="">
                         <nuxt-page></nuxt-page>
                     </v-col>
-                </v-row>
             </v-container>
        </v-main>
     </nuxt-layout>

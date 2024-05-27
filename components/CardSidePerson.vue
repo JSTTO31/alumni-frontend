@@ -1,5 +1,5 @@
 <template>
-    <v-card flat class="d-flex" color="transparent">
+    <v-card flat class="d-flex" color="transparent" >
         <v-col cols="3">
         <v-avatar size="45">
             <nuxt-img class="h-100 w-100"

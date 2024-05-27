@@ -37,7 +37,7 @@ const loginHandler = async () => {
 
 <template>
   <v-app>
-    <v-main>
+    <v-main style="padding-inline: 250px;">
       <div flat class="py-8 px-15">
         <h3
           style="color: #1f6e8c; cursor: pointer"

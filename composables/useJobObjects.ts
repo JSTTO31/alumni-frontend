@@ -82,7 +82,7 @@ const jobs =  [
         "title": "Software Developer",
         "company": "InnovateTech",
         "location": "Austin, TX",
-        "salary": "$100,000 - $130,000",
+        "salary": "₱100,000 - ₱130,000",
         "requirements": ["Bachelor's degree in Computer Science or related field", "5+ years of experience in software development", "Expertise in multiple programming languages such as Java, Python, or C++", "Experience with software design and architecture"],
         "tags": ["Software Development", "Java", "Python", "C++", "Software Design", "Architecture"],
         "type": "Full-time",
@@ -94,7 +94,7 @@ const jobs =  [
         "title": "Business Analyst",
         "company": "Strategic Solutions Inc.",
         "location": "Washington, D.C.",
-        "salary": "$90,000 - $110,000",
+        "salary": "₱90,000 - ₱110,000",
         "requirements": ["Bachelor's degree in Business Administration, Finance, or related field", "3+ years of experience in business analysis or consulting", "Strong analytical and problem-solving skills", "Excellent communication and stakeholder management abilities"],
         "tags": ["Business Analysis", "Consulting", "Analytics", "Communication", "Stakeholder Management"],
         "type": "Full-time",
@@ -106,7 +106,7 @@ const jobs =  [
         "title": "Product Manager",
         "company": "Tech Innovations Ltd.",
         "location": "San Francisco, CA",
-        "salary": "$120,000 - $150,000",
+        "salary": "₱120,000 - ₱150,000",
         "requirements": ["Bachelor's degree in Business, Engineering, or related field", "5+ years of experience in product management", "Proven track record of delivering successful products to market", "Strong leadership and strategic planning abilities"],
         "tags": ["Product Management", "Leadership", "Strategic Planning", "Product Development"],
         "type": "Full-time",
@@ -118,7 +118,7 @@ const jobs =  [
         "title": "Registered Nurse",
         "company": "Healthcare Partners",
         "location": "New York, NY",
-        "salary": "$70,000 - $90,000",
+        "salary": "₱70,000 - ₱90,000",
         "requirements": ["Bachelor's degree in Nursing", "Current RN license", "Clinical experience in healthcare settings", "Strong patient care and critical-thinking skills"],
         "tags": ["Nursing", "Patient Care", "Critical Thinking", "Healthcare"],
         "type": "Full-time",
@@ -130,13 +130,103 @@ const jobs =  [
         "title": "Frontend Developer",
         "company": "WebTech Solutions",
         "location": "Seattle, WA",
-        "salary": "$90,000 - $110,000",
+        "salary": "₱90,000 - ₱110,000",
         "requirements": ["Bachelor's degree in Computer Science or related field", "3+ years of experience in frontend development", "Proficiency in HTML, CSS, JavaScript, and modern frontend frameworks (e.g., React, Angular, Vue.js)", "Experience with responsive design and cross-browser compatibility"],
         "tags": ["Frontend Development", "HTML", "CSS", "JavaScript", "React", "Angular", "Vue.js"],
         "type": "Full-time",
         "level": "Mid-level",
         "category": "Information Technology",
         "description": "WebTech Solutions is hiring a skilled Frontend Developer to join our team in Seattle, WA. The successful candidate will be responsible for creating engaging and user-friendly web applications using cutting-edge frontend technologies. Key responsibilities include translating design wireframes into responsive and interactive user interfaces, optimizing application performance, and ensuring cross-browser compatibility. This role offers the opportunity to work on exciting projects and collaborate with talented professionals in a dynamic work environment."
+      },
+      {
+        "title": "Data Scientist",
+        "company": "InnoData Analytics",
+        "location": "New York, NY",
+        "salary": "₱120,000 - ₱150,000",
+        "requirements": [
+          "Master's or Ph.D. in Computer Science, Statistics, or related field",
+          "2+ years of experience in data science or machine learning",
+          "Proficiency in programming languages such as Python or R",
+          "Strong understanding of statistical methods and data visualization techniques",
+          "Experience with big data technologies (e.g., Hadoop, Spark)"
+        ],
+        "tags": ["Data Science", "Machine Learning", "Python", "R", "Big Data"],
+        "type": "Full-time",
+        "level": "Mid-level",
+        "category": "Information Technology",
+        "description": "InnoData Analytics is looking for a skilled Data Scientist to join our team in New York, NY. The ideal candidate will have a solid background in data science and machine learning, with the ability to analyze complex datasets and extract valuable insights. Responsibilities include developing predictive models, building data pipelines, and collaborating with cross-functional teams to drive business decisions."
+      },
+      {
+        "title": "Product Manager",
+        "company": "Tech Innovations Inc.",
+        "location": "San Francisco, CA",
+        "salary": "₱130,000 - ₱160,000",
+        "requirements": [
+          "Bachelor's or Master's degree in Business Administration, Computer Science, or related field",
+          "5+ years of experience in product management or related roles",
+          "Strong analytical and problem-solving skills",
+          "Excellent communication and leadership abilities",
+          "Experience with agile methodologies and product lifecycle management"
+        ],
+        "tags": ["Product Management", "Agile", "Leadership", "Product Lifecycle"],
+        "type": "Full-time",
+        "level": "Senior",
+        "category": "Product Management",
+        "description": "Tech Innovations Inc. is seeking an experienced Product Manager to lead our product development efforts in San Francisco, CA. The successful candidate will be responsible for defining product vision, strategy, and roadmap, as well as driving product execution and delivery. Key responsibilities include gathering and prioritizing product requirements, collaborating with engineering and design teams, and analyzing market trends to identify growth opportunities."
+      },
+      {
+        "title": "UX/UI Designer",
+        "company": "DesignWorks Studio",
+        "location": "Seattle, WA",
+        "salary": "₱90,000 - ₱110,000",
+        "requirements": [
+          "Bachelor's degree in Design, Human-Computer Interaction, or related field",
+          "3+ years of experience in UX/UI design",
+          "Proficiency in design tools such as Sketch, Adobe XD, or Figma",
+          "Strong portfolio showcasing user-centered design solutions",
+          "Excellent communication and collaboration skills"
+        ],
+        "tags": ["UX Design", "UI Design", "User-Centered Design", "Prototyping", "Wireframing"],
+        "type": "Full-time",
+        "level": "Mid-level",
+        "category": "Design",
+        "description": "DesignWorks Studio is hiring a talented UX/UI Designer to join our team in Seattle, WA. The ideal candidate will have a passion for creating intuitive and visually appealing user interfaces, with a focus on enhancing user experience and usability. Responsibilities include conducting user research, creating wireframes and prototypes, and collaborating with development teams to implement design solutions."
+      },
+      {
+        "title": "Marketing Manager",
+        "company": "Global Marketing Agency",
+        "location": "Los Angeles, CA",
+        "salary": "₱90,000 - ₱120,000",
+        "requirements": [
+          "Bachelor's or Master's degree in Marketing, Business Administration, or related field",
+          "5+ years of experience in marketing or related roles",
+          "Proven track record of developing and implementing successful marketing campaigns",
+          "Strong analytical and strategic thinking skills",
+          "Excellent communication and leadership abilities"
+        ],
+        "tags": ["Marketing Strategy", "Campaign Management", "Digital Marketing", "Market Analysis"],
+        "type": "Full-time",
+        "level": "Senior",
+        "category": "Marketing",
+        "description": "Global Marketing Agency is looking for a dynamic Marketing Manager to lead our marketing efforts in Los Angeles, CA. The ideal candidate will have a deep understanding of marketing principles and trends, with the ability to develop and execute strategic marketing plans. Responsibilities include overseeing all aspects of marketing operations, managing marketing campaigns, and analyzing performance metrics to drive business growth."
+      },
+      {
+        "title": "Software Engineer",
+        "company": "Tech Solutions Ltd.",
+        "location": "Austin, TX",
+        "salary": "₱100,000 - ₱120,000",
+        "requirements": [
+          "Bachelor's degree in Computer Science or related field",
+          "2+ years of experience in software development",
+          "Proficiency in programming languages such as Java, Python, or JavaScript",
+          "Experience with web development frameworks (e.g., Spring, Django, Node.js)",
+          "Strong problem-solving and debugging skills"
+        ],
+        "tags": ["Software Engineering", "Java", "Python", "JavaScript", "Spring", "Django", "Node.js"],
+        "type": "Full-time",
+        "level": "Mid-level",
+        "category": "Information Technology",
+        "description": "Tech Solutions Ltd. is seeking a talented Software Engineer to join our team in Austin, TX. The successful candidate will be responsible for designing, developing, and maintaining scalable software solutions across various platforms. Key responsibilities include writing clean and efficient code, collaborating with cross-functional teams, and contributing to the entire software development lifecycle."
       }
     ]
 

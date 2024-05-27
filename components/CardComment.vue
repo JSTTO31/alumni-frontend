@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useTimeAgo  } from '@vueuse/core'
+const {user} = storeToRefs(useAuthStore())
 const $post = usePostStore()
 const props = defineProps(["comment"]);
 const text = ref()
@@ -25,9 +26,11 @@ const timeAgo = useTimeAgo (new Date(props.comment.created_at))
 <template>
   <v-card class="w-100 d-flex py-2" flat>
     <div>
-      <v-avatar size="50" class="border mr-2">
-        <nuxt-img class="h-100 w-100"
-          :src="'https://source.unsplash.com/random/51x51&person&' + comment.user.id"></nuxt-img>
+      <v-avatar size="50" class="border mr-2" v-if="user">
+        <v-img v-if="user.id == comment.user.id" width="160" height="160" class="rounded-lg"
+                :src="user.picture"/>
+        <v-img v-else width="160" height="160" class="rounded-lg"
+                :src="`https://source.unsplash.com/random/250x250&` + comment.user.name"/>
       </v-avatar>
     </div>
     <div class="d-flex w-100 flex-column">

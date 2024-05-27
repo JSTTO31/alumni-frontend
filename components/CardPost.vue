@@ -47,10 +47,11 @@ const show = () => {
 <template>
   <v-card v-ripple="false"  class="rounded-lg pa-0 pb-4 border" :id="'card' + post.id" v-if="post" @click="show">
     <div class="pa-4 pb-0 d-flex align-center">
-      <v-avatar size="60" class="border mr-2">
-        <nuxt-img class="h-100 w-100"
-          :src="'https://source.unsplash.com/random/50x50&person&' + post.id"
-        ></nuxt-img>
+      <v-avatar size="50" class="border mr-2" v-if="user">
+        <v-img v-if="user.id == post.user.id" class="w-100 rounded-lg"
+                :src="user.picture"/>
+        <img v-else class="w-100 h-100 rounded-lg"
+                :src="`https://source.unsplash.com/random/250x250&` + post.user.name"/>
       </v-avatar>
       <div class="underline" @click.stop="$router.push({name: 'alumni', params: {alumni: post.user.email}})">
         <h5>{{ post.user.name }}</h5>
@@ -69,7 +70,7 @@ const show = () => {
       {{ post.text }}
     </v-card-text>
     <div v-if="(post.user.id != user?.id || null)">
-      <v-card>
+      <v-card flat class="rounded-0">
         <v-img  :src="`https://source.unsplash.com/random/${random_width}x${random_height}`" class="rounded-0 w-100" />
       </v-card>
     </div>
@@ -134,7 +135,7 @@ const show = () => {
       <div class="w-100 d-flex px-5 mt-3">
         <v-avatar size="50" class="border mr-2">
           <v-img
-            src="https://as2.ftcdn.net/v2/jpg/02/44/42/79/1000_F_244427911_aoHHulebtYy4wLpncBBuWqCTNFKolcCB.jpg"
+            :src="user.picture"
           ></v-img>
         </v-avatar>
         <v-text-field

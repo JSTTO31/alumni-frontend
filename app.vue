@@ -7,11 +7,11 @@ useHead({
       type: "image/x-icon",
     },
   ],
+  titleTemplate: (title) => title ? "(5) " + title + " | AU Connect" : "AU Connect" 
 });
 </script>
 <template>
   <div style="">
-    <NuxtLoadingIndicator></NuxtLoadingIndicator>
     <ClientOnly>
       <nuxt-page></nuxt-page>
     </ClientOnly>

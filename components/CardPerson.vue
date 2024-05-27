@@ -1,5 +1,5 @@
 <template>
-    <v-card  class="rounded-lg border pa-0" flat>
+    <v-card  class="rounded-lg border pa-0" flat @click="$router.push({name: 'alumni', params: {alumni: user.email}})">
         <v-card width="100%" height="100" flat class="rounded-0 d-flex bg-grey-lighten-4">
             <nuxt-img class="w-100" :src="'https://source.unsplash.com/random/450x350&' + user.id" />
         </v-card>

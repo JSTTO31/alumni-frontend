@@ -36,7 +36,7 @@ async function submit(){
 
 <template>
   <v-app>
-    <v-main>
+    <v-main style="padding-inline: 250px;">
       <div class="py-8 pb-0 px-15">
         <h3
           style="color: #1f6e8c; cursor: pointer"
@@ -50,14 +50,13 @@ async function submit(){
       </div>
       <v-container>
         <v-row justify="center">
-          <v-col cols="7" class="pt-5">
+          <v-col cols="6" class="pt-5">
             <h1 class="text-center mb-5" style="color: #1f6e8c">Connect with us now</h1>
             <v-card class="pa-5 rounded-lg" flat>
               <v-form @submit.prevent="submit">
                 <label class="font-weight-medium text-grey-darken-2" for="name"
                   >Name</label
                 >
-                {{ status }}
                 <v-text-field
                   type="text"
                   single-line

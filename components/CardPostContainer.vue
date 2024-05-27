@@ -1,16 +1,17 @@
 <script setup lang="ts">
 const $post = usePostStore()
 const {posts} = storeToRefs($post)
-const no_post = ref(false)
+const no_post = ref(true)
 const loading = ref(false)
 const getAll = async () => {
     const {data} = await $post.getAll()
-    if(!data.value){
+    //@ts-ignore
+    if(data.value && data.value.length < 1){
         no_post.value = true
     }
 }
 const fetchOnScroll = async () => {
-    if((scrollY + window.innerHeight) >= (document.body.scrollHeight - 250) && !loading.value){
+    if((scrollY + window.innerHeight) >= (document.body.scrollHeight - 250) && !loading.value && !no_post.value){
         loading.value = true
         await getAll().then(() => loading.value = false)
     }
@@ -19,7 +20,7 @@ const fetchOnScroll = async () => {
 if(posts.value.length < 1){
     await getAll()
 }
-window.addEventListener('scroll',fetchOnScroll)
+// window.addEventListener('scroll',fetchOnScroll)
 
 onBeforeRouteLeave((to, from, next) => {
     removeEventListener('scroll', fetchOnScroll)

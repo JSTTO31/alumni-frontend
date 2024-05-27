@@ -1,3 +1,4 @@
+import section from "./profile/section";
 import { useConnectionStore } from "./useConnectionStore";
 
 
@@ -20,6 +21,110 @@ export type UserProfile = {
     connections_count: number
     viewers: User[]
     batchmates: User[]
+    personal_information?: PersonalInformation
+    contact_information: ContactInformation
+    works: Work[],
+    work: Work,
+    skills: Skill[]
+    educations: Education[]
+    certifications: Certification[],
+    images: Image[],
+    links: Link[],
+}
+
+export type About = {
+    "id": string,
+    "user_id": string,
+    "paragraph": string
+}
+
+
+export type Link = {
+    "id": number,
+    "user_id": number,
+    "title": string,
+    "location": string,
+}
+
+export type Image = {
+    "id": string,
+    "user_id": string,
+    "data": {title: string},
+    "location": string,
+    "type": string,
+}
+
+export type Certification = {
+    "id": number,
+    "user_id": number,
+    "name": string,
+    "issuing_organization": string,
+    "issue_date": string,
+}
+
+export type Education = {
+    id: number,
+    user_id: number,
+    "attainment": string,
+    "school": string,
+    "field": string,
+    "major": string,
+    "graduated_at": string
+}
+
+
+export type Skill = {
+    id: string,
+    "name": string,
+    "years": number,
+    "certification": string,
+    "proficiency": number,
+    "pinned": boolean,
+}
+
+export type Work = {
+    id: number,
+    user_id: number,
+    'company_name': string,
+    'company_website': string,
+    'position_title': string,
+    'position_level': string,
+    'industry': string,
+    'specialization': string,
+    'description': string,
+    'current': boolean,
+    'from': string,
+    'to': string,
+}
+
+export type ContactInformation = {
+    'id': string,
+    'user_id': string,
+    'mobile_number': string,
+    'home_number': string,
+    'work_number': string,
+    'address': string,
+    'region': string,
+    'city': string,
+    'postal_code': string,
+    'facebook': string,
+    'twitter': string,
+    'linkedin': string,
+}
+
+export type PersonalInformation = {
+    "id": number,
+    "user_id": number,
+    "first_name": string,
+    "middle_name": string,
+    "last_name": string,
+    "nationality": string,
+    "gender": string,
+    "age": number,
+    "civil_status": string,
+    "birthday": string,
+    "created_at": string,
+    "updated_at": string
 }
 
 type Information = {
@@ -55,21 +160,14 @@ export const useProfileStore = defineStore('profile', () => {
 
     const authorize = computed(() => user.value && user.value.id == (userAuth.value?.id || -1))
 
-    async function editAbout(paragraph: string){
-        return await useApiFetch('/api/title-paragraphs', {
-            method: 'POST',
-            body: {paragraph, type: 'about', title: 'about'},
-            onResponse(event){
-                //@ts-ignore
-                user.value.about = event.response._data
-            }
-        }) 
-    }
-
     async function getProfile(email: string){
         loading.value = true
         return await useApiLazyFetch(`/api/user/${email}/profiles`, {
-            onResponse: event => (user.value = event.response._data, loading.value = false)
+            onResponse(event){
+                user.value = event.response._data
+                loading.value = false
+                return event
+            }
         })
     }
 
@@ -133,6 +231,55 @@ export const useProfileStore = defineStore('profile', () => {
         await $connection.disconnect(user.value)
     }
 
+    async function addPersonalInformation(informations: any){
+        return await useApiFetch("/api/personal_informations", {
+            method: 'POST',
+            body: {...informations},
+            onResponse(event){
+                if(!user.value || !event.response.ok) return event
 
-    return {user, information, editAbout, getProfile, add_information, toggleFollow, requestConnection, cancelRequestConnection,disconnect, confirm,authorize, loading}
+                user.value.personal_information = event.response._data
+            }
+        })
+    }
+
+    async function editPersonalInformation(informations: any){
+        return await useApiFetch("/api/personal_informations/" + user.value?.personal_information?.id, {
+            method: 'PUT',
+            body: {...informations},
+            onResponse(event){
+                if(!user.value || !event.response.ok) return event
+
+                user.value.personal_information = event.response._data
+            }
+        })
+    }
+
+    async function addContactInformation(informations: any){
+        return await useApiFetch("/api/contact_informations", {
+            method: 'POST',
+            body: {...informations},
+            onResponse(event){
+                if(!user.value || !event.response.ok) return event
+
+                user.value.contact_information = event.response._data
+            }
+        })
+    }
+
+    async function editContactInformation(informations: any){
+        return await useApiFetch("/api/contact_informations/" + user.value?.contact_information.id, {
+            method: 'PUT',
+            body: {...informations},
+            onResponse(event){
+                if(!user.value || !event.response.ok) return event
+                user.value.contact_information = event.response._data
+            }
+        })
+    }
+
+
+    return {
+        user, information, getProfile, add_information, toggleFollow, requestConnection, cancelRequestConnection,disconnect, confirm, addPersonalInformation, authorize, loading, editPersonalInformation, addContactInformation, editContactInformation, ...section(user)
+    }
 })

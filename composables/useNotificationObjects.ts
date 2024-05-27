@@ -1,5 +1,13 @@
 const notifications = [
       {
+        "title": "Congratulations! You've Become a Candidate",
+        "message": "We're thrilled to inform you that you've become a candidate for the Frontend Developer position. Our team will be reaching out to you shortly to discuss the next steps. Thank you for your interest and best of luck!",
+        "timestamp": "2024-03-04T13:30:00",
+        "priority": "Medium",
+        "status": "Unread",
+        "type": "Candidate Notification"
+      },
+      {
         "title": "New Job Opportunity",
         "message": "A new job as a Data Scientist at Data Insights Co. in San Francisco, CA is now available. Apply now!",
         "timestamp": "2024-03-04T09:30:00",
