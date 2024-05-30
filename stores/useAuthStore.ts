@@ -1,4 +1,5 @@
 import { useApiFetch } from "~/composables/useApiFetch";
+import type { Image, ProfileCover, ProfilePicture } from "./useProfileStore";
 
 export type User = {
     id: number;
@@ -9,6 +10,8 @@ export type User = {
     about: any;
     picture?: string;
     cover?: string
+    profile_picture: ProfilePicture
+    profile_cover: ProfileCover
 }
 
 type Credential = {
@@ -48,7 +51,6 @@ export const useAuthStore = defineStore('auth', () => {
         const { data } = await useApiFetch("/api/user");
         if(data.value){
             user.value = data.value as User
-            user.value.picture = "https://ui-avatars.com/api/?name=Joshua Sotto&background=random&color=random"
             user.value.cover = "cover.jpg"
         }
     }

@@ -7,7 +7,7 @@ useHead({
       type: "image/x-icon",
     },
   ],
-  titleTemplate: (title) => title ? "(5) " + title + " | AU Connect" : "AU Connect" 
+  titleTemplate: (title) => title ? title + " | AU Connect" : "AU Connect" 
 });
 </script>
 <template>

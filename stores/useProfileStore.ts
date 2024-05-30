@@ -30,6 +30,26 @@ export type UserProfile = {
     certifications: Certification[],
     images: Image[],
     links: Link[],
+    picture: string,
+    cover: string,
+    profile_picture?: ProfilePicture,
+    profile_cover?: ProfileCover
+}
+
+export type ProfilePicture = {
+    "id": string,
+    "user_id": string,
+    "data": {styles: {scale: number}, selected_frame: number},
+    "location": string,
+    "type": string,
+}
+
+export type ProfileCover = {
+    "id": string,
+    "user_id": string,
+    "data": {styles: {translateY: number}},
+    "location": string,
+    "type": string,
 }
 
 export type About = {
@@ -156,16 +176,13 @@ export const useProfileStore = defineStore('profile', () => {
     const user = ref<null|UserProfile>(null)
     const information = ref([])
     const {user: userAuth} = storeToRefs(useAuthStore())
-    const loading = ref(false)
 
     const authorize = computed(() => user.value && user.value.id == (userAuth.value?.id || -1))
 
     async function getProfile(email: string){
-        loading.value = true
         return await useApiLazyFetch(`/api/user/${email}/profiles`, {
             onResponse(event){
                 user.value = event.response._data
-                loading.value = false
                 return event
             }
         })
@@ -278,8 +295,50 @@ export const useProfileStore = defineStore('profile', () => {
         })
     }
 
+    async function changeProfile(informations: any){
+        const formData = new FormData();
+        formData.append('styles', JSON.stringify(informations.styles))
+        formData.append('selected_frame', informations.selected_frame)
+        formData.append('image', informations.image)
+
+        return await useApiFetch("/api/pictures", {
+            method: 'POST',
+            body: formData,
+            onResponse(event){
+                if(!user.value || !event.response.ok) return event
+                user.value.picture = event.response._data.picture
+                user.value.profile_picture = event.response._data.profile_picture
+                if(userAuth.value && userAuth.value.id == user.value.id){
+                    userAuth.value.picture = event.response._data.picture
+                    userAuth.value.profile_picture = event.response._data.profile_picture
+                }
+            }
+        })
+    }
+
+    async function changeCover(informations: any){
+        const formData = new FormData();
+        formData.append('styles', JSON.stringify(informations.styles))
+        formData.append('image', informations.image)
+
+        return await useApiFetch("/api/covers", {
+            method: 'POST',
+            body: formData,
+            onResponse(event){
+                if(!user.value || !event.response.ok) return event
+                user.value.cover = event.response._data.cover
+                user.value.profile_cover = event.response._data.profile_cover
+                if(userAuth.value && userAuth.value.id == user.value.id){
+                    userAuth.value.cover = event.response._data.cover
+                    userAuth.value.profile_cover = event.response._data.profile_cover
+                }
+            }
+        })
+    }
+
+
 
     return {
-        user, information, getProfile, add_information, toggleFollow, requestConnection, cancelRequestConnection,disconnect, confirm, addPersonalInformation, authorize, loading, editPersonalInformation, addContactInformation, editContactInformation, ...section(user)
+        user, information, getProfile, add_information, toggleFollow, requestConnection, cancelRequestConnection,disconnect, confirm, addPersonalInformation, authorize, editPersonalInformation, addContactInformation, editContactInformation, ...section(user), changeProfile, changeCover
     }
 })

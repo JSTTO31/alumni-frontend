@@ -1,22 +1,9 @@
 <template>
     <div v-if="user" class="d-flex flex-column" style="position: sticky;top: 7.5%;">
-        <!-- <v-card flat class=" mb-3 rounded-lg pa-4 d-flex flex-column align-center border" 
-            @click="$router.push({ name: 'alumni', params: { alumni: user.email } })">
-            <v-avatar size="75" class="bg-white" style="border: 2px solid #05668D">
-                <v-img class="w-100" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkXA3Q7LOmeFtgPdlMh1JXuBFYTE0GdgA-oVrUhj-4hS85yh_re4mq7xtbFt-EXoW42uk&usqp=CAU"></v-img>
-            </v-avatar>
-            <div class="pa-5 d-flex h-100 flex-column">
-                <h5 style="font-family: 'Poppins;">
-                    {{ user.name }}
-                </h5>
-                <h6 class="font-weight-regular  text-center">Connections 5</h6>
-            </div>
-        </v-card> -->
         <v-card flat class="rounded-lg align-center pa-2 mb-1 d-flex" variant="text" 
             @click="$router.push({ name: 'alumni', params: { alumni: user.email } })">
-            <v-avatar size="44" class="bg-white border mr-3">
-                <v-img class="w-100" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkXA3Q7LOmeFtgPdlMh1JXuBFYTE0GdgA-oVrUhj-4hS85yh_re4mq7xtbFt-EXoW42uk&usqp=CAU"></v-img>
-            </v-avatar>
+            <avatar :user="user" size="44" class="bg-white border mr-3">
+            </avatar>
             <div class=" d-flex h-100 ml-2 flex-column">
                 <h5>
                     {{ user.name }}

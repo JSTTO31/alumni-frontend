@@ -4,7 +4,7 @@ definePageMeta({
 });
 
 useHead({
-  title: "Alumni Tracking | Welcome to Alumni Tracking",
+  title: "Welcome our beloved alumni!",
 });
 
 const $auth = useAuthStore();
@@ -35,11 +35,10 @@ async function login() {
 <template>
   <v-app>
     <v-main>
-      <v-container fluid style="padding-inline: 250px;">
+      <v-container fluid style="padding-inline: 300px;" class="py-10">
         <div class="d-flex align-center">
-          <h2 style="color: #1f6e8c; cursor: pointer" @click="$router.push({ name: 'index' })">
-            <span style="background-color: #1f6e8c" class="pa-2 mr-2 text-white rounded-lg">Arellano</span>
-            Connect
+          <h2 class="d-flex align-center" style="color: #1f6e8c; cursor: pointer" @click="$router.push({ name: 'index' })">
+            <span class="text-primary">Arellano Connect</span>
           </h2>
           <v-spacer></v-spacer>
           <v-btn class="font-weight-medium text-capitalize mr-3" color="#0E2954" rounded variant="text" size="large"
@@ -58,11 +57,11 @@ async function login() {
               <v-img src="/undraw_team_collaboration_re_ow29.svg"></v-img>
             </v-col>
             <v-spacer></v-spacer>
-            <v-col cols="5" class="d-flex justify-center flex-column">
+            <v-col cols="5" class="d-flex justify-center  flex-column">
               <h1 class="text-center mb-5" style="color: #1f6e8c">
                 Log in to your account.
               </h1>
-              <v-card class="pa-5 rounded-lg" flat>
+              <v-card class="pa-5 rounded-lg " flat>
                 <v-form @submit.prevent="login">
                   <label class="font-weight-medium text-grey-darken-2" for="email">Email Address</label>
                   <v-text-field v-model="credentials.email" :error-messages="errors?.email" type="email" single-line

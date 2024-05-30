@@ -9,6 +9,9 @@
 </template>
 
 <script setup lang="ts">
+useHead({
+    title: 'Information'
+})
 const route = useRoute()
 </script>
 

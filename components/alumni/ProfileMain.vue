@@ -3,25 +3,18 @@
         <v-row>
             <v-col cols="12">
                 <v-card class="rounded-lg border" flat>
-                    <v-card class="rounded-lg d-flex align-center justify-center rounded-b-0 empty-background" flat height="200"
-                        @click="fileInputCover.click()">
-                        <img id="cover" class="w-100" />
-                        <!-- <img width="870" height="217.5" :src="'https://source.unsplash.com/random/870x217.5' + user.id" v-else/> -->
-                        <v-btn size="small" prepend-icon="mdi-camera" class="text-capitalize" style="position: absolute;top: 15px;right: 15px;">Edit cover photo</v-btn>
-                    </v-card>
-                    <input @change="changeCover" type="file" hidden="true" ref="fileInputCover">
+                    <AlumniProfileCover></AlumniProfileCover>
                     <v-container class="d-flex pb-0">
-                        <div class="align-self-start pl-2" style="position: relative;margin-top: -120px">
+                        <div class="align-self-start pl-2 mr-3" style="position: relative;margin-top: -120px">
                             <AlumniProfileAvatar></AlumniProfileAvatar>
-                            <!-- <v-icon color="blue" size="30" class="bg-white rounded-circle" style="position: absolute;bottom: 10px;right: 5px;">mdi-check-decagram</v-icon> -->
                         </div>
                         <div class="py-5 px-0 pt-0 w-100" flat>
                             <h1 class="font-weight-medium align-center text-capitalize  d-flex">
                                 {{ user.name }} <v-chip class="ml-2 rounded-lg" prepend-icon="mdi-check-decagram">Verify your account</v-chip>
                                 <v-spacer></v-spacer>
-                                <v-icon v-if="!!user.contact_information.facebook" @click="gotoWebsite(user.contact_information.facebook)" size="35" color="blue-darken-2" class="mr-2">mdi-facebook</v-icon>
-                                <v-icon v-if="!!user.contact_information.twitter" @click="gotoWebsite(user.contact_information.twitter)" size="35" color="blue-lighten-2" class="mr-2">mdi-twitter</v-icon>
-                                <v-icon v-if="!!user.contact_information.linkedin" @click="gotoWebsite(user.contact_information.linkedin)" size="35" color="blue-darken-3" class="mr-2">mdi-linkedin</v-icon>
+                                <v-icon v-if="user.contact_information && !!user.contact_information.facebook" @click="gotoWebsite(user.contact_information.facebook)" size="35" color="blue-darken-2" class="mr-2">mdi-facebook</v-icon>
+                                <v-icon v-if="user.contact_information && !!user.contact_information.twitter" @click="gotoWebsite(user.contact_information.twitter)" size="35" color="blue-lighten-2" class="mr-2">mdi-twitter</v-icon>
+                                <v-icon v-if="user.contact_information && !!user.contact_information.linkedin" @click="gotoWebsite(user.contact_information.linkedin)" size="35" color="blue-darken-3" class="mr-2">mdi-linkedin</v-icon>
                             </h1>
                             <h5 class="mb-1 font-weight-medium profile-action-text">
                                 Bachelor of Science in Computer Science
@@ -70,7 +63,7 @@
                                 </v-menu>
                             </div>
                             <div class="my-4" v-else>
-                                <v-btn class="text-capitalize" color="primary" prepend-icon="mdi-pencil" @click="showQuickEdit = true">Quick Edit</v-btn>
+                                <v-btn class="text-capitalize" color="primary" prepend-icon="mdi-pencil" @click="$router.push({name: 'alumni-index-edit'})">Edit Profile</v-btn>
                                 <!-- <v-btn class="text-capitalize ml-2" color="primary" variant="text" prepend-icon="mdi-information-outline" >More Info</v-btn> -->
                             </div>
                         </div>
@@ -101,21 +94,9 @@ const { user, authorize } = storeToRefs(useProfileStore())
 const { user: auth } = storeToRefs(useAuthStore())
 const $profile = useProfileStore()
 const loading = ref(false)
-const fileInputCover = ref()
 const showLocation = ref(false)
 const showQuickEdit = ref(false)
-const changeCover = (e) => {
-    const file = e.target.files[0]
-    const reader = new FileReader()
-    reader.onload = () => {
-        const cover = document.getElementById('cover')
-        if (cover) {
-            cover.src = reader.result
-        }
-    }
 
-    reader.readAsDataURL(file)
-}
 
 const gotoWebsite = (link) => {
     window.open(link, "_blank")
@@ -123,14 +104,7 @@ const gotoWebsite = (link) => {
 </script>
 
 <style scoped>
-.empty-background {
-    background-color: #c5dee9;
-    opacity: 1;
-    background-image:  linear-gradient(135deg, #05668dbe 25%, transparent 25%), linear-gradient(225deg, #05668dbe 25%, transparent 25%), linear-gradient(45deg, #05668dbe 25%, transparent 25%), linear-gradient(315deg, #05668dbe 25%, #c5dee9 25%);
-    background-position:  40px 0, 40px 0, 0 0, 0 0;
-    background-size: 80px 80px;
-    background-repeat: repeat;
-}
+
 .location-btn:hover{
     color: #05668D;
     cursor: pointer;

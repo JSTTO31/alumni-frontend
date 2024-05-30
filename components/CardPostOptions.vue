@@ -28,10 +28,8 @@ async function post(){
       <div class="mb-2 d-flex align-center">
         <v-card class="rounded-circle mr-4 mt-1 align-center" @click="$router.push({ name: 'alumni', params: { alumni: user.email } })"
               flat>
-          <v-avatar size="50" style="border: 2px solid #05668D">
-            <v-img
-              :src="user.picture"></v-img>
-          </v-avatar>
+          <avatar size="50" :user="user">
+          </avatar>
         </v-card>
         <v-text-field v-model="information.text"  rounded  rows="1" variant="outlined" density="compact" single-line hide-details flat label="Share your thoughts">
         </v-text-field>
