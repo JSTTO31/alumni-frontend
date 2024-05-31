@@ -43,7 +43,7 @@ function open(){
     </v-container>
     <AlumniCardImages></AlumniCardImages>
     <AlumniCardLinks></AlumniCardLinks>
-    <v-overlay class="d-flex align-start pt-15 justify-center" transition="slide-y-transition"  width="750" :model-value="$route.name.includes('alumni-index-edit') || $route.name.includes('alumni-index-add') || $route.name.includes('alumni-index-delete')" @click:outside="$router.push({name: 'alumni'})" persistent no-click-animation>
+    <v-overlay class="d-flex align-start pt-15 justify-center" transition="slide-y-transition"  width="750" :model-value="$route.name.includes('alumni-index-edit') || $route.name.includes('alumni-index-add') || $route.name.includes('alumni-index-delete') || $route.name.includes('alumni-index-informations')" @click:outside="$router.push({name: 'alumni'})" persistent no-click-animation>
         <NuxtPage></NuxtPage>
     </v-overlay>
     <v-dialog fullscreen  class="d-flex align-start pt-15 justify-center" :model-value="$route.name.includes('alumni-index-images')" persistent no-click-animation>

@@ -1,9 +1,8 @@
 <template>
     <v-app>
-        <v-main class="d-flex align-center justify-center">
+        <v-main>
             <NuxtLoadingIndicator></NuxtLoadingIndicator>
             <NuxtPage>
-
             </NuxtPage>
         </v-main>
     </v-app>
@@ -12,10 +11,6 @@
 <script setup lang="ts">
 definePageMeta({
   middleware: ["guest"],
-  pageTransition: {
-    name: 'page-slide-x',
-    mode: 'out-in'
-  }
 })
 
 </script>

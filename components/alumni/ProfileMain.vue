@@ -20,7 +20,7 @@
                                 Bachelor of Science in Computer Science
                             </h5>
                             <h5 class="mb-1  font-weight-regular">
-                                Live at <b @click="showLocation=true" class="location-btn">{{ user.contact_information.city }}</b>
+                                Live at <b @click="showLocation=true" class="location-btn">{{ user.contact_information.city }}</b> | <NuxtLink :to="{name: 'alumni-index-informations'}" class="profile-action-text text-primary">More info</NuxtLink>
                             </h5>
                             <alumni-location-dialog v-model:show="showLocation"></alumni-location-dialog>
                             <div>
@@ -73,12 +73,13 @@
                             <v-tab rounded class="text-capitalize"
                                 :to="{ name: 'alumni', params: { alumni: route.params.alumni } }">Home</v-tab>
                             <v-tab rounded class="text-capitalize"
-                                :to="{ name: 'alumni-information', params: { alumni: route.params.alumni } }">Informations</v-tab>
-                            <v-tab rounded class="text-capitalize"
                                 :to="{ name: 'alumni-activities', params: { alumni: route.params.alumni } }">Activities</v-tab>
                             <v-tab rounded class="text-capitalize"
                                 :to="{ name: 'alumni-connections', params: { alumni: route.params.alumni } }">Connections</v-tab>
-                            <v-tab rounded class="text-capitalize">More</v-tab>
+                            <v-tab rounded class="text-capitalize"
+                                :to="{ name: 'alumni-connections', params: { alumni: route.params.alumni } }">Viewer</v-tab>
+                            <v-tab rounded class="text-capitalize"
+                                :to="{ name: 'alumni-connections', params: { alumni: route.params.alumni } }">Batchmates</v-tab>
                         </v-tabs>
                     </div>
                 </v-card>

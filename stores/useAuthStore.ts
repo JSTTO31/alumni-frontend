@@ -1,5 +1,5 @@
 import { useApiFetch } from "~/composables/useApiFetch";
-import type { Image, ProfileCover, ProfilePicture } from "./useProfileStore";
+import type { ContactInformation, Image, PersonalInformation, ProfileCover, ProfilePicture } from "./useProfileStore";
 
 export type User = {
     id: number;
@@ -11,7 +11,9 @@ export type User = {
     picture?: string;
     cover?: string
     profile_picture: ProfilePicture
-    profile_cover: ProfileCover
+    profile_cover: ProfileCover,
+    personal_information: PersonalInformation,
+    contact_information: ContactInformation,
 }
 
 type Credential = {

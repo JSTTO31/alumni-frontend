@@ -4,7 +4,7 @@
             <v-card-title class="d-flex align-center">
                     Edit Personal Information 
                     <v-spacer></v-spacer>
-                    <v-btn flat icon="mdi-close" @click="$router.push({name: 'alumni-information'})"></v-btn>
+                    <v-btn flat icon="mdi-close" @click="$router.push({name: 'alumni'})"></v-btn>
 
             </v-card-title>
             <v-divider></v-divider>

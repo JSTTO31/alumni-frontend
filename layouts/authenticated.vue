@@ -17,7 +17,7 @@ const isSelected = computed(() => (person) =>
       flat
       class="border-b d-flex"
       color="primaryVariant"
-      style="padding-inline: 380px"
+      style="padding-inline: 200px"
       density="compact"
     >
       <h2
@@ -44,11 +44,11 @@ const isSelected = computed(() => (person) =>
           <v-icon size="25">mdi-home</v-icon>
           Home
         </v-tab>
-        <v-tab size="x-small" class="text-capitalize" :to="{ name: 'job' }">
+        <v-tab size="x-small" class="text-capitalize" :to="{ name: 'index-job' }">
           <v-icon size="25">mdi-briefcase</v-icon>
           Jobs
         </v-tab>
-        <v-tab size="x-small" class="text-capitalize" :to="{ name: 'network' }">
+        <v-tab size="x-small" class="text-capitalize" :to="{ name: 'index-network' }">
           <v-icon size="25">mdi-account-multiple</v-icon>
           People
         </v-tab>
@@ -108,7 +108,7 @@ const isSelected = computed(() => (person) =>
         </v-card>
       </v-menu>
     </v-app-bar>
-    <v-main style="padding-inline: 380px">
+    <v-main style="padding-inline: 200px">
       <slot></slot>
     </v-main>
     <div id="conversations-container" class="d-flex align-end" style="gap: 8px">

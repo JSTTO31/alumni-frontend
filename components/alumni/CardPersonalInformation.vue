@@ -1,67 +1,29 @@
 <template>
-    <v-card class="pa-5 rounded-lg mb-5 border" v-if="user && !loading && (user.personal_information || auth.id == user.id)" flat>
-        <v-card-title class="font-weight-medium d-flex py-0 align-center">
+    <div class="pa-5 pt-3 rounded-lg" flat>
+        <h4 class="font-weight-medium d-flex py-0 align-center">
             Personal Information
             <v-spacer></v-spacer>
-            <v-btn icon="mdi-pencil" class="" flat @click="$router.push({name: 'alumni-information-edit-personal'})" v-if="user.personal_information && user.id == auth.id"></v-btn>
-        </v-card-title>
-        <v-divider class="my-4"></v-divider>
-        <v-card-text>
-            <div class="d-flex align-center justify-center" v-if="!user.personal_information">
-                <v-btn class="" variant="flat" color="grey-lighten-4" @click="$router.push({name: 'alumni-information-add'})">Fill up the personal information</v-btn>
-            </div>
-            <v-container fluid class="py-0" v-else>
-                <v-row class="pa-0 d-flex align-center">
-                    <v-col cols="4" class="pa-0">
-                        Name:
-                    </v-col>
-                    <v-col>
-                        <strong class="font-weight-medium text-primary text-capitalize" >{{ fullname }}</strong>
-                    </v-col>
-                </v-row>
-                <v-row class="pa-0 d-flex align-center">
-                    <v-col cols="4" class="pa-0">
-                        Birthday:
-                    </v-col>
-                    <v-col>
-                        <strong class="font-weight-medium text-primary text-capitalize" >{{ user.personal_information.birthday }}</strong>
-                    </v-col>
-                </v-row>
-                <v-row class="pa-0 d-flex align-center">
-                    <v-col cols="4" class="pa-0">
-                        Gender:
-                    </v-col>
-                    <v-col>
-                        <strong class="font-weight-medium text-primary text-capitalize" >{{ user.personal_information.gender }}</strong>
-                    </v-col>
-                </v-row>
-                <v-row class="pa-0 d-flex align-center">
-                    <v-col cols="4" class="pa-0">
-                        Age:
-                    </v-col>
-                    <v-col>
-                        <strong class="font-weight-medium text-primary text-capitalize" >{{ user.personal_information.age }}</strong>
-                    </v-col>
-                </v-row>
-                <v-row class="pa-0 d-flex align-center">
-                    <v-col cols="4" class="pa-0">
-                        Civil Status:
-                    </v-col>
-                    <v-col>
-                        <strong class="font-weight-medium text-primary text-capitalize" >{{ user.personal_information.civil_status }}</strong>
-                    </v-col>
-                </v-row>
-                <v-row class="pa-0 d-flex align-center">
-                    <v-col cols="4" class="pa-0">
-                        Nationality:
-                    </v-col>
-                    <v-col>
-                        <strong class="font-weight-medium text-primary text-capitalize" >{{ user.personal_information.nationality }}</strong>
-                    </v-col>
-                </v-row>
-            </v-container>
-        </v-card-text>
-    </v-card>
+            <v-btn icon="mdi-pencil" class="" flat @click="$router.push({name: 'alumni-index-edit-personal'})" v-if="user.personal_information && user.id == auth.id"></v-btn>
+        </h4>
+        <v-container fluid class="pa-2">
+            <v-row>
+                <v-col class="pa-0">
+                    <v-list lines="two">
+                        <v-list-item :title="fullname" :subtitle="'Full name'" prepend-icon="mdi-account"></v-list-item>
+                        <v-list-item :title="user.personal_information.gender" :subtitle="'gender'" prepend-icon="mdi-gender-male"></v-list-item>
+                        <v-list-item :title="user.personal_information.civil_status" :subtitle="'gender'" prepend-icon="mdi-heart"></v-list-item>
+                    </v-list>
+                </v-col>
+                <v-col class="pa-0">
+                    <v-list lines="two">
+                        <v-list-item :title="new Date(user.personal_information.birthday).toDateString()" subtitle="Birthday" prepend-icon="mdi-cake"></v-list-item>
+                        <v-list-item :title="user.personal_information.age" subtitle="Birthday" prepend-icon="mdi-calendar"></v-list-item>
+                        <v-list-item :title="user.personal_information.nationality" subtitle="Birthday" prepend-icon="mdi-flag"></v-list-item>
+                    </v-list>
+                </v-col>
+            </v-row>
+        </v-container>
+    </div>
 </template>
 
 <script setup>

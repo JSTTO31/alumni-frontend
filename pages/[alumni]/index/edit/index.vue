@@ -37,8 +37,8 @@
             </v-list>
             <v-list class=" d-flex flex-column text-black">
                 <h4 class="font-weight-medium mb-2">Informations</h4>
-                <v-list-item :to="{name: 'alumni-information-edit-personal'}" class="mb-1 text-black rounded">Edit Personal Informations</v-list-item>
-                <v-list-item :to="{name: 'alumni-information-edit-contact'}" class="mb-1 text-black rounded">Edit Contact Informations</v-list-item>
+                <v-list-item :to="{name: 'alumni-index-edit-personal'}" class="mb-1 text-black rounded">Edit Personal Informations</v-list-item>
+                <v-list-item :to="{name: 'alumni-index-edit-contact'}" class="mb-1 text-black rounded">Edit Contact Informations</v-list-item>
             </v-list>
         </v-card-text>
     </v-card>

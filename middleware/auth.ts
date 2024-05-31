@@ -8,6 +8,6 @@ export default defineNuxtRouteMiddleware((to, from) => {
     }
     
     if(!isLogin){
-        return navigateTo({name: 'welcome'}, {replace: true})
+        return navigateTo({name: 'auth-login'}, {replace: true})
     }
 })
