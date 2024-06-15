@@ -1,4 +1,4 @@
-import type { UserProfile } from "../useProfileStore";
+import type { UserProfile, Work } from "../useProfileStore";
 
 export default (user: Ref<UserProfile | null>) => {
     
@@ -20,7 +20,10 @@ export default (user: Ref<UserProfile | null>) => {
             body: {...informations},
             onResponse(event){
                 if(!user.value || !event.response.ok) return event
-                user.value.work = event.response._data
+                if(event.response._data.current){
+                    user.value.work = event.response._data
+                }
+                user.value.works.push(event.response._data)
             }
         })
     }
@@ -41,6 +44,10 @@ export default (user: Ref<UserProfile | null>) => {
             method: 'DELETE',
             onResponse(event){
                 if(!user.value || !event.response.ok) return event
+                if(user.value.work && user.value.work.id == work_id){
+                    //@ts-ignore
+                    user.value.work = null
+                }
                 user.value.works = user.value.works.filter(item => item.id != work_id)
             }
         })

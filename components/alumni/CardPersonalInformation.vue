@@ -1,9 +1,9 @@
 <template>
-    <div class="pa-5 pt-3 rounded-lg" flat>
+    <div class="pt-3 rounded-lg" flat>
         <h4 class="font-weight-medium d-flex py-0 align-center">
             Personal Information
             <v-spacer></v-spacer>
-            <v-btn icon="mdi-pencil" class="" flat @click="$router.push({name: 'alumni-index-edit-personal'})" v-if="user.personal_information && user.id == auth.id"></v-btn>
+            <v-btn icon="mdi-pencil" class="" flat @click="$router.push({name: 'alumni-alumni-index-edit-personal'})" v-if="user.personal_information && user.id == auth.id"></v-btn>
         </h4>
         <v-container fluid class="pa-2">
             <v-row>
@@ -18,7 +18,7 @@
                     <v-list lines="two">
                         <v-list-item :title="new Date(user.personal_information.birthday).toDateString()" subtitle="Birthday" prepend-icon="mdi-cake"></v-list-item>
                         <v-list-item :title="user.personal_information.age" subtitle="Birthday" prepend-icon="mdi-calendar"></v-list-item>
-                        <v-list-item :title="user.personal_information.nationality" subtitle="Birthday" prepend-icon="mdi-flag"></v-list-item>
+                        <v-list-item :title="user.personal_information.nationality" subtitle="Nationality" prepend-icon="mdi-flag"></v-list-item>
                     </v-list>
                 </v-col>
             </v-row>

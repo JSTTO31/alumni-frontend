@@ -1,4 +1,5 @@
 <script setup>
+import {useDisplay} from 'vuetify'
 import useConversationObjects from "~/composables/useConversationObjects";
 import useNotificaionObject from "../composables/useNotificationObjects";
 import { useChatStore } from "~/stores/useChatStore";
@@ -10,23 +11,27 @@ const { user } = storeToRefs(useAuthStore());
 const isSelected = computed(() => (person) =>
   selected.value.some((item) => item.participants[1] == person)
 );
+const {name} = useDisplay()
 </script>
 <template>
-  <v-app style="background: #f8f6f4">
+  <!-- <v-app style="background: #f8f6f4"> -->
     <v-app-bar
       flat
       class="border-b d-flex"
       color="primaryVariant"
-      style="padding-inline: 200px"
+      :style="{paddingInline: name == 'xl' ? '370px' : '200px'}"
       density="compact"
     >
-      <h2
+      <h3
         @click="useRouter().push({ name: 'index' })"
         style="cursor: pointer"
         class="text-primary d-flex align-center"
       >
-        <span class="text-white">Arellano.</span>
-      </h2>
+        <v-avatar size="35" class="rounded-0 mr-3">
+          <v-img src="/logo/chief-white.png"></v-img>
+        </v-avatar>
+        <span class="text-white">Alumni.</span>
+      </h3>
       <v-text-field
         style="transform: scale(0.8)"
         prepend-inner-icon="mdi-magnify"
@@ -44,11 +49,11 @@ const isSelected = computed(() => (person) =>
           <v-icon size="25">mdi-home</v-icon>
           Home
         </v-tab>
-        <v-tab size="x-small" class="text-capitalize" :to="{ name: 'index-job' }">
+        <v-tab size="x-small" class="text-capitalize" :to="{ name: 'job' }">
           <v-icon size="25">mdi-briefcase</v-icon>
           Jobs
         </v-tab>
-        <v-tab size="x-small" class="text-capitalize" :to="{ name: 'index-network' }">
+        <v-tab size="x-small" class="text-capitalize" :to="{ name: 'network' }">
           <v-icon size="25">mdi-account-multiple</v-icon>
           People
         </v-tab>
@@ -77,6 +82,8 @@ const isSelected = computed(() => (person) =>
         class="text-capitalize mx-4"
         prepend-icon="mdi-chevron-down"
         variant="flat"
+        rounded
+        
         color="red"
         >New post</v-btn
       >
@@ -108,7 +115,7 @@ const isSelected = computed(() => (person) =>
         </v-card>
       </v-menu>
     </v-app-bar>
-    <v-main style="padding-inline: 200px">
+    <v-main :style="{paddingInline: name == 'xl' ? '370px' : '200px'}" class="bg-grey-lighten-5">
       <slot></slot>
     </v-main>
     <div id="conversations-container" class="d-flex align-end" style="gap: 8px">
@@ -119,7 +126,7 @@ const isSelected = computed(() => (person) =>
       ></conversation-card>
     </div>
     <notification-container></notification-container>
-  </v-app>
+  <!-- </v-app> -->
 </template>
 
 <style scoped>

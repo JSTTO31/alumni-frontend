@@ -3,11 +3,11 @@
         <v-card-title class="font-weight-medium d-flex py-0 align-center">
             Education
             <v-spacer></v-spacer>
-            <v-btn icon="mdi-plus" flat v-if="user.educations.length > 0" @click="$router.push({name: 'alumni-index-add-educations'})"></v-btn>
+            <v-btn icon="mdi-plus" flat v-if="user.educations.length > 0" @click="$router.push({name: 'alumni-alumni-index-add-educations'})"></v-btn>
         </v-card-title>
         <v-card-text>
             <div class="d-flex align-center justify-center mt-15" v-if="user.educations.length < 1">
-                <v-btn class="" variant="flat" color="grey-lighten-4" @click="$router.push({name: 'alumni-index-add-educations'})" prepend-icon="mdi-plus">Add your education</v-btn>
+                <v-btn class="" variant="flat" color="grey-lighten-4" @click="$router.push({name: 'alumni-alumni-index-add-educations'})" prepend-icon="mdi-plus">Add your education</v-btn>
             </div>
             <AlumniEducationListItem class="py-2" :class="index == user.educations.length - 1 ? '' : 'border-b-md'" v-for="education, index in user.educations.slice(0,2)" :key="education.id" :education="education"></AlumniEducationListItem>
         </v-card-text>

@@ -7,10 +7,11 @@
                     <v-container class="d-flex pb-0">
                         <div class="align-self-start pl-2 mr-3" style="position: relative;margin-top: -120px">
                             <AlumniProfileAvatar></AlumniProfileAvatar>
+                            <v-icon v-if="!!user.verified_at" style="position: absolute;bottom: 6%;right:6%" color="blue-darken-2" size="30" class="bg-white rounded-circle">mdi-check-decagram</v-icon>
                         </div>
                         <div class="py-5 px-0 pt-0 w-100" flat>
                             <h1 class="font-weight-medium align-center text-capitalize  d-flex">
-                                {{ user.name }} <v-chip class="ml-2 rounded-lg" prepend-icon="mdi-check-decagram">Verify your account</v-chip>
+                                {{ user.name }} 
                                 <v-spacer></v-spacer>
                                 <v-icon v-if="user.contact_information && !!user.contact_information.facebook" @click="gotoWebsite(user.contact_information.facebook)" size="35" color="blue-darken-2" class="mr-2">mdi-facebook</v-icon>
                                 <v-icon v-if="user.contact_information && !!user.contact_information.twitter" @click="gotoWebsite(user.contact_information.twitter)" size="35" color="blue-lighten-2" class="mr-2">mdi-twitter</v-icon>
@@ -20,7 +21,7 @@
                                 Bachelor of Science in Computer Science
                             </h5>
                             <h5 class="mb-1  font-weight-regular">
-                                Live at <b @click="showLocation=true" class="location-btn">{{ user.contact_information.city }}</b> | <NuxtLink :to="{name: 'alumni-index-informations'}" class="profile-action-text text-primary">More info</NuxtLink>
+                                Live at <b @click="showLocation=true" class="location-btn">{{ user.contact_information.city }}</b> | <NuxtLink :to="{name: 'alumni-alumni-index-informations'}" class="profile-action-text text-primary font-weight-bold">More info</NuxtLink>
                             </h5>
                             <alumni-location-dialog v-model:show="showLocation"></alumni-location-dialog>
                             <div>
@@ -63,23 +64,24 @@
                                 </v-menu>
                             </div>
                             <div class="my-4" v-else>
-                                <v-btn class="text-capitalize" color="primary" prepend-icon="mdi-pencil" @click="$router.push({name: 'alumni-index-edit'})">Edit Profile</v-btn>
-                                <!-- <v-btn class="text-capitalize ml-2" color="primary" variant="text" prepend-icon="mdi-information-outline" >More Info</v-btn> -->
+                                <v-btn class="text-capitalize" color="primary" prepend-icon="mdi-pencil" @click="$router.push({name: 'alumni-alumni-index-edit'})">Edit Profile</v-btn>
+                                <v-btn class="text-capitalize ml-2" color="error" variant="tonal" prepend-icon="mdi-alert-decagram" @click="$router.push({name: 'alumni-alumni-index-verification'})">Verify your account</v-btn>
+                                <!-- <v-chip class="ml-2 rounded-lg" prepend-icon="mdi-check-decagram">Verify your account</v-chip> -->
                             </div>
                         </div>
                     </v-container>
                     <div class="d-flex border-t">
                         <v-tabs color="primary" align-tabs="center">
                             <v-tab rounded class="text-capitalize"
-                                :to="{ name: 'alumni', params: { alumni: route.params.alumni } }">Home</v-tab>
+                                :to="{ name: 'alumni-alumni', params: { alumni: route.params.alumni } }">Home</v-tab>
                             <v-tab rounded class="text-capitalize"
-                                :to="{ name: 'alumni-activities', params: { alumni: route.params.alumni } }">Activities</v-tab>
+                                :to="{ name: 'alumni-alumni-activities', params: { alumni: route.params.alumni } }">Activities</v-tab>
                             <v-tab rounded class="text-capitalize"
-                                :to="{ name: 'alumni-connections', params: { alumni: route.params.alumni } }">Connections</v-tab>
+                                :to="{ name: 'alumni-alumni-connections', params: { alumni: route.params.alumni } }">Connections</v-tab>
                             <v-tab rounded class="text-capitalize"
-                                :to="{ name: 'alumni-connections', params: { alumni: route.params.alumni } }">Viewer</v-tab>
+                                :to="{ name: 'alumni-alumni-connections', params: { alumni: route.params.alumni } }">Viewer</v-tab>
                             <v-tab rounded class="text-capitalize"
-                                :to="{ name: 'alumni-connections', params: { alumni: route.params.alumni } }">Batchmates</v-tab>
+                                :to="{ name: 'alumni-alumni-connections', params: { alumni: route.params.alumni } }">Batchmates</v-tab>
                         </v-tabs>
                     </div>
                 </v-card>
@@ -97,7 +99,6 @@ const $profile = useProfileStore()
 const loading = ref(false)
 const showLocation = ref(false)
 const showQuickEdit = ref(false)
-
 
 const gotoWebsite = (link) => {
     window.open(link, "_blank")

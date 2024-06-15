@@ -1,9 +1,9 @@
 
 
 export default defineNuxtRouteMiddleware((to, from) => {
-    const $auth = useAuthStore()
+    const {isLogin} = storeToRefs(useAuthStore())
 
-    if($auth.isLogin){
+    if(isLogin.value){
         return navigateTo({name: 'index'}, {replace: true})
     }
 })

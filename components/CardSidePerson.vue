@@ -10,7 +10,8 @@
         <v-hover v-slot="{props, isHovering}">
             <div v-bind="props" :style="isHovering ? 'text-decoration: underline;cursor: pointer' : ''" @click="$router.push({name: 'alumni', params: {alumni: viewer.email}})">
                 <v-list-item-title  >{{ viewer.name }}</v-list-item-title>
-                <v-list-item-subtitle style="font-size: 10px;">{{ viewer.alumni_information.department.name }}</v-list-item-subtitle>
+                <!-- <v-list-item-subtitle style="font-size: 10px;">{{ viewer.alumni_information.department.name }} </v-list-item-subtitle> -->
+                <v-list-item-subtitle style="font-size: 10px;"> Bachelor of Science in Computer Science </v-list-item-subtitle>
             </div>
         </v-hover>
         <div>

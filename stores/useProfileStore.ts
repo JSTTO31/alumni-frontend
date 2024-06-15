@@ -33,7 +33,8 @@ export type UserProfile = {
     picture: string,
     cover: string,
     profile_picture?: ProfilePicture,
-    profile_cover?: ProfileCover
+    profile_cover?: ProfileCover,
+    verified_at: string
 }
 
 export type ProfilePicture = {

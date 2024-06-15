@@ -12,8 +12,8 @@ export type User = {
     cover?: string
     profile_picture: ProfilePicture
     profile_cover: ProfileCover,
-    personal_information: PersonalInformation,
-    contact_information: ContactInformation,
+    verified_at: string,
+    email_verified_at: string,
 }
 
 type Credential = {
@@ -50,10 +50,9 @@ export const useAuthStore = defineStore('auth', () => {
     const isLogin = computed(() => !!user.value)
 
     async function fetchUser(){
-        const { data } = await useApiFetch("/api/user");
+        const { data, error } = await useApiFetch("/api/user");
         if(data.value){
             user.value = data.value as User
-            user.value.cover = "cover.jpg"
         }
     }
 
@@ -64,6 +63,11 @@ export const useAuthStore = defineStore('auth', () => {
             body: credentials,
             method: "POST",
             immediate: false,
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'X-XSRF-TOKEN': useCookie('XSRF-TOKEN')
+            }
         });
 
         return login
@@ -76,7 +80,6 @@ export const useAuthStore = defineStore('auth', () => {
         const response = await useApiFetch('/register', {
             method: 'POST',
             body: info,
-            immediate: false
         })
 
         
@@ -92,5 +95,20 @@ export const useAuthStore = defineStore('auth', () => {
         window.location.reload();
     }
 
-    return {login, fetchUser, logout, register, isLogin, user, }
+    async function sendEmailVerification(){
+        return await useApiFetch('/api/email/verification/send', {
+            method:'post',
+        })
+    }
+
+    async function verifyEmail(codes: string){
+        return await useApiFetch('/api/email/verification/verify', {
+            method: 'post',
+            body: {
+                codes,
+            }
+        })
+    }
+
+    return {login, fetchUser, logout, register, sendEmailVerification, verifyEmail, isLogin, user, }
 })

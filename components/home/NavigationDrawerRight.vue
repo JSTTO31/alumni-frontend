@@ -1,38 +1,43 @@
 <template>
     <div v-if="user" class="d-flex flex-column" style="position: sticky;top: 7.5%;">
-        <v-card flat class="rounded-lg align-center pa-2 mb-1 d-flex" variant="text" 
-            @click="$router.push({ name: 'alumni', params: { alumni: user.email } })">
-            <avatar :user="user" size="44" class="bg-white border mr-3">
+        <v-card flat class="rounded-lg align-center pa-2 py-0 mb-1 d-flex" variant="text" 
+            @click="$router.push({ name: 'alumni-alumni', params: { alumni: user.email } })">
+            <avatar :user="user" size="44" class="bg-white border">
             </avatar>
-            <div class=" d-flex h-100 ml-2 flex-column">
-                <h5>
-                    {{ user.name }}
+            <v-list class="px-0">
+                <v-list-item class="text-subtitle-2 font-weight-bold">
+                    <v-list-item-title class="font-weight-bold">{{ user.name }}</v-list-item-title>
+                    <v-list-item-subtitle class="font-weight-bold">View Profile</v-list-item-subtitle>
+                </v-list-item>
+            </v-list>
+            <!-- <v-card-tit class=" d-flex h-100 ml-2 flex-column">
+                <h5 class="text-no-wrap">
                 </h5>
                 <h6>
                     View Profile
                 </h6>
-            </div>
+            </v-card-tit> -->
         </v-card>
-        <v-list class="bg-transparent mb-5 pa-0">
-            <v-list-item variant="text" style="font-family: 'Roboto, sans-serif'" @click="" color="primary" class="text-subtitle-2 rounded-lg mb-2 font-weight-bold " prepend-icon="mdi-post-outline">
+        <v-list class="bg-transparent mb-5 mt-2 pa-0">
+            <v-list-item variant="text" @click="" color="primary" class="text-subtitle-2 font-weight-bold rounded-lg mb-2 " prepend-icon="mdi-post-outline">
                 Feeds
             </v-list-item>
-            <v-list-item variant="text" style="font-family: 'Roboto, sans-serif'" @click="" class="text-subtitle-2 font-weight-bold rounded-lg mb-2" prepend-icon="mdi-history">
+            <v-list-item variant="text" @click="" class="text-subtitle-2 font-weight-bold rounded-lg mb-2" prepend-icon="mdi-history">
                 Recents
             </v-list-item>
-            <v-list-item variant="text" style="font-family: 'Roboto, sans-serif'" @click="" class="text-subtitle-2 font-weight-bold rounded-lg mb-2" prepend-icon="mdi-school">
+            <v-list-item variant="text" @click="" class="text-subtitle-2 font-weight-bold rounded-lg mb-2" prepend-icon="mdi-school">
                 Batchmates
             </v-list-item>
-            <v-list-item variant="text" style="font-family: 'Roboto, sans-serif'" @click="" class="text-subtitle-2 font-weight-bold rounded-lg mb-2" prepend-icon="mdi-bookmark">
+            <v-list-item variant="text" @click="" class="text-subtitle-2 font-weight-bold rounded-lg mb-2" prepend-icon="mdi-bookmark">
                 Saved
             </v-list-item>
-            <v-list-item variant="text" style="font-family: 'Roboto, sans-serif'" @click="" class="text-subtitle-2 font-weight-bold rounded-lg mb-2" prepend-icon="mdi-chat">
+            <v-list-item variant="text" @click="" class="text-subtitle-2 font-weight-bold rounded-lg mb-2" prepend-icon="mdi-chat">
                 Messages
             </v-list-item>
-            <v-list-item variant="text" style="font-family: 'Roboto, sans-serif'" @click="" class="text-subtitle-2 font-weight-bold rounded-lg mb-2" prepend-icon="mdi-bell">
+            <v-list-item variant="text" @click="" class="text-subtitle-2 font-weight-bold rounded-lg mb-2" prepend-icon="mdi-bell">
                 Notifications
             </v-list-item>
-            <v-list-item variant="text" style="font-family: 'Roboto, sans-serif'" @click="" class="text-subtitle-2 font-weight-bold rounded-lg mb-2" prepend-icon="mdi-domain">
+            <v-list-item variant="text" @click="" class="text-subtitle-2 font-weight-bold rounded-lg mb-2" prepend-icon="mdi-domain">
                 Department
             </v-list-item>
         </v-list>

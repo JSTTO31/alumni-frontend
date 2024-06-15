@@ -2,7 +2,10 @@ import type { UseFetchOptions } from "nuxt/app";
 
 
 export function useApiFetch <T>(path: string, options: UseFetchOptions<T> = {}){
-    let headers: any = {}
+    let headers: any = {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+    }
     const token = useCookie('XSRF-TOKEN')
     const $notification = useNotificationStore()
 
@@ -22,8 +25,12 @@ export function useApiFetch <T>(path: string, options: UseFetchOptions<T> = {}){
             ...options?.headers
         },
         ...options,
+        onRequestError(event){
+            // console.error(event);
+            return event;
+        },
         onResponseError(event){
-
+            
             if(event.response.status == 401){
                 $notification.addNotification({
                     "id": 6,
@@ -40,6 +47,26 @@ export function useApiFetch <T>(path: string, options: UseFetchOptions<T> = {}){
                     "type": "error"
                 })
             }
+
+            if(event.response.status == 429){
+                $notification.addNotification({
+                    "title": "Too Many Request",
+                    "message": " You have made too many requests in a short period of time. To ensure fair usage and server stability, please wait a while before trying again. We appreciate your understanding and patience.",
+                    "type": "error"
+                })
+            }
+
+            if(event.response.status == 429){
+                $notification.addNotification({
+                    "title": "Too Many Request",
+                    "message": " You have made too many requests in a short period of time. To ensure fair usage and server stability, please wait a while before trying again. We appreciate your understanding and patience.",
+                    "type": "error"
+                })
+            }
+
+
+
+           
 
 
             return event

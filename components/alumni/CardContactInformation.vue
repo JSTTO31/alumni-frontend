@@ -1,5 +1,5 @@
 <template>
-    <div class="pa-5 pt-0 rounded-lg mb-5" flat v-if="user">
+    <div class=" rounded-lg mb-5" flat v-if="user">
         <h4 class="font-weight-medium d-flex pa-0 align-center">
             Contact Information
             <v-spacer></v-spacer>

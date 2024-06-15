@@ -1,7 +1,6 @@
 <script setup>
 import { useAuthStore } from "~/stores/useAuthStore";
 import { reactive, ref } from "vue";
-
 definePageMeta({
   middleware: ["guest"],
   pageTransition: {
@@ -42,13 +41,13 @@ const loginHandler = async () => {
   <v-container class="h-100 pa-0" fluid
     style="background: url('/login-background.png') no-repeat;background-size: contain;background-position: right;">
     <v-row class="h-100 ma-0">
-      <v-col class="d-flex align-center pr-15 justify-center h-100" cols="6">
-        <v-card class="pa-5 rounded-lg w-75 pb-15" flat :disabled="loading">
+      <v-col class="d-flex align-center justify-center h-100" cols="6">
+        <v-card class="ml-n10 rounded-lg w-75 pb-xl-15" flat :disabled="loading">
           <div class="pb-10">
-            <h1 style="font-size: 30px" class="text-center">Welcome Back to Your Arellano University Alumni Career Network!</h1>
-            <p style="font-size: 20px" class="text-center">Reconnect with fellow alumni, find new opportunities, and grow professionally. Sign in now!</p>
+            <h1 class="text-center">Welcome Back to Your Arellano University Alumni Career Network!</h1>
+            <p style="font-size: 18px" class="text-center mt-2">Reconnect with fellow alumni, find new opportunities, and grow professionally. Sign in now!</p>
           </div>
-          <v-form @submit.prevent="loginHandler">
+          <v-form @submit.prevent="loginHandler" class="px-5">
             <label class="font-weight-medium text-grey-darken-2" for="email">Email Address</label>
             <v-text-field v-model="credentials.email" :error-messages="errors?.email" type="email" single-line
               class="mt-2" id="email" label="joshua@arellanites.edu" variant="outlined" color="#1F6E8C"></v-text-field>
@@ -60,11 +59,9 @@ const loginHandler = async () => {
                 :loading="loading">Log in</v-btn>
             </v-card-actions>
             <v-divider class="my-4"></v-divider>
-            <h5 class="text-center mb-2">Don't have an account?</h5>
-            <v-card-actions class="px-0 d-flex flex-column">
-              <v-btn @click="$router.push({ name: 'auth-register' })" class="text-capitalize" variant="outlined"
-                color="#1F6E8C" size="large" block>Sign up</v-btn>
-            </v-card-actions>
+            <p class="text-center" style="padding-inline: 150px;">
+              If you don't have an account, please <NuxtLink :to="{name: 'auth-register'}" class="text-decoration-none font-weight-bold text-blue-darken-3">sign up</NuxtLink>.
+            </p>
           </v-form>
         </v-card>
       </v-col>
@@ -75,7 +72,6 @@ const loginHandler = async () => {
           </v-avatar>
           <h1 class="text-white ml-5">Alumni.</h1>
         </div>
-
       </v-col>
     </v-row>
   </v-container>

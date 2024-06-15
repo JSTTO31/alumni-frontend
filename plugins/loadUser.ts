@@ -1,10 +1,11 @@
 import { useAuthStore } from "~/stores/useAuthStore"
 
 
-export default defineNuxtPlugin(async (nuxtApp) => {
-    const $auth = useAuthStore()
-    const {isLogin}= storeToRefs(useAuthStore())
-    if(!isLogin.value){
+export default defineNuxtPlugin({
+    name: 'load-user',
+    enforce: 'post',
+    async setup(NuxtApp){
+        const $auth = useAuthStore()
         await $auth.fetchUser()
     }
 })

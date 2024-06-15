@@ -1,13 +1,13 @@
 <template>
-    <v-card class="border h-75 pa-3 rounded-lg d-flex flex-column mt-5" flat v-if="user && !loading">
+    <v-card class="border h-75 pa-3 rounded-lg d-flex flex-column mt-5" flat v-if="user">
         <v-card-title class="font-weight-medium d-flex py-0 align-center">
             Certifications
             <v-spacer></v-spacer>
-            <v-btn icon="mdi-plus" flat  @click="$router.push({name: 'alumni-index-add-certifications'})"></v-btn>
+            <v-btn icon="mdi-plus" flat  @click="$router.push({name: 'alumni-alumni-index-add-certifications'})"></v-btn>
         </v-card-title>
         <v-card-text>
             <div class="d-flex align-center justify-center mt-15" v-if="user.certifications.length < 1" >
-                <v-btn class="" variant="flat" color="grey-lighten-4" @click="$router.push({name: 'alumni-index-add-certifications'})" prepend-icon="mdi-plus">Add your certification</v-btn>
+                <v-btn class="" variant="flat" color="grey-lighten-4" @click="$router.push({name: 'alumni-alumni-index-add-certifications'})" prepend-icon="mdi-plus">Add your certification</v-btn>
             </div>
             <v-alert v-for="certification in user.certifications.slice(0, 3)" :key="certification.id" icon="mdi-seal" @click="" variant="tonal" active color="primary" class="pa-5 mt-3 rounded-lg">
                 <div class="clickable-text font-weight-bold ">{{certification.name.length > 24 ? certification.name.substring(0, 24) + "..."  : certification.name }}</div>
@@ -23,7 +23,7 @@
 </template>
 
 <script setup lang="ts">
-const {user, loading} = storeToRefs(useProfileStore())
+const {user} = storeToRefs(useProfileStore())
 const showAll = ref(false)
 </script>
 

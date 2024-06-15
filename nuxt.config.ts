@@ -3,6 +3,13 @@ export default defineNuxtConfig({
   devtools: {
     enabled: false,
   },
+  nitro: {
+    routeRules:{
+      '/backend/**' : {
+        proxy: 'http://localhost:8000/**'
+      }, 
+    }
+  },
   ssr: true,
   modules: [
     '@pinia/nuxt',
@@ -58,9 +65,4 @@ export default defineNuxtConfig({
       ]
     },
   },
-  routeRules: {
-    '/' : {ssr: false},
-    '/auth/login' : {ssr: false},
-    '/auth/register' : {ssr: false},
-  }
 })

@@ -7,7 +7,7 @@
         icon="mdi-plus"
         flat
         v-if="user.work && auth.id == user.id"
-        @click="$router.push({ name: 'alumni-index-add-works' })"
+        @click="$router.push({ name: 'alumni-alumni-index-add-works' })"
       ></v-btn>
     </v-card-title>
     <v-card-text>
@@ -16,7 +16,8 @@
           class=""
           variant="flat"
           color="grey-lighten-4"
-          @click="$router.push({ name: 'alumni-index-add-works' })"
+          @click="$router.push({ name: 'alumni-alumni-index-add-works' })"
+          prependIcon="mdi-plus"
           >Add your work experience</v-btn
         >
       </div>

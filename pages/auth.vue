@@ -1,11 +1,9 @@
 <template>
-    <v-app>
-        <v-main>
-            <NuxtLoadingIndicator></NuxtLoadingIndicator>
-            <NuxtPage>
-            </NuxtPage>
-        </v-main>
-    </v-app>
+      <v-main>
+          <NuxtLoadingIndicator></NuxtLoadingIndicator>
+          <NuxtPage>
+          </NuxtPage>
+      </v-main>
 </template>
 
 <script setup lang="ts">
