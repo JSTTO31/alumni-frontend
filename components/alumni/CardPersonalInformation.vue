@@ -3,7 +3,7 @@
         <h4 class="font-weight-medium d-flex py-0 align-center">
             Personal Information
             <v-spacer></v-spacer>
-            <v-btn icon="mdi-pencil" class="" flat @click="$router.push({name: 'alumni-alumni-index-edit-personal'})" v-if="user.personal_information && user.id == auth.id"></v-btn>
+            <v-btn icon="mdi-pencil" class="" flat @click="$router.push({name: 'alumni-alumni-index-authorize-edit-personal'})" v-if="user.personal_information && user.id == auth.id"></v-btn>
         </h4>
         <v-container fluid class="pa-2">
             <v-row>

@@ -1,4 +1,5 @@
 import section from "./profile/section";
+import type { GeneralInformationType } from "./useAuthStore";
 import { useConnectionStore } from "./useConnectionStore";
 
 
@@ -34,7 +35,8 @@ export type UserProfile = {
     cover: string,
     profile_picture?: ProfilePicture,
     profile_cover?: ProfileCover,
-    verified_at: string
+    verified_at: string,
+    general_information: GeneralInformationType
 }
 
 export type ProfilePicture = {
@@ -178,7 +180,7 @@ export const useProfileStore = defineStore('profile', () => {
     const information = ref([])
     const {user: userAuth} = storeToRefs(useAuthStore())
 
-    const authorize = computed(() => user.value && user.value.id == (userAuth.value?.id || -1))
+    // const authorize = computed(() => user.value && user.value.id == (userAuth.value?.id || -1))
 
     async function getProfile(email: string){
         return await useApiLazyFetch(`/api/user/${email}/profiles`, {
@@ -298,20 +300,20 @@ export const useProfileStore = defineStore('profile', () => {
 
     async function changeProfile(informations: any){
         const formData = new FormData();
-        formData.append('styles', JSON.stringify(informations.styles))
-        formData.append('selected_frame', informations.selected_frame)
         formData.append('image', informations.image)
 
         return await useApiFetch("/api/pictures", {
             method: 'POST',
-            body: formData,
+            body: {...formData, styles: JSON.stringify(informations.styles), selected_frame: informations.selected_frame},
             onResponse(event){
                 if(!user.value || !event.response.ok) return event
                 user.value.picture = event.response._data.picture
                 user.value.profile_picture = event.response._data.profile_picture
-                if(userAuth.value && userAuth.value.id == user.value.id){
-                    userAuth.value.picture = event.response._data.picture
-                    userAuth.value.profile_picture = event.response._data.profile_picture
+                const {user: auth} = storeToRefs(useAuthStore())
+                
+                if(auth.value?.id == user.value.id){
+                    auth.value.picture = event.response._data.picture
+                    auth.value.profile_picture = event.response._data.profile_picture
                 }
             }
         })
@@ -319,19 +321,20 @@ export const useProfileStore = defineStore('profile', () => {
 
     async function changeCover(informations: any){
         const formData = new FormData();
-        formData.append('styles', JSON.stringify(informations.styles))
         formData.append('image', informations.image)
 
         return await useApiFetch("/api/covers", {
             method: 'POST',
-            body: formData,
+            body: {...formData, styles: JSON.stringify(informations.styles)},
             onResponse(event){
                 if(!user.value || !event.response.ok) return event
                 user.value.cover = event.response._data.cover
                 user.value.profile_cover = event.response._data.profile_cover
-                if(userAuth.value && userAuth.value.id == user.value.id){
-                    userAuth.value.cover = event.response._data.cover
-                    userAuth.value.profile_cover = event.response._data.profile_cover
+                const {user: auth} = storeToRefs(useAuthStore())
+                
+                if(auth.value && auth.value.id == user.value.id){
+                    auth.value.cover = event.response._data.cover
+                    auth.value.profile_cover = event.response._data.profile_cover
                 }
             }
         })
@@ -340,6 +343,6 @@ export const useProfileStore = defineStore('profile', () => {
 
 
     return {
-        user, information, getProfile, add_information, toggleFollow, requestConnection, cancelRequestConnection,disconnect, confirm, addPersonalInformation, authorize, editPersonalInformation, addContactInformation, editContactInformation, ...section(user), changeProfile, changeCover
+        user, information, getProfile, add_information, toggleFollow, requestConnection, cancelRequestConnection,disconnect, confirm, addPersonalInformation, editPersonalInformation, addContactInformation, editContactInformation, ...section(user), changeProfile, changeCover
     }
 })

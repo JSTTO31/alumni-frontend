@@ -9,7 +9,7 @@
           color="grey-darken-1"
           variant="text"
           flat
-          @click="$router.push({ name: 'alumni-alumni-index-add-skills' })"
+          @click="$router.push({ name: 'alumni-alumni-index-authorize-add-skills' })"
         ></v-btn>
       </div>
     </v-card-title>
@@ -20,9 +20,11 @@
           variant="flat"
           color="grey-lighten-4"
           prepend-icon="mdi-plus"
-          @click="$router.push({ name: 'alumni-alumni-index-add-skills' })"
+          @click="$router.push({ name: 'alumni-alumni-index-authorize-add-skills' })"
+          v-if="auth.id == user.id"
           >Add your skills</v-btn
         >
+        <p class="text-center pt-5" v-else>No Available</p>
       </div>
       <div v-else>
         <div
@@ -44,7 +46,7 @@
               variant="text"
               flat
               @click="
-                router.push({ name: 'alumni-alumni-index-edit-skills', query: { id: skill.id } })
+                router.push({ name: 'alumni-alumni-index-authorize-edit-skills', query: { id: skill.id } })
               "
             ></v-btn>
             <v-chip v-else class="rounded" size="small" color="primary">{{

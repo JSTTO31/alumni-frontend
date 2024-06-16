@@ -13,7 +13,7 @@
                         <span><v-icon>mdi-calendar</v-icon> {{ new Date(education.graduated_at).toDateString().substring(4) }}</span>
                     </div>
                 </div>
-                <v-btn style="position: absolute;right: 0" icon="mdi-pencil" flat v-if="user && user.id == education.user_id" @click="$router.push({name: 'alumni-alumni-index-edit-educations', query: {id: education.id}})"></v-btn>
+                <v-btn style="position: absolute;right: 0" icon="mdi-pencil" flat v-if="auth && user && user.id == auth.id" @click="$router.push({name: 'alumni-alumni-index-authorize-edit-educations', query: {id: education.id}})"></v-btn>
             </v-card-title>
         </v-card>
     </div>
@@ -21,7 +21,8 @@
 
 <script setup lang="ts">
 import type { Education } from '~/stores/useProfileStore';
-const {user} = storeToRefs(useAuthStore())
+const {user:auth} = storeToRefs(useAuthStore())
+const {user} = storeToRefs(useProfileStore())
 const props = defineProps<{education: Education}>();
 const show = ref(false)
 

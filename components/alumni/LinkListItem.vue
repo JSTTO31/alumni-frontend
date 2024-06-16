@@ -7,9 +7,9 @@
             <div class="bg-grey pa-2">
                 {{ link.title }}
             </div>
-            <v-overlay contained class="d-flex align-center justify-center" :model-value="isHovering">
+            <v-overlay contained class="d-flex align-center justify-center" :model-value="!!isHovering">
                 <div class="d-flex" style="gap: 5px">
-                    <v-btn class="text-white" variant="outlined" @click.stop="$router.push({name: 'alumni-index-edit-links', query: {id: link.id}})" rounded>Edit</v-btn>
+                    <v-btn class="text-white" variant="outlined" @click.stop="$router.push({name: 'alumni-alumni-index-authorize-edit-links', query: {id: link.id}})" v-if="user?.id == auth?.id" rounded>Edit</v-btn>
                     <v-btn class="text-white" variant="outlined" @click.stop="gotoLink" rounded>View</v-btn>
                 </div>
             </v-overlay>
@@ -19,7 +19,8 @@
 
 <script setup lang="ts">
 const props = defineProps(['link'])
-
+const {user:auth} = storeToRefs(useAuthStore())
+const {user} = storeToRefs(useProfileStore())
 function gotoLink(){
     window.open(props.link.location, "_blank")
 }

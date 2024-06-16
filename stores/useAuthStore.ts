@@ -1,5 +1,5 @@
 import { useApiFetch } from "~/composables/useApiFetch";
-import type { ContactInformation, Image, PersonalInformation, ProfileCover, ProfilePicture } from "./useProfileStore";
+import type {ProfileCover, ProfilePicture } from "./useProfileStore";
 
 export type User = {
     id: number;
@@ -14,6 +14,17 @@ export type User = {
     profile_cover: ProfileCover,
     verified_at: string,
     email_verified_at: string,
+    general_information?: GeneralInformationType,
+}
+
+export type GeneralInformationType = {
+    id: number,
+    'department': string,
+    'school_branches': string,
+    'student_number': string,
+    'graduation_year': string,
+    branch_name?: string,
+    department_name?: string,
 }
 
 type Credential = {
@@ -48,7 +59,7 @@ type AlumniInformation = {
 export const useAuthStore = defineStore('auth', () => {
     const user = ref<User | null>(null)
     const isLogin = computed(() => !!user.value)
-
+    const {user: userProfile} = storeToRefs(useProfileStore())
     async function fetchUser(){
         const { data, error } = await useApiFetch("/api/user");
         if(data.value){
@@ -98,17 +109,40 @@ export const useAuthStore = defineStore('auth', () => {
     async function sendEmailVerification(){
         return await useApiFetch('/api/email/verification/send', {
             method:'post',
+            immediate: false
         })
     }
 
     async function verifyEmail(codes: string){
         return await useApiFetch('/api/email/verification/verify', {
             method: 'post',
+            immediate: false,
             body: {
                 codes,
+            },
+            onResponse(event){
+                if(!event.response.ok || !user.value) return;
+                user.value.email_verified_at = new Date().toString()
             }
         })
     }
 
-    return {login, fetchUser, logout, register, sendEmailVerification, verifyEmail, isLogin, user, }
+    async function submitGeneralInformation(informations: {student_number: string, department: string | null, school_branch: string | null, graduation_year: string}){
+        return await useApiFetch('/api/general-informations', {
+            method: 'POST',
+            immediate: false,
+            body: informations,
+            onResponse(event){
+                if(!event.response.ok || !user.value) return;
+                user.value.general_information = event.response._data
+                user.value.verified_at = new Date().toString()
+                if(userProfile.value && user.value.id == userProfile.value.id){
+                    userProfile.value.verified_at = new Date().toString()
+                    userProfile.value.general_information = event.response._data
+                }
+            }
+        })
+    }
+
+    return {login, fetchUser, logout, register, sendEmailVerification, verifyEmail, submitGeneralInformation, isLogin, user, }
 })

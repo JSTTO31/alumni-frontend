@@ -4,7 +4,7 @@
             Links 
             <v-spacer></v-spacer>
             <div v-if="user.skills.length > 0 && auth.id == user.id">
-                <v-btn  icon="mdi-plus" color="grey-darken-1" variant="text" flat @click="$router.push({name: 'alumni-alumni-index-add-links'})"></v-btn>
+                <v-btn  icon="mdi-plus" color="grey-darken-1" variant="text" flat @click="$router.push({name: 'alumni-alumni-index-authorize-add-links'})"></v-btn>
             </div>
         </v-card-title>
         <v-card-text>

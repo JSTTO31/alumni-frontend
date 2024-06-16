@@ -9,12 +9,12 @@
             <v-divider class="mx-6"></v-divider>
             <v-card-text>
                 <div class="d-flex align-center justify-center mt-15" v-if="user.certifications.length < 1">
-                    <v-btn class="" variant="flat" color="grey-lighten-4" @click="$router.push({name: 'alumni-index-add-certifications'})">Add your certification</v-btn>
+                    <v-btn class="" variant="flat" color="grey-lighten-4" @click="$router.push({name: 'alumni-alumni-index-authorize-add-certifications'})">Add your certification</v-btn>
                 </div>
                 <v-alert v-for="certification in user.certifications" :key="certification.id" icon="mdi-seal" @click="" variant="tonal" active color="primary" class="pa-5 mt-3 rounded-lg">
                     <div class="clickable-text font-weight-bold ">{{ certification.name }}</div>
                     <div class="clickable-text font-weight-medium text-subtitle-2">{{ certification.issuing_organization }}</div>
-                    <v-btn variant="text" style="position: absolute;right: 10px;top: 50%;transform: translateY(-50%);" icon="mdi-pencil" flat v-if="user && user.id == certification.user_id" @click="$router.push({name: 'alumni-index-edit-certifications', query: {id: certification.id}})"></v-btn>
+                    <v-btn variant="text" style="position: absolute;right: 10px;top: 50%;transform: translateY(-50%);" icon="mdi-pencil" flat v-if="user && user.id == certification.user_id" @click="$router.push({name: 'alumni-alumni-index-authorize-edit-certifications', query: {id: certification.id}})"></v-btn>
                 </v-alert>
             </v-card-text>
         </v-card>

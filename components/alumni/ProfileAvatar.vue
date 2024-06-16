@@ -11,9 +11,10 @@
           >View</v-list-item
         >
         <v-list-item
-          @click="$router.push({ name: 'alumni-index-edit-profile-picture' })"
+          @click="$router.push({ name: 'alumni-alumni-index-authorize-edit-profile-picture' })"
           density="compact"
           append-icon="mdi-pencil-outline"
+          v-if="user?.id == auth?.id"
           >Change</v-list-item
         >
       </v-list>
@@ -25,6 +26,7 @@
 </template>
 
 <script setup lang="ts">
+const {user: auth} = storeToRefs(useAuthStore())
 const { user } = storeToRefs(useProfileStore());
 const view = ref(false);
 </script>

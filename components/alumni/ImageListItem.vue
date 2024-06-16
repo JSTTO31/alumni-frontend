@@ -4,7 +4,7 @@
             <img :src="'http://localhost:8000/storage/' + image.location" class="w-100"  :alt="image.data.title">
             <v-overlay contained class="d-flex align-center justify-center" :model-value="!!isHovering">
                 <div class="d-flex" style="gap: 5px">
-                    <v-btn class="text-white" variant="outlined" @click.stop="$router.push({name: 'alumni-alumni-index-edit-images', query: {id: image.id}})" rounded>Edit</v-btn>
+                    <v-btn class="text-white" variant="outlined" @click.stop="$router.push({name: 'alumni-alumni-index-authorize-edit-images', query: {id: image.id}})" v-if="user?.id == auth?.id" rounded>Edit</v-btn>
                     <v-btn class="text-white" variant="outlined" @click.stop="$router.push({name: 'alumni-alumni-index-images', query: {id: image.id}})" rounded>View</v-btn>
                 </div>
             </v-overlay>
@@ -14,6 +14,8 @@
 
 <script setup lang="ts">
 const props = defineProps<{image: Image}>()
+const {user:auth} = storeToRefs(useAuthStore())
+const {user} = storeToRefs(useProfileStore())
 </script>
 
 <style scoped>

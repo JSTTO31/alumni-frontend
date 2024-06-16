@@ -10,7 +10,6 @@ export default defineNuxtConfig({
       }, 
     }
   },
-  ssr: true,
   modules: [
     '@pinia/nuxt',
     '@invictus.codes/nuxt-vuetify',

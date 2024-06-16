@@ -9,7 +9,7 @@
             <v-divider class="mx-6"></v-divider>
             <v-card-text>
                 <div class="d-flex align-center justify-center mt-15" v-if="user.works.length < 1">
-                    <v-btn class="" variant="flat" color="grey-lighten-4" @click="$router.push({name: 'alumni-index-add-works'})">Add your work experience</v-btn>
+                    <v-btn class="" variant="flat" color="grey-lighten-4" @click="$router.push({name: 'alumni-alumni-index-authorize-add-works'})">Add your work experience</v-btn>
                 </div>
                 <AlumniWorkListItem class="py-2" :class="index == sortedWorks.length - 1 ? '' : 'border-b-md'" v-for="work, index in sortedWorks" :key="work.id" :work="work"></AlumniWorkListItem>
             </v-card-text>

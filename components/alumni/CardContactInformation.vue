@@ -3,7 +3,7 @@
         <h4 class="font-weight-medium d-flex pa-0 align-center">
             Contact Information
             <v-spacer></v-spacer>
-            <v-btn icon="mdi-pencil" @click="$router.push({name: 'alumni-index-edit-contact'})" flat v-if="user.contact_information && user.id == auth.id"></v-btn>
+            <v-btn icon="mdi-pencil" @click="$router.push({name: 'alumni-index-authorize-edit-contact'})" flat v-if="user.contact_information && user.id == auth.id"></v-btn>
         </h4>
         <v-container fluid class="pa-2">
             <v-row>

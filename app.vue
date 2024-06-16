@@ -12,6 +12,7 @@ useHead({
 </script>
 <template>
   <v-app>
+    <NuxtLoadingIndicator></NuxtLoadingIndicator>
     <ClientOnly>
       <nuxt-page></nuxt-page>
       <template #fallback>
@@ -28,7 +29,7 @@ body {
   font-family: "Poppins", sans-serif;
 }
 
-/* 
+
 .page-slide-enter-active,
 .page-slide-leave-active {
   transition: all 0.4s;
@@ -37,5 +38,5 @@ body {
 .page-slide-leave-to {
   transform: translateX(-20%);
   opacity: 0;
-} */
+}
 </style>

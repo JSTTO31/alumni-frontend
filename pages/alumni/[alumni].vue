@@ -1,4 +1,5 @@
 <template>
+  <NuxtLoadingIndicator></NuxtLoadingIndicator>
   <nuxt-layout>
     <v-container class="pa-0 pt-5" fluid v-if="user && !pending">
         <v-row>
@@ -14,7 +15,7 @@
                         </h4>
                         <v-divider></v-divider>
                         <v-list class="bg-transparent">
-                            <CardSidePerson v-for="viewer in user.viewers" :viewer="viewer"></CardSidePerson>
+                            <AlumniCardSidePerson v-for="viewer in user.viewers" :person="viewer"></AlumniCardSidePerson>
                         </v-list>
                     </div>
                     <v-btn block flat class="text-capitalize font-weight-medium" color="transparent"
@@ -27,12 +28,13 @@
                         </h4>
                         <v-divider></v-divider>
                         <v-list class="bg-transparent">
-                            <v-card flat class="d-flex" color="transparent"
+                            <AlumniCardSidePerson  v-for="batchmate in user.batchmates" :person="batchmate"></AlumniCardSidePerson>
+                            <!-- <v-card flat class="d-flex" color="transparent"
                                 v-for="batchmate in user.batchmates">
                                 <v-col cols="3">
                                     <v-avatar size="45">
                                         <nuxt-img class="w-100 h-100"
-                                            :src="'https://source.unsplash.com/random/150x150&person&' + batchmate.id"></nuxt-img>
+                                            :src="batchmate.picture"></nuxt-img>
                                     </v-avatar>
                                 </v-col>
                                 <v-col cols="10">
@@ -41,9 +43,6 @@
                                             :style="isHovering ? 'text-decoration: underline;cursor: pointer' : ''"
                                             @click="$router.push('/alumni/' + batchmate.email)">
                                             <v-list-item-title>{{ batchmate.name }}</v-list-item-title>
-                                            <!-- <v-list-item-subtitle style="font-size: 10px;">{{
-                                                user.alumni_information.department.name
-                                                }}</v-list-item-subtitle> -->
                                             <v-list-item-subtitle style="font-size: 10px;">Bachelor of Science in Computer Science</v-list-item-subtitle>
                                         </div>
                                     </v-hover>
@@ -52,7 +51,7 @@
                                         @click="$router.push('/alumni/' + batchmate.email)">View
                                         Info</v-btn>
                                 </v-col>
-                            </v-card>
+                            </v-card> -->
                         </v-list>
                     </div>
                     <v-btn color="transparent" block flat class="text-capitalize font-weight-medium">View

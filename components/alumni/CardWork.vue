@@ -7,20 +7,21 @@
         icon="mdi-plus"
         flat
         v-if="user.work && auth.id == user.id"
-        @click="$router.push({ name: 'alumni-alumni-index-add-works' })"
+        @click="$router.push({ name: 'alumni-alumni-index-authorize-add-works' })"
       ></v-btn>
     </v-card-title>
     <v-card-text>
-      <div class="d-flex align-center justify-center mt-15" v-if="user.works.length < 1">
+      <div class="d-flex align-center justify-center mt-15" v-if="user.works.length < 1 && user.id == auth.id">
         <v-btn
           class=""
           variant="flat"
           color="grey-lighten-4"
-          @click="$router.push({ name: 'alumni-alumni-index-add-works' })"
+          @click="$router.push({ name: 'alumni-alumni-index-authorize-add-works' })"
           prependIcon="mdi-plus"
           >Add your work experience</v-btn
         >
       </div>
+      <p v-if="user.works.length < 1 && user.id != auth.id" class="text-center pt-15 mt-5">No Available</p>
       <AlumniWorkListItem
         class="py-2"
         :class="index == sortedWorks.length - 2 ? '' : 'border-b-md'"

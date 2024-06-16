@@ -23,7 +23,7 @@
             </v-card-text>
             <v-divider></v-divider>
             <v-card-actions class="px-4">
-                <v-btn class="text-capitalize px-6 text-error" prepend-icon="mdi-trash-can" variant="text" @click="$router.push({name: 'alumni-index-delete-links', query: {id: $route.query.id}})">Delete</v-btn>
+                <v-btn class="text-capitalize px-6 text-error" prepend-icon="mdi-trash-can" variant="text" @click="$router.push({name: 'alumni-alumni-index-authorize-delete-links', query: {id: $route.query.id}})">Delete</v-btn>
                 <v-spacer></v-spacer>
                 <v-btn type="submit" class="text-capitalize px-6" color="primary" variant="flat"
                     :loading="loading">Save</v-btn>

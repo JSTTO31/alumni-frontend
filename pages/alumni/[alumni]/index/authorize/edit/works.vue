@@ -150,7 +150,7 @@
           variant="text"
           @click="
             $router.push({
-              name: 'alumni-index-delete-works',
+              name: 'alumni-alumni-index-authorize-delete-works',
               query: { id: $route.query.id },
             })
           "

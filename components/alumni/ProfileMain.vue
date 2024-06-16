@@ -17,8 +17,8 @@
                                 <v-icon v-if="user.contact_information && !!user.contact_information.twitter" @click="gotoWebsite(user.contact_information.twitter)" size="35" color="blue-lighten-2" class="mr-2">mdi-twitter</v-icon>
                                 <v-icon v-if="user.contact_information && !!user.contact_information.linkedin" @click="gotoWebsite(user.contact_information.linkedin)" size="35" color="blue-darken-3" class="mr-2">mdi-linkedin</v-icon>
                             </h1>
-                            <h5 class="mb-1 font-weight-medium profile-action-text">
-                                Bachelor of Science in Computer Science
+                            <h5 class="mb-1 font-weight-medium profile-action-text" v-if="user.general_information">
+                                {{user.general_information.department_name}}
                             </h5>
                             <h5 class="mb-1  font-weight-regular">
                                 Live at <b @click="showLocation=true" class="location-btn">{{ user.contact_information.city }}</b> | <NuxtLink :to="{name: 'alumni-alumni-index-informations'}" class="profile-action-text text-primary font-weight-bold">More info</NuxtLink>
@@ -30,7 +30,7 @@
                                 <v-chip color="primary" prepend-icon="mdi-eye"
                                 v-if="user.viewers_count" variant="text" class="ml-3 rounded profile-action-text">Views {{ user.viewers_count }}</v-chip>
                             </div>
-                            <div class="my-5" v-if="!authorize">
+                            <div class="my-5" v-if="auth.id != user.id">
                                 <v-btn class="text-capitalize" color="primary" prepend-icon="mdi-account-check"
                                     :loading="loading" v-if="user.has_request_from"
                                     @click="$profile.confirm">Confirm</v-btn>
@@ -64,8 +64,8 @@
                                 </v-menu>
                             </div>
                             <div class="my-4" v-else>
-                                <v-btn class="text-capitalize" color="primary" prepend-icon="mdi-pencil" @click="$router.push({name: 'alumni-alumni-index-edit'})">Edit Profile</v-btn>
-                                <v-btn class="text-capitalize ml-2" color="error" variant="tonal" prepend-icon="mdi-alert-decagram" @click="$router.push({name: 'alumni-alumni-index-verification'})">Verify your account</v-btn>
+                                <v-btn class="text-capitalize" color="primary" prepend-icon="mdi-pencil" @click="$router.push({name: 'alumni-alumni-index-authorize-edit'})">Edit Profile</v-btn>
+                                <v-btn class="text-capitalize ml-2" color="error" variant="tonal" prepend-icon="mdi-alert-decagram" @click="$router.push({name: 'alumni-alumni-index-authorize-verification'})" v-if="!auth.verified_at">Verify your account</v-btn>
                                 <!-- <v-chip class="ml-2 rounded-lg" prepend-icon="mdi-check-decagram">Verify your account</v-chip> -->
                             </div>
                         </div>
@@ -93,7 +93,7 @@
 
 <script setup>
 const route = useRoute()
-const { user, authorize } = storeToRefs(useProfileStore())
+const { user, } = storeToRefs(useProfileStore())
 const { user: auth } = storeToRefs(useAuthStore())
 const $profile = useProfileStore()
 const loading = ref(false)

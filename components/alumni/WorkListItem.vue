@@ -16,7 +16,7 @@
                     </div>
                 </div>
                 <v-spacer></v-spacer>
-                <v-btn style="position: absolute;right: 0" icon="mdi-pencil" flat v-if="user && user.id == work.user_id" @click="$router.push({name: 'alumni-alumni-index-edit-works', query: {id: work.id}})"></v-btn>
+                <v-btn style="position: absolute;right: 0" icon="mdi-pencil" flat v-if="auth && user && user.id == auth.id" @click="$router.push({name: 'alumni-alumni-index-authorize-edit-works', query: {id: work.id}})"></v-btn>
             </v-card-title>
         </v-card>
     </div>
@@ -24,6 +24,7 @@
 
 <script setup lang="ts">
 import type { Work } from '~/stores/useProfileStore';
+const {user: auth} = storeToRefs(useAuthStore())
 const {user} = storeToRefs(useProfileStore());
 const props = defineProps<{work: Work}>();
 const show = ref(false)

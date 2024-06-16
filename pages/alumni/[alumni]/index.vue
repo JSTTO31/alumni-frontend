@@ -1,11 +1,8 @@
 <script setup>
-const route = useRoute();
-const router = useRouter()
 const { user } = storeToRefs(useProfileStore())
 useHead({
   title: computed(() => user.value?.name),
 })
-
 function open() {
   if (!user.value) return;
   window.open(user.value.work.company_website, "_blank")
@@ -46,7 +43,7 @@ function open() {
     <AlumniCardImages></AlumniCardImages>
     <AlumniCardLinks></AlumniCardLinks>
     <v-overlay class="d-flex align-start justify-center pt-15" scrollable transition="slide-y-transition" width="750"
-      :model-value="$route.name.includes('alumni-alumni-index-edit') || $route.name.includes('alumni-alumni-index-add') || $route.name.includes('alumni-alumni-index-delete') || $route.name.includes('alumni-alumni-index-informations') || $route.name.includes('alumni-alumni-index-verification')"
+      :model-value="$route.name.includes('alumni-alumni-index-authorize-edit') || $route.name.includes('alumni-alumni-index-authorize-add') || $route.name.includes('alumni-alumni-index-authorize-delete') || $route.name.includes('alumni-alumni-index-informations') || $route.name.includes('alumni-alumni-index-authorize-verification')"
       @click:outside="$router.push({ name: 'alumni-alumni' })" persistent no-click-animation>
       <Suspense>
         <NuxtPage></NuxtPage>
@@ -58,7 +55,7 @@ function open() {
       </Suspense>
     </v-overlay>
     <v-dialog fullscreen class="d-flex align-start pt-xl-15 pt-5 justify-center"
-      :model-value="$route.name.includes('alumni-alumni-index-images')" persistent no-click-animation>
+      :model-value="$route.name.includes('alumni-index-images')" persistent no-click-animation>
       <NuxtPage></NuxtPage>
     </v-dialog>
   </v-container>
@@ -70,4 +67,6 @@ function open() {
 body{
   overflow: scroll !important;
 }
+
+
 </style>

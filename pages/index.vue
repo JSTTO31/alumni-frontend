@@ -95,6 +95,7 @@ const jobs = [
 
 </script>
 <template>
+  <NuxtLoadingIndicator></NuxtLoadingIndicator>
   <NuxtLayout>
     <v-container class="pa-0" fluid>
       <v-row>

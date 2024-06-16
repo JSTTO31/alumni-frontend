@@ -21,7 +21,7 @@
 import { useProfileStore } from '~/stores/useProfileStore';
 const $profile = useProfileStore()
 const {user: auth} = storeToRefs(useAuthStore());
-const {user, authorize} = storeToRefs($profile);
+const {user} = storeToRefs($profile);
 const paragraph = ref(user.value?.about?.paragraph || '')
 const loading = ref(false)
 const router = useRouter()
