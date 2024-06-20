@@ -1,13 +1,12 @@
 <template>
     <v-card class="rounded-lg d-flex align-center justify-center rounded-b-0 empty-background" flat height="200">
         <img id="cover" :src="user?.cover" :style="{transform: `translateY(${translateY}%)`}" v-if="user?.profile_cover" class="w-100" />
-       
     </v-card>
 </template>
 
 <script setup lang="ts">
-const {user} = storeToRefs(useProfileStore())
-const translateY = computed(() => user.value && user.value.profile_cover ? (user.value?.profile_cover.data.styles.translateY / 50 * 100 - 100) : 0 )
+const props = defineProps<{user: UserProfile}>()
+const translateY = computed(() => props.user && props.user.profile_cover ? (props.user?.profile_cover.data.styles.translateY / 50 * 100 - 100) : 0 )
 </script>
 
 <style scoped>

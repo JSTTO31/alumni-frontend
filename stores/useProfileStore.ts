@@ -18,7 +18,7 @@ export type UserProfile = {
     request_accepted_at: Date | null;
     has_request_from: boolean
     is_connected: boolean
-    viewers_count: number
+    views_count: number
     connections_count: number
     viewers: User[]
     batchmates: User[]

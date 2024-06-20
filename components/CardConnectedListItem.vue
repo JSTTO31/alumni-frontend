@@ -12,12 +12,6 @@
                 </div>
             </v-hover>
         </div>
-        <div class="d-flex justify-space-between mt-4">
-            <v-btn :loading="loading"  class="w-50 text-capitalize mb-2 mr-1" flat  color="primary" v-if="user.has_request_from" @click.stop="confirm">Confirm</v-btn>
-            <v-chip class="text-capitalize rounded font-weight-medium" style="font-size: 15px" size="large" color="primary" variant="tonal" 
-            v-else-if="user.is_connected">Connected</v-chip>
-            <v-btn  class="w-50 text-capitalize border mb-2" flat @click.stop="remove">Remove</v-btn>
-        </div>
     </v-card>
 </template>
 
@@ -29,23 +23,6 @@ const removeLoading = ref(false)
 const $connection = useConnectionStore()
 const {request_connections} = storeToRefs($connection)
 
-async function confirm(){
-    loading.value = true
-    await $connection.confirm(props.user);
-    loading.value = false
-}
-
-async function remove(){
-    removeLoading.value = true;
-    await $connection.personRemove(props.user).then(async (response) => {
-        if(request_connections.value.length < 6){
-            const {execute} = await $connection.getRequestConnections()
-            execute()
-        }
-       
-    })
-    removeLoading.value = false
-}
 
 </script>
 

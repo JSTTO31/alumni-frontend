@@ -12,7 +12,7 @@
                 <div style="width:100%;list-style:none; transition: none;overflow:hidden;width:100%;height:500px;">
                     <div id="g-mapdisplay" style="height:100%; width:100%;"><iframe
                             style="height:100%;width:100%;border:0;" frameborder="0"
-                            src="https://www.google.com/maps/embed/v1/place?q=malabon&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8"></iframe>
+                            :src="`https://www.google.com/maps/embed/v1/place?q=${user.contact_information.city}&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8`"></iframe>
                     </div><a class="embed-ded-maphtml" rel="nofollow" href="https://www.bootstrapskins.com/themes"
                         id="enable-maps-data">premium bootstrap themes</a>
                 </div>

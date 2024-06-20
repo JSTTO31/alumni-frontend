@@ -1,9 +1,9 @@
 <template>
-    <h4 class="font-weight-medium" v-if="status != 'idle'">Batchmates</h4>
+    <h4 class="font-weight-medium" v-if="status != 'idle'">Connections</h4>
     <v-skeleton-loader type="chip" class="mt-n5" v-else></v-skeleton-loader>
     <v-divider thickness="2" class="my-2 mb-3"></v-divider>
     <v-row>
-        <v-col cols="4" v-for="person in batchmates" :key="person.id">
+        <v-col cols="4" v-for="person in connections" :key="person.id">
             <card-person :user="person"></card-person>
         </v-col>
     </v-row>
@@ -23,11 +23,10 @@
 </template>
 
 <script setup>
-import { useBatchmateStore } from '~/stores/useBatchmateStore';
 const {user} = storeToRefs(useAuthStore())
-const $batchmate = useBatchmateStore()
-const {batchmates, options} = storeToRefs($batchmate)
-const {execute, status, pending}  = await $batchmate.getAll(user.value.email,{limit: 9})
+const $connection = useConnectionStore()
+const {connections, connections_options: options} = storeToRefs($connection)
+const {execute, status, pending}  = await $connection.getConnected(user.value.email,{limit: 9})
 execute()
 </script>
 

@@ -3,8 +3,6 @@
 </template>
 
 <script setup lang="ts">
-import type { Notification } from '#imports';
-
 const $notification = useNotificationStore()
 const props = defineProps<{notification: Notification}>()
 const timer = setTimeout(() => {

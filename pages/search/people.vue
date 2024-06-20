@@ -13,9 +13,7 @@
         <div v-if="!people || people.total < 1">
             No People Found
         </div>
-        
     </div>
-    
 </template>
 
 <script setup>

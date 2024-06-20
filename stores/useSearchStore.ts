@@ -1,6 +1,16 @@
 import type { User } from "next-auth";
 import type { Post } from "./usePostStore";
 
+export type OptionsType = {
+    path: string,
+    per_page: number,
+    next_cursor: null | string,
+    next_page_url: null | string,
+    prev_cursor: null | string,
+    prev_page_url: null | string,
+    count?:number
+}
+
 export const useSearchStore  = defineStore('search', () => {
     const basic_people = ref<User[]>([])
     const people = ref<User[]>([])

@@ -17,9 +17,9 @@ const fetchOnScroll = async () => {
     }
 }
 
-if(posts.value.length < 1){
-    await getAll()
-}
+// if(posts.value.length < 1){
+//     await getAll()
+// }
 // window.addEventListener('scroll',fetchOnScroll)
 
 onBeforeRouteLeave((to, from, next) => {

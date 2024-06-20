@@ -15,6 +15,7 @@ export type User = {
     verified_at: string,
     email_verified_at: string,
     general_information?: GeneralInformationType,
+    views_count: number
 }
 
 export type GeneralInformationType = {

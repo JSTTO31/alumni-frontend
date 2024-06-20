@@ -7,7 +7,6 @@
                     <v-container class="d-flex pb-0">
                         <div class="align-self-start pl-2 mr-3" style="position: relative;margin-top: -120px">
                             <AlumniProfileAvatar></AlumniProfileAvatar>
-                            <v-icon v-if="!!user.verified_at" style="position: absolute;bottom: 6%;right:6%" color="blue-darken-2" size="30" class="bg-white rounded-circle">mdi-check-decagram</v-icon>
                         </div>
                         <div class="py-5 px-0 pt-0 w-100" flat>
                             <h1 class="font-weight-medium align-center text-capitalize  d-flex">
@@ -26,9 +25,8 @@
                             <alumni-location-dialog v-model:show="showLocation"></alumni-location-dialog>
                             <div>
                                 <v-chip color="primary" variant="text" class="rounded profile-action-text"
-                                prepend-icon="mdi-connection">Connections 39</v-chip>
-                                <v-chip color="primary" prepend-icon="mdi-eye"
-                                v-if="user.viewers_count" variant="text" class="ml-3 rounded profile-action-text">Views {{ user.viewers_count }}</v-chip>
+                                prepend-icon="mdi-connection">Connections {{ user.connections_count }}</v-chip>
+                                <v-chip color="primary" prepend-icon="mdi-eye" variant="text" class="ml-3 rounded profile-action-text">Views {{ user.views_count }}</v-chip>
                             </div>
                             <div class="my-5" v-if="auth.id != user.id">
                                 <v-btn class="text-capitalize" color="primary" prepend-icon="mdi-account-check"
