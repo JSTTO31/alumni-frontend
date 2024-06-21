@@ -6,15 +6,26 @@ useHead({
       href: "/chief.png",
       type: "image/x-icon",
     },
+    {
+      rel: 'stylesheet',
+      href: 'https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css',
+    },
   ],
+  // script: [
+  //   {
+  //     src: 'https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js'
+  //   }
+  // ],
   titleTemplate: (title) => title ? title + " | AU Connect" : "AU Connect" 
 });
 </script>
 <template>
   <v-app>
-    <NuxtLoadingIndicator></NuxtLoadingIndicator>
     <ClientOnly>
-      <nuxt-page></nuxt-page>
+      <div class="h-100 bg-grey-lighten-5">
+        <NuxtLoadingIndicator></NuxtLoadingIndicator>
+        <nuxt-page></nuxt-page>
+      </div>
       <template #fallback>
         <div class="h-100 w-100 d-flex justify-center align-center" style="position:fixed">
           <loader></loader>

@@ -1,20 +1,12 @@
 <script setup>
 import { useDisplay } from 'vuetify'
-import useConversationObjects from "~/composables/useConversationObjects";
-import useNotificaionObject from "../composables/useNotificationObjects";
 import { useChatStore } from "~/stores/useChatStore";
 const $auth = useAuthStore();
-const { notifications } = useNotificaionObject;
-const conversations = useConversationObjects;
 const { selected } = storeToRefs(useChatStore());
 const { user } = storeToRefs(useAuthStore());
-const isSelected = computed(() => (person) =>
-  selected.value.some((item) => item.participants[1] == person)
-);
 const { name } = useDisplay()
 </script>
 <template>
-  <!-- <v-app style="background: #f8f6f4"> -->
   <v-app-bar flat class="border-b d-flex" color="primaryVariant"
     :style="{ paddingInline: name == 'xl' ? '300px' : '150px' }" density="compact">
     <h3 @click="$router.push('/')" style="cursor: pointer" class="text-primary d-flex align-center">
@@ -55,13 +47,12 @@ const { name } = useDisplay()
         <v-icon size="25">mdi-chat</v-icon>
         Chat
       </v-tab>
-
     </v-tabs>
-    <v-btn class="text-capitalize mx-4" prepend-icon="mdi-chevron-down" variant="flat" rounded color="red">New
+    <v-btn class="text-capitalize mx-5 rounded-lg" prepend-icon="mdi-plus" id="create-button" @click="$router.push({name: 'create'})">New
       post</v-btn>
     <v-menu location="bottom end">
       <template #activator="{ props }">
-        <v-card @click="" class="rounded-xl" v-bind="props">
+        <v-card @click="" class="rounded-xl d-flex bg-transparent align-center" v-bind="props">
           <avatar size="35" :user="user" style="border: 1px solid white">
           </avatar>
           <v-icon>mdi-chevron-down</v-icon>
@@ -96,7 +87,6 @@ const { name } = useDisplay()
       :conversation="conversation"></conversation-card>
   </div>
   <notification-container></notification-container>
-  <!-- </v-app> -->
 </template>
 
 <style scoped>
@@ -113,5 +103,9 @@ const { name } = useDisplay()
   position: fixed;
   bottom: 0%;
   right: 5%;
+}
+
+#create-button{
+  background-image: radial-gradient( circle 986.6px at 10% 20%,  rgba(251,6,6,0.94) 0%, rgba(3,31,213,1) 82.8%, rgba(248,101,248,1) 87.9% );
 }
 </style>

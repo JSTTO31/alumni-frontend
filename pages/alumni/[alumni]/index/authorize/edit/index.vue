@@ -14,7 +14,7 @@
                     <v-btn prepend-icon="mdi-pencil-outline" @click="$router.push({name: 'alumni-alumni-index-authorize-edit-profile-cover'})" size="small" variant="text" class="text-capitalize">Edit</v-btn>
                 </div>
                 <v-card class="rounded-lg" flat>
-                    <cover class="rounded-lg"></cover>
+                    <cover :user="user" class="rounded-lg"></cover>
                 </v-card>
             </div>
             <div>

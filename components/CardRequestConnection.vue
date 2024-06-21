@@ -4,7 +4,7 @@
             <Avatar :user="user" class="mr-3" size="65">
             </Avatar>
             <v-hover v-slot="{props, isHovering}">
-                <div @click="$router.push({ name: 'alumni', params: { alumni: user.email } })" v-bind="props" :style="isHovering ? 'text-decoration: underline;cursor:pointer' : ''">
+                <div>
                     <h4>{{ user.name }}</h4>
                     <h6 class="text-grey-darken-1 pa-0 font-weight-regular text-caption">
                         <span style="font-size: 12px;">{{ user.email }}</span>

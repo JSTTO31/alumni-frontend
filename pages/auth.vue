@@ -1,6 +1,5 @@
 <template>
-      <v-main>
-          <NuxtLoadingIndicator></NuxtLoadingIndicator>
+      <v-main class="h-100 w-100">
           <NuxtPage>
           </NuxtPage>
       </v-main>

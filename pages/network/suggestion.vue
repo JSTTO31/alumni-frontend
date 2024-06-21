@@ -28,6 +28,7 @@ const $people = usePeopleStore()
 const {people, options} = storeToRefs($people)
 const {execute, status, pending}  = await $people.getAll({limit: 9})
 execute()
+
 </script>
 
 <style scoped>

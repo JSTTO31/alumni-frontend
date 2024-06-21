@@ -29,6 +29,7 @@
     "@vuelidate/validators": "^2.0.4",
     "@vueuse/nuxt": "^10.6.1",
     "axios": "^1.6.1",
-    "next-auth": "4.21.1"
+    "next-auth": "4.21.1",
+    "quill": "2.0.2"
   }
 }

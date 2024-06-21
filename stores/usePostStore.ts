@@ -3,7 +3,7 @@ import type { User } from "./useAuthStore";
 export type Post = {
     id: number,
     user: User,
-    text: string,
+    title: string,
     comment:  Comment
     comments:  Comment[]
     privacy: 'public' | 'private' | 'connected'
@@ -15,6 +15,12 @@ export type Post = {
     comments_count: number
     created_at: string;
     updated_at: string;
+    post_text?: PostText
+}
+
+export type PostText = {
+    id: number,
+    content: string,
 }
 
 type Info = {
@@ -59,6 +65,18 @@ export type Reply = {
 export const usePostStore = defineStore('posts', () => {
     const posts = ref([] as Post[])
     const post = ref<Post| null>(null)
+
+    async function createPostText(informations: {title: string, privacy: string, content: string}){
+        return await useApiFetch('/api/posts/text', {
+            method: 'POST',
+            body: informations,
+            immediate: false,
+            onResponse(event){
+                if(!event.response.ok) return event;
+                posts.value.unshift(event.response._data);
+            }
+        } )
+    }
 
     async function store(information: Info ){
         try {
@@ -177,9 +195,11 @@ export const usePostStore = defineStore('posts', () => {
             find_post.reactions_count = find_post.reactions_count + 1
             find_post.reacted = user.value 
         }
-        
-
-        return await toggle_reaction(id, "post")
+    
+        return await useApiFetch(`/api/post/${id}/reactions`, {
+            method: 'post',
+            body: {type: 'heart'}
+        })
     }
 
     async function comment_reaction(post_id: number, comment_id: number){
@@ -244,6 +264,7 @@ export const usePostStore = defineStore('posts', () => {
         comment_reaction,
         reply_reaction,
         add_view,
-        getById
+        getById,
+        createPostText
     }
 })

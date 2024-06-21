@@ -7,13 +7,13 @@
                 <div class="d-flex flex-column align-center w-100 px-5">
                     <h4 class="text-center">{{user.name}}</h4>
                     <h6 class="text-center font-weight-regular mb-4">{{user.email}}</h6>
-                    <div class="mb-5 w-100 px-5">
+                    <!-- <div class="mb-5 w-100 px-5">
                         <v-progress-linear class="rounded-lg" height="7" :model-value="95" color="primary"></v-progress-linear>
                         <p class="text-caption font-weight-bold mt-1 text-center">
                             <v-icon size="15">mdi-medal</v-icon>
                             Your profile completion is 10%
                         </p>
-                    </div>
+                    </div> -->
                     <v-btn class="text-capitalize" rounded="lg" variant="flat" color="primary" @click="$router.push({name: 'alumni-alumni', params: {alumni: user.email}})">Complete profile</v-btn>
                 </div>
             </div>
@@ -37,64 +37,6 @@
                 </v-list-item>
             </v-list>
         </v-card>
-        <!-- <v-list class="bg-transparent mb-5 mt-2 pa-0">
-            <v-list-item variant="text" @click="" color="primary" class="text-subtitle-2 font-weight-bold rounded-lg mb-2 " prepend-icon="mdi-post-outline">
-                Feeds
-            </v-list-item>
-            <v-list-item variant="text" @click="" class="text-subtitle-2 font-weight-bold rounded-lg mb-2" prepend-icon="mdi-history">
-                Recents
-            </v-list-item>
-            <v-list-item variant="text" @click="" class="text-subtitle-2 font-weight-bold rounded-lg mb-2" prepend-icon="mdi-school">
-                Batchmates
-            </v-list-item>
-            <v-list-item variant="text" @click="" class="text-subtitle-2 font-weight-bold rounded-lg mb-2" prepend-icon="mdi-bookmark">
-                Saved
-            </v-list-item>
-            <v-list-item variant="text" @click="" class="text-subtitle-2 font-weight-bold rounded-lg mb-2" prepend-icon="mdi-chat">
-                Messages
-            </v-list-item>
-            <v-list-item variant="text" @click="" class="text-subtitle-2 font-weight-bold rounded-lg mb-2" prepend-icon="mdi-bell">
-                Notifications
-            </v-list-item>
-            <v-list-item variant="text" @click="" class="text-subtitle-2 font-weight-bold rounded-lg mb-2" prepend-icon="mdi-domain">
-                Department
-            </v-list-item>
-        </v-list> -->
-        <!-- <v-card flat class="rounded-lg align-center pa-2 py-0 mb-1 d-flex" variant="text" 
-            @click="$router.push({ name: 'alumni-alumni', params: { alumni: user.email } })">
-            <avatar :user="user" size="44" class="bg-white border">
-            </avatar>
-            <v-list class="px-0 bg-transparent">
-                <v-list-item class="text-subtitle-2 font-weight-bold">
-                    <v-list-item-title class="font-weight-bold">{{ user.name }}</v-list-item-title>
-                    <v-list-item-subtitle class="font-weight-bold">View Profile</v-list-item-subtitle>
-                </v-list-item>
-            </v-list>
-        </v-card> -->
-        <!-- <v-list class="bg-transparent mb-5 mt-2 pa-0">
-            <v-list-item variant="text" @click="" color="primary" class="text-subtitle-2 font-weight-bold rounded-lg mb-2 " prepend-icon="mdi-post-outline">
-                Feeds
-            </v-list-item>
-            <v-list-item variant="text" @click="" class="text-subtitle-2 font-weight-bold rounded-lg mb-2" prepend-icon="mdi-history">
-                Recents
-            </v-list-item>
-            <v-list-item variant="text" @click="" class="text-subtitle-2 font-weight-bold rounded-lg mb-2" prepend-icon="mdi-school">
-                Batchmates
-            </v-list-item>
-            <v-list-item variant="text" @click="" class="text-subtitle-2 font-weight-bold rounded-lg mb-2" prepend-icon="mdi-bookmark">
-                Saved
-            </v-list-item>
-            <v-list-item variant="text" @click="" class="text-subtitle-2 font-weight-bold rounded-lg mb-2" prepend-icon="mdi-chat">
-                Messages
-            </v-list-item>
-            <v-list-item variant="text" @click="" class="text-subtitle-2 font-weight-bold rounded-lg mb-2" prepend-icon="mdi-bell">
-                Notifications
-            </v-list-item>
-            <v-list-item variant="text" @click="" class="text-subtitle-2 font-weight-bold rounded-lg mb-2" prepend-icon="mdi-domain">
-                Department
-            </v-list-item>
-        </v-list>
-        <v-spacer></v-spacer> -->
        <span class="text-caption">Privacy  · Terms · Arellano Connect © 2024</span>
     </div>
 </template>

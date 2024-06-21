@@ -2,7 +2,6 @@
 import { useAuthStore } from "~/stores/useAuthStore";
 import { reactive, ref } from "vue";
 definePageMeta({
-  middleware: ["guest"],
   pageTransition: {
     name: 'page-slide-x',
     mode: 'out-in'

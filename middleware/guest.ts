@@ -2,8 +2,8 @@
 
 export default defineNuxtRouteMiddleware((to, from) => {
     const {isLogin} = storeToRefs(useAuthStore())
-    if(process.server) return
-    if(isLogin.value){
+    
+    if(isLogin.value && process.client){
         return navigateTo({name: 'index'}, {replace: true})
     }
 })
