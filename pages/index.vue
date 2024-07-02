@@ -39,10 +39,7 @@ useHead({
         </Suspense>
       </div>
       <div class="pb-15" flat>
-        <v-card width="325" class=" mb-5 rounded-lg border d-flex align-center justify-center flex-column pa-5" flat>
-          <h4 class="font-weight-medium">Invite your fellow alumni</h4>
-          <v-btn rounded="lg" prepend-icon="mdi-plus" variant="outlined" color="primary" class="text-capitalize mt-3">Invite Alumni</v-btn>
-        </v-card>
+        <HomeShareThisCard width="325"></HomeShareThisCard>
         <suspense>
           <div>
               <HomeConnectionRequestDrawer width="325" class="mb-5"></HomeConnectionRequestDrawer>
