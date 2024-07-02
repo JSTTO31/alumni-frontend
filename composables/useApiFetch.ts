@@ -26,6 +26,8 @@ export function useApiFetch <T>(path: string, options: UseFetchOptions<T> = {}){
         },
         ...options,
         onRequestError(event){
+            console.error(event);
+            
             return event;
         },
         onResponseError(event){

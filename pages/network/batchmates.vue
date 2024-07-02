@@ -28,7 +28,7 @@ const {user} = storeToRefs(useAuthStore())
 const $batchmate = useBatchmateStore()
 const {batchmates, options} = storeToRefs($batchmate)
 const {execute, status, pending}  = await $batchmate.getAll(user.value.email,{limit: 9})
-execute()
+await execute()
 </script>
 
 <style scoped>

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="user">
         <div>
             <cover :user="user" @click="view = true"></cover>
             <v-btn v-if="auth?.id == user?.id" size="small" prepend-icon="mdi-camera" class="text-capitalize"

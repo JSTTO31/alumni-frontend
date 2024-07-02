@@ -22,9 +22,15 @@
              <v-list class="bg-transparent mb-5 mt-2 pa-0">
                 <v-list-item variant="text" color="primary" class="text-subtitle-2 font-weight-bold " @click="$router.push({name: 'network-connections'})" prepend-icon="mdi-connection">
                     Connections
+                    <template #append>
+                        <v-chip size="small" class="font-weight-bold" color="primary" v-if="connections_options.count">{{ connections_options.count }}</v-chip>
+                    </template>
                 </v-list-item>
                 <v-list-item variant="text" @click="$router.push({name: 'network-connection-requests'})" class="text-subtitle-2 font-weight-bold" prepend-icon="mdi-human-greeting-proximity">
                     Connection Request
+                    <template #append>
+                        <v-chip size="small" class="font-weight-bold" color="error" v-if="request_connections_options.count">{{ request_connections_options.count }}</v-chip>
+                    </template> 
                 </v-list-item>
                 <v-list-item variant="text" @click="$router.push({name: 'network-batchmates'})" class="text-subtitle-2 font-weight-bold" prepend-icon="mdi-school">
                     Your Batchmates
@@ -44,7 +50,7 @@
 <script setup lang="ts">
 const $auth = useAuthStore();
 const { user } = storeToRefs($auth);
-
+const {connections_options, request_connections_options} = storeToRefs(useConnectionStore())
 </script>
 
 <style scoped></style>

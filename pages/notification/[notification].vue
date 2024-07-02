@@ -1,5 +1,4 @@
 <template>
-    <NuxtLayout>
         <v-main>
             <v-container class="d-flex">
                 <v-col cols="3">
@@ -59,7 +58,6 @@
                 </v-col>
             </v-container>
         </v-main>
-    </NuxtLayout>
 </template>
 
 <script setup lang="ts">

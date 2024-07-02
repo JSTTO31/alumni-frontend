@@ -18,7 +18,7 @@
             </template>
         </suspense>
         <suspense>
-            <container-people-you-may-know></container-people-you-may-know>
+            <ContainerPeopleYouMayKnow></ContainerPeopleYouMayKnow>
             <template #fallback>
                 <div class="bg-white pa-5 rounded-lg border">
                     <v-skeleton-loader type="chip"></v-skeleton-loader>
@@ -34,6 +34,8 @@
 </template>
 
 <script setup>
+import ContainerPeopleYouMayKnow from '~/components/ContainerPeopleYouMayKnow.vue';
+
 
 
 </script>

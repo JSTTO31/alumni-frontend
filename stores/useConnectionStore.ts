@@ -11,10 +11,9 @@ export const useConnectionStore = defineStore('connection', () => {
     const request_connections : Ref<UserProfile[]> = ref([])
     const request_connections_options : Ref<OptionsType> = ref({} as OptionsType)
     const {people} = storeToRefs(usePeopleStore())
-    const $people = usePeopleStore()
 
     async function requestConnection(user: UserProfile){
-        await useApiFetch(`/api/user/${user.id}/connections/request`, {
+        return await useApiFetch(`/api/user/${user.id}/connections/request`, {
             method: 'POST',
             onResponse(event){
                 if(!event || !event.response.ok) return
@@ -28,7 +27,7 @@ export const useConnectionStore = defineStore('connection', () => {
     }
 
     async function cancelRequestConnection(user: UserProfile){
-        await useApiFetch(`/api/user/${user.id}/connections/cancel`, {
+        return await useApiFetch(`/api/user/${user.id}/connections/cancel`, {
             method: 'POST',
             onResponse(event){
                 if(!event || !event.response.ok) return
@@ -42,7 +41,7 @@ export const useConnectionStore = defineStore('connection', () => {
     }
 
     async function confirm(user: UserProfile){
-        await useApiFetch(`/api/user/${user.id}/connections/confirm`, {
+        return await useApiFetch(`/api/user/${user.id}/connections/confirm`, {
             method: 'POST',
             onResponse(event){
                 if(!event || !event.response.ok) return
@@ -63,7 +62,7 @@ export const useConnectionStore = defineStore('connection', () => {
         user = {...user, 'requested_at': null, 'is_connected': false}
         user.followed_at = null
         user.follow_accepted_at = null
-        await useApiFetch(`/api/user/${user.id}/connections/disconnect`, {
+        return await useApiFetch(`/api/user/${user.id}/connections/disconnect`, {
             method: 'POST',
             onResponse(event){
                 if(!event || !event.response.ok) return

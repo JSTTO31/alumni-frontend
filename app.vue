@@ -11,21 +11,16 @@ useHead({
       href: 'https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css',
     },
   ],
-  // script: [
-  //   {
-  //     src: 'https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js'
-  //   }
-  // ],
   titleTemplate: (title) => title ? title + " | AU Connect" : "AU Connect" 
 });
 </script>
 <template>
   <v-app>
     <ClientOnly>
-      <div class="h-100 bg-grey-lighten-5">
-        <NuxtLoadingIndicator></NuxtLoadingIndicator>
+      <NuxtLoadingIndicator></NuxtLoadingIndicator>
+      <NuxtLayout>
         <nuxt-page></nuxt-page>
-      </div>
+      </NuxtLayout>
       <template #fallback>
         <div class="h-100 w-100 d-flex justify-center align-center" style="position:fixed">
           <loader></loader>
@@ -35,7 +30,7 @@ useHead({
   </v-app>
 </template>
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&family=Roboto:wght@300&display=swap");
 body {
   font-family: "Poppins", sans-serif;
 }

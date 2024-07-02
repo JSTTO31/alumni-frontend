@@ -1,13 +1,16 @@
+import type { Comment } from "./post/useCommentStore";
 import type { User } from "./useAuthStore";
+import type { UserProfile } from "./useProfileStore";
+import type { OptionsType } from "./useSearchStore";
 
 export type Post = {
-    id: number,
-    user: User,
+    id: string,
+    user: UserProfile,
     title: string,
     comment:  Comment
     comments:  Comment[]
     privacy: 'public' | 'private' | 'connected'
-    reacted: Reaction;
+    reacted: Reaction | null;
     views: number;
     view: boolean;
     reaction: Reaction[]
@@ -15,8 +18,36 @@ export type Post = {
     comments_count: number
     created_at: string;
     updated_at: string;
-    post_text?: PostText
+    data: PostText | Post
+    post_saved?: PostSaved | null
+    hide?: Hide | null
+    report?: Report | null
+    postable_type: string
+    shares_count: number
 }
+
+export type PostSaved = {
+    id: number,
+    user_id: number;
+    saveable_id: string
+    saveable_type: string
+}
+
+export type Hide = {
+    id: number,
+    user_id: number;
+    hideable_id: string
+    hideable_type: string
+}
+
+export type Report = {
+    id: number,
+    user_id: number,
+    reportable_id: string
+    reportable_type: string
+}
+
+
 
 export type PostText = {
     id: number,
@@ -37,37 +68,16 @@ export type Reaction = {
     updated_at: string;
 }
 
-export type Comment = {
-    id: number,
-    post_id: number,
-    user_id: number,
-    text: string,
-    replies:  Reply[]
-    reaction: Reaction[]
-    reacted: Reaction
-    replies_count: number
-    created_at: string;
-    updated_at: string
-}
 
-export type Reply = {
-    id: number,
-    comment_id: number,
-    reply_from: number,
-    reply_to: number,
-    text: string,
-    reactions_count: number
-    reacted: Reaction
-    created_at: string;
-    updated_at: string
-}
+
 
 export const usePostStore = defineStore('posts', () => {
     const posts = ref([] as Post[])
+    const options : Ref<OptionsType> = ref({} as OptionsType)
     const post = ref<Post| null>(null)
 
     async function createPostText(informations: {title: string, privacy: string, content: string}){
-        return await useApiFetch('/api/posts/text', {
+        return await useApiFetch('/api/post/texts', {
             method: 'POST',
             body: informations,
             immediate: false,
@@ -75,7 +85,19 @@ export const usePostStore = defineStore('posts', () => {
                 if(!event.response.ok) return event;
                 posts.value.unshift(event.response._data);
             }
-        } )
+        })
+    }
+    
+    async function share(post_id: string, information: any){
+        return await useApiFetch(`/api/post/${post_id}/shares`, {
+            method: 'POST',
+            body: information,
+            immediate: false,
+            onResponse(event){
+                if(!event.response.ok) return event;
+                posts.value.unshift(event.response._data);
+            }
+        })
     }
 
     async function store(information: Info ){
@@ -94,146 +116,182 @@ export const usePostStore = defineStore('posts', () => {
         }
     }
 
-    async function getAll(){
+    async function destroy(post_id: string){
         try {
-            const response = await useApiFetch('/api/posts')
-            //@ts-ignore
-            posts.value = [...posts.value, ...response.data.value || []]
-            return response
-        } catch (error) {
-            return Promise.reject(error)
-        }
-    }
-
-    async function getById(id: number){
-        try {
-            const response = await useApiFetch('/api/posts/' + id)
-            //@ts-ignore
-            post.value = response.data.value
-            return response
-        } catch (error) {
-            return Promise.reject(error)
-        }
-    }
-
-    async function add_comment(post_id: number, text: string){
-        try {
-            const response = await useApiFetch(`/api/post/${post_id}/comments`, {
-                method: 'POST',
-                body: {text}
-            })
-
-            const internal_post = posts.value.find((item: Post) => item.id == post_id)
-            //@ts-ignore
-            internal_post.comments.push(response.data.value)
-            //@ts-ignore
-            internal_post.comments_count += 1;
-
-            if(post.value && post.value.id == post_id){
-                //@ts-ignore
-                post.value.comments.push(response.data.value)
-                //@ts-ignore
-                post.value.comments_count += 1;
-            }
-            
-
-            return response;
-        } catch (error) {
-            return Promise.reject(error)
-        }
-    }
-
-    async function add_reply(comment: Comment, text: string){
-        
-        try {
-            const response = await useApiFetch(`/api/post/${comment.post_id}/comments`, {
-                method: 'post',
-                body: {
-                    text,
-                    comment_id: comment.id 
+            const response = await useApiFetch('/api/posts/' + post_id, {
+                method: 'delete',
+                immediate: false,
+                onResponse(event){
+                    if(!event.response.ok) return event;
+                    posts.value = posts.value.filter(item => item.id != post_id)
+                    if(post.value){
+                        post.value = null
+                    }
+                    return event;
                 }
             })
-
-            const reply : any = response.data.value
-            const find_post = posts.value.find((item: Post) => item.id == comment.post_id)
-            //@ts-ignore
-            find_post.comments = find_post.comments.map(
-                (item: Comment) => item.id == comment.id ? {...item, replies: [...item.replies, reply], replies_count: item.replies_count + 1} : item
-            )
-
-            //@ts-ignore
-            find_post.comments_count += 1;
-
-
-            if(post.value && post.value.id == comment.post_id){
-                //@ts-ignore
-                post.value.comments = post.value.comments.map(
-                    (item: Comment) => item.id == comment.id ? {...item, replies: [...item.replies, reply], replies_count: item.replies_count + 1} : item
-                )
-
-                //@ts-ignore
-                post.value.comments_count += 1;
-            }
             
             
-
 
             return response;
-
         } catch (error) {
             return Promise.reject(error)
         }
     }
 
-    async function post_reaction(id: number){
-        const {user} = storeToRefs(useAuthStore())
-        const find_post : any = posts.value.find((item: Post) => item.id == id)
-        if(find_post.reacted){
-            find_post.reacted = null
-            find_post.reactions_count = find_post.reactions_count - 1
-        }else{
-            find_post.reactions_count = find_post.reactions_count + 1
-            find_post.reacted = user.value 
-        }
-    
-        return await useApiFetch(`/api/post/${id}/reactions`, {
-            method: 'post',
-            body: {type: 'heart'}
+    async function getAll(query: {}){
+        return await useApiFetch('/api/posts', {
+            query,
+            immediate: false,
+            onResponse(event){
+                if(!event.response.ok) return event;
+                options.value = event.response._data.options
+                posts.value.push(...event.response._data.posts)
+            }
         })
     }
 
-    async function comment_reaction(post_id: number, comment_id: number){
-        const {user} = storeToRefs(useAuthStore())
-        
-        const find_post = posts.value.find((item: Post) => item.id == post_id)
-        //@ts-ignore
-        find_post.comments = find_post.comments.map((item: Comment) => comment_id == item.id ? item.reacted ? {...item, reacted: null, reactions_count: item.reactions_count - 1} : {...item, reacted: user.value, reactions_count: item.reactions_count + 1} : item)
-
-        return await toggle_reaction(comment_id, "comment")
+    async function getById(id: string){
+        return await useApiFetch('/api/posts/' + id, {
+            onResponse(event){
+                if(!event.response.ok) return
+                post.value = event.response._data
+                return event
+            }
+        })
     }
 
-    async function reply_reaction(parent_comment: Comment, reply_id: number){
-        const {user} = storeToRefs(useAuthStore())
-        
-        const find_post : any = posts.value.find((item: Post) => item.id ==   parent_comment.post_id);
-        const comment : any = find_post.comments.find((item: Comment) => item.id == parent_comment.id)
-        comment.replies = comment.replies.map((item: Reply) => item.id == reply_id ? item.reacted ? {...item, reacted: null, reactions_count: item.reactions_count - 1} : {...item, reacted: user.value, reactions_count: item.reactions_count + 1} : item)
+    async function save(post_id: string){
+        const findPost = posts.value.find(item => item.id == post_id) || post.value;
 
-        return await toggle_reaction(reply_id, "comment")
-    }
+        if(!findPost) return
 
-    async function toggle_reaction(id: number, type: string){
-        try {
-            const response = useApiFetch('/api/reaction/add', {
-                method: 'post',
-                body: {id, type}
+        if(!findPost?.post_saved){
+            return await useApiFetch(`/api/post/${post_id}/saves`, {
+                method: 'POST',
+                onResponse(event){
+                    if(!event.response.ok) return event;
+                    findPost.post_saved = event.response._data
+                    return event;
+                }
             })
-        } catch (error) {
-            return Promise.reject(error)
+        }else{
+            return await useApiFetch(`/api/post/${post_id}/saves/` + findPost.post_saved.id, {
+                method: 'DELETE',
+                onResponse(event){
+                    if(!event.response.ok) return event;
+                    findPost.post_saved = null
+                    return event;
+                }
+            })
         }
     }
 
-    async function add_view(post_id: number){
+    async function hide(post_id: string){
+        const findPost = posts.value.find(item => item.id == post_id);
+
+        if(!findPost?.hide){
+            return await useApiFetch(`/api/post/${post_id}/hides`, {
+                method: 'POST',
+                onResponse(event){
+                    if(!event.response.ok) return event;
+                    const findPost = posts.value.find(item => item.id == post_id);
+    
+                    if(findPost){
+                        findPost.hide = event.response._data
+                    }
+            
+                    return event;
+                }
+            })
+        }else{
+            return await useApiFetch(`/api/post/${post_id}/hides/` + findPost.hide.id, {
+                method: 'DELETE',
+                onResponse(event){
+                    if(!event.response.ok) return event;
+                    const findPost = posts.value.find(item => item.id == post_id);
+    
+                    if(findPost){
+                        findPost.hide = null
+                    }
+            
+                    return event;
+                }
+            })
+        }
+    }
+
+    async function report(post_id: string, information: any){
+        return await useApiFetch(`/api/post/${post_id}/reports`, {
+            method: 'post',
+            immediate: false,
+            body: information,
+            onResponse(event){
+                if(!event.response.ok) return event;
+                const findPost = posts.value.find(item => item.id == post_id);
+
+                if(findPost){
+                    findPost.report = event.response._data
+                }
+        
+                return event;
+            }
+        })
+    }
+
+    async function post_reaction(id: string){
+        const find_post : Post = posts.value.find((item: Post) => item.id == id) as Post || post.value
+
+        if(find_post.reacted && find_post){
+            const reaction_id = find_post.reacted.id
+    
+            return await useApiFetch(`/api/post/${id}/reactions/${reaction_id}`, {
+                method: 'delete',
+                onResponse(event){
+                    if(!event.response.ok) return event;
+                    const exists = posts.value.find(item => item.id == id)
+
+                    if(find_post){
+                        find_post.reactions_count -=  1
+                        find_post.reacted = null;
+                    }
+
+                    if(exists && post.value){
+                        post.value.reactions_count -=  1
+                        post.value.reacted = null;
+                    }
+
+                    return event
+                }
+            })
+        }else{
+            return await useApiFetch(`/api/post/${id}/reactions`, {
+                method: 'post',
+                body: {type: 'heart'},
+                onResponse(event){
+                    if(!event.response.ok) return event;
+                    const exists = posts.value.find(item => item.id == id)
+
+                    if(find_post){
+                        find_post.reactions_count +=  1
+                        find_post.reacted = event.response._data
+                    }
+
+                    if(exists && post.value){
+                        post.value.reactions_count +=  1
+                        post.value.reacted = event.response._data
+                    }
+
+
+                    return event
+                }
+            })
+        }
+    
+        
+    }
+
+    async function add_view(post_id: string){
         const current_post = posts.value.find((item: Post) => item.id == post_id)
         
         if(current_post?.view){
@@ -256,15 +314,17 @@ export const usePostStore = defineStore('posts', () => {
     return {
         posts, 
         post, 
+        options,
         store, 
         getAll, 
-        add_comment,
-        add_reply,
         post_reaction,
-        comment_reaction,
-        reply_reaction,
         add_view,
         getById,
-        createPostText
+        createPostText, 
+        save,
+        hide,
+        report,
+        share,
+        destroy
     }
 })

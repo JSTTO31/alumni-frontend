@@ -27,7 +27,7 @@ const {user} = storeToRefs(useAuthStore())
 const $connection = useConnectionStore()
 const {connections, connections_options: options} = storeToRefs($connection)
 const {execute, status, pending}  = await $connection.getConnected(user.value.email,{limit: 9})
-execute()
+await execute()
 </script>
 
 <style scoped>

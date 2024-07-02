@@ -8,8 +8,8 @@ const { name } = useDisplay()
 </script>
 <template>
   <v-app-bar flat class="border-b d-flex" color="primaryVariant"
-    :style="{ paddingInline: name == 'xl' ? '300px' : '150px' }" density="compact">
-    <h3 @click="$router.push('/')" style="cursor: pointer" class="text-primary d-flex align-center">
+    :style="{ paddingInline: name == 'xl' ? '300px' : '150px' }" density="comfortable">
+    <h3 @click="$router.push({name: 'index'})" style="cursor: pointer" class="text-primary d-flex align-center">
       <v-avatar size="35" class="rounded-0 mr-3">
         <v-img src="/logo/chief-white.png"></v-img>
       </v-avatar>
@@ -17,12 +17,12 @@ const { name } = useDisplay()
     </h3>
     <dialog-search>
       <template #activator="props">
-        <v-text-field  prepend-inner-icon="mdi-magnify" class="w-25 mx-5 ml-10" density="compact"
+        <v-text-field style="transform: scale(.9)"  prepend-inner-icon="mdi-magnify" class="w-25 mx-5 ml-5" density="compact"
           variant="solo-filled" flat hide-details v-bind="props" single-line label="Search"></v-text-field>
       </template>
     </dialog-search>
     <v-spacer></v-spacer>
-    <v-tabs class="" stacked>
+    <v-tabs class="" stacked mandatory="false">
       <v-tab size="x-small" class="text-capitalize" to="/">
         <v-icon size="25">mdi-home</v-icon>
         Home
@@ -52,7 +52,7 @@ const { name } = useDisplay()
       post</v-btn>
     <v-menu location="bottom end">
       <template #activator="{ props }">
-        <v-card @click="" class="rounded-xl d-flex bg-transparent align-center" v-bind="props">
+        <v-card flat class="rounded-pill d-flex bg-transparent align-center" v-bind="props">
           <avatar size="35" :user="user" style="border: 1px solid white">
           </avatar>
           <v-icon>mdi-chevron-down</v-icon>
@@ -60,7 +60,7 @@ const { name } = useDisplay()
       </template>
       <v-card class="rounded-lg mt-4 d-flex flex-column" width="250">
         <v-card flat class="rounded-lg align-center pa-2 mb-1 d-flex" variant="text"
-          @click="$router.push({ name: 'alumni', params: { alumni: user.email } })">
+          @click="$router.push({ name: 'alumni-alumni', params: { alumni: user.email } })">
           <avatar :user="user" size="44" class="bg-white border mr-3">
           </avatar>
           <div class=" d-flex h-100 ml-2 flex-column">
@@ -87,6 +87,11 @@ const { name } = useDisplay()
       :conversation="conversation"></conversation-card>
   </div>
   <notification-container></notification-container>
+  <v-dialog :model-value="$route.query?.post && $route.query.type == 'report'" width="600" @click:outside="$router.push({query: {}})" location="top">
+    <v-card>
+      <PostFormReport></PostFormReport>
+    </v-card>
+  </v-dialog>
 </template>
 
 <style scoped>

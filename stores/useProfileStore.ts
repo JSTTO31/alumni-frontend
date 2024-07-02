@@ -37,6 +37,11 @@ export type UserProfile = {
     profile_cover?: ProfileCover,
     verified_at: string,
     general_information: GeneralInformationType
+    reactions_count: number;
+    comments_count: number;
+    shares_count: number;
+    posts?: Post[] | null 
+
 }
 
 export type ProfilePicture = {

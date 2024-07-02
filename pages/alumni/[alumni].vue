@@ -1,6 +1,4 @@
 <template>
-  <NuxtLoadingIndicator></NuxtLoadingIndicator>
-  <nuxt-layout>
     <v-container class="pa-0 pt-5" fluid v-if="user && !pending">
         <v-row>
             <v-col cols="9">
@@ -39,7 +37,6 @@
         </v-row>
     </v-container>
     <AlumniProfileSkeleton v-else></AlumniProfileSkeleton>
-  </nuxt-layout>
 </template>
 <script setup lang="ts">
 definePageMeta({
