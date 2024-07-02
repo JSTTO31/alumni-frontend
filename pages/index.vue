@@ -24,29 +24,26 @@ useHead({
             </v-card>
           </template>
         </suspense>
-        <div class="d-flex align-center mb-4">
-          <h4 class="font-weight-medium">Feeds</h4>
-          <v-spacer></v-spacer>
-          <v-btn variant="outlined" class="ml-3 bg-white text-grey-darken-3 rounded-xl text-capitalize">Relevant</v-btn>
-          <v-btn variant="outlined" class="ml-3 bg-white text-grey-darken-3 rounded-xl text-capitalize">Latest</v-btn>
-        </div>
-        <v-divider thickness="2" color="black"></v-divider>
         <Suspense>
           <PostContainer></PostContainer>
           <template #fallback>
-            <v-skeleton-loader type="avatar, chip, actions, image, button, button, button" class="rounded-lg border mt-5" v-for="n in 3"></v-skeleton-loader>
+            <div>
+              <v-skeleton-loader class="bg-transparent mt-n4" type="chip, actions, divider"></v-skeleton-loader>
+              <v-skeleton-loader type="avatar, chip, actions, image, button, button, button" class="rounded-lg border mt-5" v-for="n in 3"></v-skeleton-loader>
+            </div>
           </template>
         </Suspense>
       </div>
       <div class="pb-15" flat>
-        <HomeShareThisCard width="325"></HomeShareThisCard>
+        <HomeShareThisCard></HomeShareThisCard>
+
         <suspense>
           <div>
               <HomeConnectionRequestDrawer width="325" class="mb-5"></HomeConnectionRequestDrawer>
               <HomeSuggestionDrawer width="325"></HomeSuggestionDrawer>
           </div>
           <template #fallback>
-            <v-card width="325" flat class="rounded-lg border mb-4" v-for="n in 5" style="overflow:hidden">
+            <v-card width="325" flat class="rounded-lg border mb-4" v-for="n in 3" style="overflow:hidden">
                 <v-skeleton-loader class="w-100" type="avatar, chip"></v-skeleton-loader>
                 <v-skeleton-loader type="actions"></v-skeleton-loader>
             </v-card>

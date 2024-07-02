@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex py-4" v-if="!comment.hide">
-    <Avatar :user="comment.user" size="55" class="mr-5"></Avatar>
+    <Avatar :user="comment.user" size="55" class="mr-5" @click.stop="$router.push({name: 'alumni-alumni', params: {alumni: comment.user.email}})"></Avatar>
     <div class="d-flex w-100 flex-column">
       <div class="d-flex">
         <div class="">

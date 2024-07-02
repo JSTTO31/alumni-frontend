@@ -1,6 +1,6 @@
 <template>
     <div class="d-flex w-100 mb-4" v-if="!reply.hide">
-        <Avatar size="40" :user="reply.user"></Avatar>
+        <Avatar size="40" :user="reply.user" @click.stop="$router.push({ name: 'alumni-alumni', params: { alumni: comment.user.email } })"></Avatar>
         <div class="w-100 pl-5 rounded-lg" style="font-weight: 400 !important; font-family: 'Poppins'; font-size: 15px"
             color="grey-lighten-4 " flat>
             <div class="d-flex">

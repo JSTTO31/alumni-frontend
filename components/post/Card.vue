@@ -1,8 +1,8 @@
 <template>
-  <v-card @click="$router.push({ name: 'posts-post', params: { post: post.id } })" v-ripple="false"
+  <v-card @click.stop="$router.push({ name: 'posts-post', params: { post: post.id } })" v-ripple="false"
     class="rounded-lg pa-0 mb-5 pb-4 border" flat :id="'card' + post.id" v-if="post && !post.hide">
     <div class="pa-4 pb-0 d-flex align-center">
-      <avatar size="50" class="border mr-4" :user="post.user">
+      <avatar size="50" class="border mr-4" :user="post.user" @click="$router.push({name: 'alumni-alumni', params: {alumni: post.user.email}})">
       </avatar>
       <div>
         <h5 >
